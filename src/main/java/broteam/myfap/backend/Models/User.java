@@ -1,13 +1,19 @@
 package broteam.myfap.backend.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "S_user")
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue
@@ -34,4 +40,13 @@ public class User {
     private boolean IsTeacher;
     @Column(name = "IsAdmin")
     private boolean IsAdmin;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "S_User_Role",
+            joinColumns = @JoinColumn(name = "userid", referencedColumnName = "UserId"),
+            inverseJoinColumns = @JoinColumn(name = "roleid", referencedColumnName = "id")
+    )
+    @JsonManagedReference
+    private List<Role> roles;
 }
