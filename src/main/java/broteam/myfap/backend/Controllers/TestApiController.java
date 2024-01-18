@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/test")
+@RequestMapping("/admin/auth")
 public class TestApiController {
     @Autowired
     public UserRepository userRepository;
     @GetMapping
     public Object getTest()
     {
-        return userRepository.findAll();
+        return userRepository.findByUserName("admin");
     }
 }

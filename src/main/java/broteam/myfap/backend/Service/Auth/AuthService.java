@@ -1,12 +1,18 @@
 package broteam.myfap.backend.Service.Auth;
 
+import broteam.myfap.backend.Dto.Auth.AuthResponse;
+import broteam.myfap.backend.Dto.Auth.UserInfoDto;
 import broteam.myfap.backend.Dto.Auth.AuthRequest;
+import broteam.myfap.backend.Exception.NotFoundException;
+import broteam.myfap.backend.Models.User;
 import broteam.myfap.backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.modelmapper.ModelMapper;
 @Service
 public class AuthService {
     @Autowired
@@ -23,7 +29,21 @@ public class AuthService {
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
     }
-    public void authenticate(AuthRequest authDto) {
+    public AuthResponse authenticate(AuthRequest authDto) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        authDto.getUserName(),
+                        authDto.getUserPassword()
+                )
+        );
+        String token = jwtService.generateToken(authentication.getName());
+        User userEntity = userRepository.findByUserName(authDto.getUserName())
+                .orElseThrow(() -> new NotFoundException("profile not found"));
+        ModelMapper modelMapper = new ModelMapper();
+        return AuthResponse.builder()
+                .userInfoDto(modelMapper.map(userEntity, UserInfoDto.class))
+                .AccessToken(token)
+                .build();
     }
 
 }
