@@ -17,10 +17,7 @@ import java.util.stream.Stream;
 public class BackEndApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(BackEndApplication.class, args);
-        UserRepository userRepository = context.getBean(UserRepository.class);
-        Stream<User> a = userRepository.findByUserName("admin").stream();
-        Stream<Role> b = a.toList().get(0).getRoles().stream();
-        System.out.println(b.toList().get(0).getName());
+
     }
 
 }
