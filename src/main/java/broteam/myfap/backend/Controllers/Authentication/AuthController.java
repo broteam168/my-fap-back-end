@@ -16,13 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("login")
-    public ResponseEntity<ResponseObject> login(
-                                                @RequestBody @Valid AuthRequest authDto
-    ) {
+    public ResponseEntity<ResponseObject> login(@RequestBody @Valid AuthRequest authDto) {
 
         AuthResponse authResponse = authService.authenticate(authDto);
-
-        return ResponseEntity.ok(ResponseObject.builder()
+         return ResponseEntity.ok(ResponseObject.builder()
                 .data(authResponse)
                 .message("login successfully")
                 .responseCode(HttpStatus.OK.value())
