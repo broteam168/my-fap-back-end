@@ -16,11 +16,5 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Timestamp createdAt;
 
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Timestamp updatedAt;
 }

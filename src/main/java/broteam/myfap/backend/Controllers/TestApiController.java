@@ -1,17 +1,19 @@
 package broteam.myfap.backend.Controllers;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.stereotype.Controller;
+import broteam.myfap.backend.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/test")
+    @RequestMapping("/admin/auth")
 public class TestApiController {
+    @Autowired
+    public UserRepository userRepository;
     @GetMapping
-    public String getTest()
+    public Object getTest()
     {
-        return "oke";
+        return userRepository.findByUserName("admin");
     }
 }
