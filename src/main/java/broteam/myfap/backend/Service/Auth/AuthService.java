@@ -47,6 +47,7 @@ public class AuthService {
                 .AccessToken(token)
                 .build();
     }
+
     public boolean verify(String role)
     {
         UserDetails currentUser =(UserDetails) SecurityContextHolder.getContext().getAuthentication()

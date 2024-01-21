@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -24,4 +25,3 @@ public class CorsConfig{
 
         return new CorsFilter(source);
     }
-}

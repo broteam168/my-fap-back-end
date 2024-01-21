@@ -8,11 +8,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,6 +35,7 @@ public class AuthController {
                 .build());
 
     }
+
     @GetMapping("verify-role")
     public ResponseEntity<ResponseObject> verify(@RequestParam(value = "role", defaultValue = "") String role) {
         boolean isRole = authService.verify(role);
@@ -51,3 +55,6 @@ public class AuthController {
 
 
     }
+
+}
+
