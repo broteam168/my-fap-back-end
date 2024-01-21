@@ -30,13 +30,13 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                        .requestMatchers("/api/v1/auth/login").permitAll()
-                        .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers("/api/v1/auth/verify-role").hasAnyAuthority(RoleType.ADMIN.name(),RoleType.STUDENT.name(),RoleType.TEACHER.name())
 
+                        .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ) .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling((exception)-> exception.authenticationEntryPoint(
-                        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)
-                ));
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class   );
         return http.build();
     }
 }
