@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Dto.Auth;
 
+import broteam.myfap.backend.Models.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,5 @@ import java.util.List;
         private String Mail;
         private String Address;
         private Date LastLogin;
-
-
+        private List<Role> roles;
 }

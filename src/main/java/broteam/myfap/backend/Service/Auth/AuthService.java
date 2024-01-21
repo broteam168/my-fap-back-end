@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.modelmapper.ModelMapper;
@@ -45,5 +47,10 @@ public class AuthService {
                 .AccessToken(token)
                 .build();
     }
-
+    public boolean verify(String role)
+    {
+        UserDetails currentUser =(UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        return currentUser.getAuthorities().stream().anyMatch(x -> x.toString().equals(role));
+    }
 }
