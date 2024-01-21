@@ -1,7 +1,7 @@
 package broteam.myfap.backend.Dto.Auth;
 
 import broteam.myfap.backend.Models.Role;
-=======
+
 
 import lombok.Getter;
 import lombok.Setter;
