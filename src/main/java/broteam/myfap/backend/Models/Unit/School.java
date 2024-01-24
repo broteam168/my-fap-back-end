@@ -18,20 +18,19 @@ public class School {
     private int id;
 
     @Column(name = "Name")
-    private int Name;
+    private String Name;
 
     @Column(name = "Description")
-    private int Description;
+    private String Description;
 
     @Column(name = "Location")
-    private int Location;
+    private String Location;
 
     @Column(name = "Phone")
-    private int Phone;
+    private String Phone;
 
     @Column(name = "IsActive")
     private boolean IsActive;
 
-    @Column(name = "Rule")
-    private String Rule;
+
 }

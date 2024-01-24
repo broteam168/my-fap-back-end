@@ -3,17 +3,23 @@ package broteam.myfap.backend.Dto.Unit;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
+@Getter
+@Setter
 public class SchoolDto {
    private int id;
 
-    private int Name;
+    private String Name;
 
-    private int Description;
+    private String Description;
 
-    private int Location;
+    private String Location;
 
-   private int Phone;
+   private String Phone;
 
     private boolean IsActive;
 
