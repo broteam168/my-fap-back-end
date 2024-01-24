@@ -36,10 +36,6 @@ public class User {
     private Date LastLogin;
     @Column(name = "IsActive")
     private boolean IsActive;
-    @Column(name = "IsTeacher")
-    private boolean IsTeacher;
-    @Column(name = "IsAdmin")
-    private boolean IsAdmin;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
