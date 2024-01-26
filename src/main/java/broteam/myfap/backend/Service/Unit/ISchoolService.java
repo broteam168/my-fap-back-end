@@ -5,6 +5,6 @@ import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import java.util.List;
 
 public interface ISchoolService {
-    List<SchoolDto> findAllBase();
-
+     List<SchoolDto> findAllBase();
+     void createNewSchool(SchoolDto newSchool);
 }

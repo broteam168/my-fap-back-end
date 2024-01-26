@@ -33,6 +33,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/verify-role").hasAnyAuthority(RoleType.ADMIN.name(),RoleType.STUDENT.name(),RoleType.TEACHER.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/school").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/unit/school").hasAnyAuthority(RoleType.ADMIN.name())
+
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())

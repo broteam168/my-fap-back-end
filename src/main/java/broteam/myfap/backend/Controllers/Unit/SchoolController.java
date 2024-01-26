@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -30,5 +31,15 @@ public class SchoolController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
-
+    @PostMapping
+    public ResponseEntity<ResponseObject> CreateSchool(@Valid @RequestBody SchoolDto newSchool) {
+        System.out.println(newSchool.getName());
+        schoolService.createNewSchool(newSchool);
+        List<SchoolDto> allSchools = schoolService.findAllBase();
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allSchools)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
 }
