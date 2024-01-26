@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Models.Unit;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,8 @@ public class School {
     @Column(name = "IsActive")
     private boolean IsActive;
 
-    @OneToMany(mappedBy = "userEntity")
-    private List<Class> warehouseBalanceList;
+    @OneToMany
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
+    @JsonIgnore
+    private List<Class> classes;
 }

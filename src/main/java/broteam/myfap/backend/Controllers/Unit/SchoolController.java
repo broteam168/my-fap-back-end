@@ -23,7 +23,6 @@ public class SchoolController {
     private final SchoolService schoolService;
     @GetMapping
     public ResponseEntity<ResponseObject> GetAllSchools() {
-        System.out.println("an");
         List<SchoolDto> allSchools = schoolService.findAllBase();
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(allSchools)
@@ -31,4 +30,5 @@ public class SchoolController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+
 }

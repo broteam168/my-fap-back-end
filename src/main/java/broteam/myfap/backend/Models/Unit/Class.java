@@ -19,11 +19,15 @@ public class Class {
     @Column(name = "Name")
     private String Name;
     @ManyToOne
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
     private Major major;
     @Column(name = "Description")
     private String Description;
 
     @ManyToOne
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private School school;
 
+    @Column(name = "IsActive")
+    private boolean IsActive;
 }

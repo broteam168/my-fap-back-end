@@ -24,4 +24,5 @@ public class SchoolDto {
     private boolean IsActive;
 
      private String Rule;
+
 }
