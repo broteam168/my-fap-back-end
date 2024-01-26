@@ -3,6 +3,8 @@ package broteam.myfap.backend.Models.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "U_School")
@@ -32,5 +34,6 @@ public class School {
     @Column(name = "IsActive")
     private boolean IsActive;
 
-
+    @OneToMany(mappedBy = "userEntity")
+    private List<Class> warehouseBalanceList;
 }
