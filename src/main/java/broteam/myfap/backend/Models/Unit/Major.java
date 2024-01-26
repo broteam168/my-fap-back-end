@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Models.Unit;
 
+import broteam.myfap.backend.Models.Enums.MajorCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,8 +20,9 @@ public class Major {
     @Column(name = "Name")
     private String Name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "Category")
-    private String Category;
+    private MajorCategory Category;
 
     @Column(name = "DegreeLevel")
     private String DegreeLevel;
@@ -30,4 +32,7 @@ public class Major {
 
     @Column(name = "Description")
     private String Description;
+
+    @Column(name = "IsActive")
+    private boolean IsActive;
 }
