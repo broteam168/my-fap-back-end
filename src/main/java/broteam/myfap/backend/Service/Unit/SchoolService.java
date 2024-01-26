@@ -1,6 +1,6 @@
 package broteam.myfap.backend.Service.Unit;
 
-import broteam.myfap.backend.Converter.Unit.SchoolConverter;
+import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Repository.Unit.SchoolRepository;
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class SchoolService implements ISchoolService{
     private final SchoolRepository schoolRepository;
-    private final SchoolConverter schoolConverter;
+    private final UnitConverter unitConverter;
 
-    public SchoolService(SchoolRepository schoolRepository, SchoolConverter schoolConverter) {
+    public SchoolService(SchoolRepository schoolRepository, UnitConverter unitConverter) {
         this.schoolRepository = schoolRepository;
-        this.schoolConverter = schoolConverter;
+        this.unitConverter = unitConverter;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class SchoolService implements ISchoolService{
         List<SchoolDto> results = new ArrayList<>();
         for(School school :  schoolRepository.findAll())
         {
-            results.add(schoolConverter.toDto(school));
+            results.add(unitConverter.toDto(school));
         };
         return  results;
     }
