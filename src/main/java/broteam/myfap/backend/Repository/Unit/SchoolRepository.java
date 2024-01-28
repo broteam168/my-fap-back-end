@@ -14,4 +14,5 @@ public interface SchoolRepository extends JpaRepository<School, Integer> {
     Optional<School> findByName(@Param("name") String name);
     School save(SchoolDto baseProductDto);
 
+    School findById(int id);
 }
