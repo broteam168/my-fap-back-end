@@ -15,4 +15,5 @@ public interface SchoolRepository extends JpaRepository<School, Integer> {
     School save(SchoolDto baseProductDto);
 
     School findById(int id);
+
 }

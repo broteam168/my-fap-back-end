@@ -82,7 +82,7 @@ public class SchoolController {
         int resposeCode = HttpStatus.OK.value();
         SchoolDto returnSchool = new SchoolDto();
         try {
-            returnSchool = schoolService.createNewSchool(newSchool);
+            returnSchool = schoolService.updateSchool(id,newSchool);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();

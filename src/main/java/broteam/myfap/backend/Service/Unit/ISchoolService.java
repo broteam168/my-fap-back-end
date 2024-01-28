@@ -9,10 +9,10 @@ import java.util.List;
 public interface ISchoolService {
      List<SchoolDto> findAllBase();
      SchoolDto createNewSchool(SchoolDto newSchool);
-
+     @Transactional
      School findSchoolById(int id);
 
 
      @Transactional
-     SchoolDto updateSchool(SchoolDto newSchool);
+     public SchoolDto updateSchool(int id,SchoolDto newSchool) ;
 }

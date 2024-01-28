@@ -26,7 +26,7 @@ public class MajorService implements IMajorService{
         for(Major school :  majorRepository.findAll())
         {
             results.add(majorConverter.toDto(school));
-        };
+        }
         return  results;
     }
 }

@@ -18,7 +18,7 @@ import java.util.Optional;
 public class SchoolService implements ISchoolService{
     private final SchoolRepository schoolRepository;
     private final UnitConverter unitConverter;
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public SchoolService(SchoolRepository schoolRepository, UnitConverter unitConverter) {
         this.schoolRepository = schoolRepository;
@@ -31,7 +31,7 @@ public class SchoolService implements ISchoolService{
         for(School school :  schoolRepository.findAll())
         {
             results.add(unitConverter.toDto(school));
-        };
+        }
         return  results;
     }
     @Override
@@ -56,15 +56,18 @@ public class SchoolService implements ISchoolService{
     }
     @Transactional
     @Override
-    public SchoolDto updateSchool(SchoolDto newSchool) {
+    public SchoolDto updateSchool(int id,SchoolDto newSchool) {
         School baseSchool = modelMapper.map(newSchool, School.class);
 
-        Optional<School> duplicate = schoolRepository.findByName(baseSchool.getName());
-        if(duplicate.stream().count()>0)
-        {
+       School duplicate = schoolRepository.findById(id);
+        Optional<School> duplicate2 = schoolRepository.findByName(newSchool.getName());
+        if(!duplicate.getName().equals(newSchool.getName()) && duplicate2.stream().count()>0)
             throw new SchoolException("School name is already used");
+        if(duplicate!=null) {
+
+            baseSchool.setId(duplicate.getId());
+            schoolRepository.save(baseSchool);
         }
-        School createdSchool = schoolRepository.save(baseSchool);
-        return unitConverter.toDto(createdSchool);
+        return unitConverter.toDto(baseSchool);
     }
 }

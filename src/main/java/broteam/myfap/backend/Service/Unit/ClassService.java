@@ -29,7 +29,7 @@ public class ClassService implements IClassService {
         for(Class classItem:classRepository.findAll())
         {
                results.add(unitConverter.toDto(classItem));
-        };
+        }
         return  results;
     }
 
