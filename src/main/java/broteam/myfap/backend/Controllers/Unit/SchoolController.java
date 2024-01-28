@@ -78,7 +78,7 @@ public class SchoolController {
     }
     @PutMapping("{id}")
     public ResponseEntity<ResponseObject> CreateSchool(@Valid @PathVariable int id, @Valid @RequestBody SchoolDto newSchool) {
-        String returnMessage = "Create Successfully";
+        String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         SchoolDto returnSchool = new SchoolDto();
         try {
@@ -92,6 +92,26 @@ public class SchoolController {
         }
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(returnSchool)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> DeleteSchool(@Valid @PathVariable int id) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        School returnSchool = new School();
+        try {
+            returnSchool = schoolService.deleteSchool(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(unitConverter.toDto(returnSchool))
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

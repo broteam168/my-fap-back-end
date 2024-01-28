@@ -15,4 +15,7 @@ public interface ISchoolService {
 
      @Transactional
      public SchoolDto updateSchool(int id,SchoolDto newSchool) ;
+
+     @Transactional
+     School deleteSchool(int id);
 }

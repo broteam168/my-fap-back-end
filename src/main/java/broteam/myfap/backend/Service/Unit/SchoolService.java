@@ -1,9 +1,11 @@
 package broteam.myfap.backend.Service.Unit;
 
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
+import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
+import broteam.myfap.backend.Models.Unit.Class;
 import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Repository.Unit.SchoolRepository;
 import org.modelmapper.ModelMapper;
@@ -20,9 +22,11 @@ public class SchoolService implements ISchoolService{
     private final UnitConverter unitConverter;
     private final ModelMapper modelMapper = new ModelMapper();
 
+
     public SchoolService(SchoolRepository schoolRepository, UnitConverter unitConverter) {
         this.schoolRepository = schoolRepository;
         this.unitConverter = unitConverter;
+
     }
 
     @Override
@@ -69,5 +73,18 @@ public class SchoolService implements ISchoolService{
             schoolRepository.save(baseSchool);
         }
         return unitConverter.toDto(baseSchool);
+    }
+    @Transactional
+    @Override
+    public School deleteSchool(int id) {
+
+        School duplicate2 = schoolRepository.findById(id);
+        if(duplicate2==null)
+            throw new NotFoundException("Cannot find school");
+        List<Class> foundClass= duplicate2.getClasses();
+        if(foundClass.isEmpty())
+            schoolRepository.deleteById(id);
+        else  throw new SchoolException("School have classes! Cannot remove!");
+        return duplicate2;
     }
 }
