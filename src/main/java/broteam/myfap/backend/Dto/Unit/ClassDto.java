@@ -13,6 +13,6 @@ public class ClassDto {
     private String Name;
     private Major major;
     private String Description;
-    private School school;
+    private int school;
     private boolean IsActive;
 }

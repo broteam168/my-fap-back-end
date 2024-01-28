@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Models.Unit;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,14 +20,14 @@ public class Class {
     @Column(name = "Name")
     private String Name;
     @ManyToOne
-    @JoinColumn(name = "Id", insertable = false, updatable = false)
+    @JoinColumn(name = "MajorId", insertable = false, updatable = false)
     private Major major;
     @Column(name = "Description")
     private String Description;
 
-    @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private School school;
+    @Column(name = "SchoolId")
+
+    private int school;
 
     @Column(name = "IsActive")
     private boolean IsActive;

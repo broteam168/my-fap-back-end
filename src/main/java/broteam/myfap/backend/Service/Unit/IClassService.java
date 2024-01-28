@@ -8,4 +8,6 @@ import java.util.List;
 public interface IClassService {
     List<ClassDto> findAllBase();
 
+
+    List<ClassDto> FindBySchoolId(int id);
 }
