@@ -3,6 +3,7 @@ package broteam.myfap.backend.Service.Unit;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.ClassRequest;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
+import broteam.myfap.backend.Models.Unit.School;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 public interface IClassService {
     List<ClassDto> findAllBase();
 
+
+    ClassDto findClassById(int id);
 
     List<ClassDto> FindBySchoolId(int id);
 

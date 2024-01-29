@@ -31,6 +31,26 @@ public class ClassController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> getDetailedClass(@Valid @PathVariable int id) {
+        String returnMessage = "Create Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        ClassDto returnClass = new ClassDto();
+        try {
+            returnClass = classService.findClassById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
     @GetMapping("search")
     public ResponseEntity<ResponseObject> getAllClassBySchool(@RequestParam(name = "schoolid") @Valid int schoolId) {
         List<ClassDto> allClasses = classService.FindBySchoolId(schoolId);

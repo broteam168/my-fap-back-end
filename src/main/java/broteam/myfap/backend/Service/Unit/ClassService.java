@@ -3,6 +3,7 @@ package broteam.myfap.backend.Service.Unit;
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.ClassRequest;
+import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Unit.Class;
 import broteam.myfap.backend.Models.Unit.School;
@@ -38,7 +39,12 @@ public class ClassService implements IClassService {
         }
         return results;
     }
-
+    @Override
+    public ClassDto findClassById(int id) {
+        Optional<Class> gotClass = classRepository.findById(id);
+        if(gotClass.isEmpty() ) throw new NotFoundException("Cannot find class");
+        return unitConverter.toDto(gotClass.get());
+    }
     @Override
     public List<ClassDto> FindBySchoolId(int id) {
         List<ClassDto> results = new ArrayList<>();
