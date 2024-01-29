@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Class {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
 
@@ -22,6 +22,9 @@ public class Class {
     @ManyToOne
     @JoinColumn(name = "MajorId", insertable = false, updatable = false)
     private Major major;
+    @Column(name = "MajorId")
+
+    private int majorId;
     @Column(name = "Description")
     private String Description;
 
@@ -31,4 +34,5 @@ public class Class {
 
     @Column(name = "IsActive")
     private boolean IsActive;
+
 }

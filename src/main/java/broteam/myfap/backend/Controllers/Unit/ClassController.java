@@ -2,7 +2,9 @@ package broteam.myfap.backend.Controllers.Unit;
 
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
+import broteam.myfap.backend.Dto.Unit.ClassRequest;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
+import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Service.Unit.ClassService;
 import broteam.myfap.backend.Service.Unit.SchoolService;
 import jakarta.validation.Valid;
@@ -36,6 +38,26 @@ public class ClassController {
                 .data(allClasses)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+    @PostMapping
+    public ResponseEntity<ResponseObject> createClass(@Valid @RequestBody ClassRequest newClass) {
+        String returnMessage = "Create Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        ClassDto returnClass = new ClassDto();
+        try {
+            returnClass = classService.createNewCLass(newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
                 .build());
     }
 }
