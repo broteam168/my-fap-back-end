@@ -15,4 +15,7 @@ public interface IClassService {
 
     @Transactional
     ClassDto createNewCLass(ClassRequest newCLass);
+
+    @Transactional
+    ClassDto updateClass(int id, ClassRequest newCLass);
 }

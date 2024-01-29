@@ -28,45 +28,62 @@ public class ClassService implements IClassService {
         this.unitConverter = unitConverter;
         this.schoolService = schoolService;
     }
+
     @Override
     public List<ClassDto> findAllBase() {
 
         List<ClassDto> results = new ArrayList<>();
-        for(Class classItem:classRepository.findAll())
-        {
-               results.add(unitConverter.toDto(classItem));
+        for (Class classItem : classRepository.findAll()) {
+            results.add(unitConverter.toDto(classItem));
         }
-        return  results;
+        return results;
     }
 
     @Override
     public List<ClassDto> FindBySchoolId(int id) {
         List<ClassDto> results = new ArrayList<>();
-        School currentSchool= new School();
+        School currentSchool = new School();
         try {
             currentSchool = schoolService.findSchoolById(id);
         } catch (Exception ex) {
             return results;
         }
-            List<Class> result =  currentSchool.getClasses();
-            for(Class item:result)
-            {
-                results.add(unitConverter.toDto(item));
-            }
+        List<Class> result = currentSchool.getClasses();
+        for (Class item : result) {
+            results.add(unitConverter.toDto(item));
+        }
 
         return results;
     }
+
     @Transactional
     @Override
     public ClassDto createNewCLass(ClassRequest newCLass) {
         Class baseClass = modelMapper.map(newCLass, Class.class);
 
         Optional<Class> duplicate = classRepository.findByName(baseClass.getName());
-        if(duplicate.stream().count()>0)
-        {
+        if (duplicate.stream().count() > 0) {
             throw new SchoolException("Class name is already used");
         }
         Class createdClass = classRepository.save(baseClass);
         return unitConverter.toDto(createdClass);
+    }
+
+    @Transactional
+    @Override
+    public ClassDto updateClass(int id, ClassRequest newCLass) {
+        Class baseClass = modelMapper.map(newCLass, Class.class);
+
+        Optional<Class> duplicate2 = classRepository.findById(id);
+//        Optional<Class> duplicate = classRepository.findByName(baseClass.getName());
+//        if (newCLass.getName().equals(duplicate2.get().getName()) && duplicate.stream().count() > 0) {
+//            throw new SchoolException("Class name is already used");
+//        }
+        if (duplicate2.stream().count() > 0) {
+            baseClass.setId(id);
+            Class createdClass = classRepository.save(baseClass);
+            return unitConverter.toDto(createdClass);
+        }
+        return unitConverter.toDto(baseClass);
     }
 }

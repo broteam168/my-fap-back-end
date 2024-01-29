@@ -60,4 +60,24 @@ public class ClassController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> createClass(@Valid @PathVariable int id,@Valid @RequestBody ClassRequest newClass) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        ClassDto returnClass = new ClassDto();
+        try {
+            returnClass = classService.updateClass(id,newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

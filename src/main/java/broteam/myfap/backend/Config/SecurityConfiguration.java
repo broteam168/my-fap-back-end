@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/class/search").hasAnyAuthority(RoleType.ADMIN.name())
 
