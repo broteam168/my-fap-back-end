@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class School {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -36,7 +36,6 @@ public class School {
     private boolean IsActive;
 
     @OneToMany
-    @JoinColumn(name = "Id", insertable = false, updatable = false)
-    @JsonIgnore
+    @JoinColumn(name = "SchoolId", insertable = false, updatable = false)
     private List<Class> classes;
 }
