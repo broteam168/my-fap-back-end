@@ -54,6 +54,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/v1/submajor").hasAnyAuthority(RoleType.ADMIN.name())
 
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/subject").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
