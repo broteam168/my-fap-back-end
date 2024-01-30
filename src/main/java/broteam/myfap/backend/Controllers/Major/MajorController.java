@@ -32,6 +32,26 @@ public class MajorController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> CreateNewMajor(@Valid @PathVariable int id) {
+        String returnMessage = "GET Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        MajorDto returnMajor = new MajorDto();
+        try {
+            returnMajor = majorService.findMajorById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnMajor)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
     @PostMapping
     public ResponseEntity<ResponseObject> CreateNewMajor(@Valid @RequestBody MajorRequestDto newMajor) {
         String returnMessage = "Create Successfully";
