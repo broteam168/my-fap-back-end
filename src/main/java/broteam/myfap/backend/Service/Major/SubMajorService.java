@@ -3,8 +3,11 @@ package broteam.myfap.backend.Service.Major;
 import broteam.myfap.backend.Converter.Major.MajorConverter;
 import broteam.myfap.backend.Dto.Major.SubMajorDto;
 import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
+import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Major.SubMajor;
+import broteam.myfap.backend.Models.Unit.Class;
+import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Repository.Major.SubMajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,6 +34,22 @@ public class SubMajorService implements  ISubMajorService{
             results.add(majorConverter.toDto(subMajorDto));
         }
         return  results;
+    }
+    @Override
+    public List<SubMajorDto> FindBySchoolId(int id) {
+        List<ClassDto> results = new ArrayList<>();
+        School currentSchool = new School();
+        try {
+            currentSchool = schoolService.findSchoolById(id);
+        } catch (Exception ex) {
+            return results;
+        }
+        List<Class> result = currentSchool.getClasses();
+        for (Class item : result) {
+            results.add(unitConverter.toDto(item));
+        }
+
+        return results;
     }
     @Transactional
     @Override

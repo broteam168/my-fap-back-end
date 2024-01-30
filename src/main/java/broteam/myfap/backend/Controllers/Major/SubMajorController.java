@@ -5,6 +5,7 @@ import broteam.myfap.backend.Dto.Major.MajorRequestDto;
 import broteam.myfap.backend.Dto.Major.SubMajorDto;
 import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Service.Major.IMajorService;
 import broteam.myfap.backend.Service.Major.ISubMajorService;
@@ -31,6 +32,15 @@ public class SubMajorController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getAllSubMajor(@RequestParam(name = "majorId") @Valid int majorId) {
+        List<SubMajorDto> allClasses = service.FindBySchoolId(schoolId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allClasses)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
     @PostMapping
     public ResponseEntity<ResponseObject> CreateNewSubMajor(@Valid @RequestBody SubMajorRequestDto newMajor) {
         String returnMessage = "Create Successfully";
@@ -51,4 +61,5 @@ public class SubMajorController {
                 .responseCode(resposeCode)
                 .build());
     }
+
 }
