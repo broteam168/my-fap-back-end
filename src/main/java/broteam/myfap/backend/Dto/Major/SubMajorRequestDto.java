@@ -7,25 +7,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MajorRequestDto {
-
-
+public class SubMajorRequestDto {
     @NotEmpty
     private String Name;
-
-    private MajorCategory Category;
-
-
-    @NotEmpty
-    private String DegreeLevel;
-
-
     @NotEmpty
     private String FullName;
+    private int MajorId;
 
-
+    private String Type;
+    private boolean IsCommon;
     @NotEmpty
     private String Description;
-
     private boolean IsActive;
 }
