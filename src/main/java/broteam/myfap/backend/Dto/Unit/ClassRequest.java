@@ -1,6 +1,5 @@
 package broteam.myfap.backend.Dto.Unit;
 
-import broteam.myfap.backend.Models.Unit.Major;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

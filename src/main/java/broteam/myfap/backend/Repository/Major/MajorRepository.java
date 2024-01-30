@@ -1,7 +1,6 @@
 package broteam.myfap.backend.Repository.Major;
 
-import broteam.myfap.backend.Models.Unit.Class;
-import broteam.myfap.backend.Models.Unit.Major;
+import broteam.myfap.backend.Models.Major.Major;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

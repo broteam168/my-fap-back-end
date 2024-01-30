@@ -4,7 +4,7 @@ import broteam.myfap.backend.Converter.Major.MajorConverter;
 import broteam.myfap.backend.Dto.Major.MajorDto;
 import broteam.myfap.backend.Dto.Major.MajorRequestDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Models.Unit.Major;
+import broteam.myfap.backend.Models.Major.Major;
 import broteam.myfap.backend.Repository.Major.MajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

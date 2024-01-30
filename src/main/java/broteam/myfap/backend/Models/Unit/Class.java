@@ -1,6 +1,6 @@
 package broteam.myfap.backend.Models.Unit;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import broteam.myfap.backend.Models.Major.Major;
 import jakarta.persistence.*;
 import lombok.*;
 

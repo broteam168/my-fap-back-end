@@ -1,8 +1,6 @@
 package broteam.myfap.backend.Dto.Unit;
 
-import broteam.myfap.backend.Models.Unit.Major;
-import broteam.myfap.backend.Models.Unit.School;
-import jakarta.persistence.*;
+import broteam.myfap.backend.Models.Major.Major;
 import lombok.Getter;
 import lombok.Setter;
 
