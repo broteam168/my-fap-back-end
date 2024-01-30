@@ -39,12 +39,14 @@ public class ClassService implements IClassService {
         }
         return results;
     }
+
     @Override
     public ClassDto findClassById(int id) {
         Optional<Class> gotClass = classRepository.findById(id);
-        if(gotClass.isEmpty() ) throw new NotFoundException("Cannot find class");
+        if (gotClass.isEmpty()) throw new NotFoundException("Cannot find class");
         return unitConverter.toDto(gotClass.get());
     }
+
     @Override
     public List<ClassDto> FindBySchoolId(int id) {
         List<ClassDto> results = new ArrayList<>();
@@ -91,5 +93,19 @@ public class ClassService implements IClassService {
             return unitConverter.toDto(createdClass);
         }
         return unitConverter.toDto(baseClass);
+    }
+
+    @Transactional
+    @Override
+    public ClassDto deleteById(int id) {
+
+        Optional<Class> foundClass = classRepository.findById(id);
+        if (foundClass.isEmpty()) throw new NotFoundException("Cannot find Class");
+//        List<Class> foundClass= duplicate2.getClasses();
+//        if(foundClass.isEmpty())
+//            schoolRepository.deleteById(id);
+//        else  throw new SchoolException("School have classes! Cannot remove!");
+        classRepository.deleteById(id);
+        return unitConverter.toDto(foundClass.get());
     }
 }

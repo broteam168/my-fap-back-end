@@ -21,4 +21,7 @@ public interface IClassService {
 
     @Transactional
     ClassDto updateClass(int id, ClassRequest newCLass);
+
+    @Transactional
+    ClassDto deleteById(int id);
 }

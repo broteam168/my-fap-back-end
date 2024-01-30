@@ -33,7 +33,7 @@ public class ClassController {
     }
     @GetMapping("{id}")
     public ResponseEntity<ResponseObject> getDetailedClass(@Valid @PathVariable int id) {
-        String returnMessage = "Create Successfully";
+        String returnMessage = "Get Successfully";
         int resposeCode = HttpStatus.OK.value();
         ClassDto returnClass = new ClassDto();
         try {
@@ -87,6 +87,26 @@ public class ClassController {
         ClassDto returnClass = new ClassDto();
         try {
             returnClass = classService.updateClass(id,newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteClass(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        ClassDto returnClass = new ClassDto();
+        try {
+            returnClass = classService.deleteById(id);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
