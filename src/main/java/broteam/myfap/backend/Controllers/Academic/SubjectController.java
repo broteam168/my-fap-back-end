@@ -3,7 +3,11 @@ package broteam.myfap.backend.Controllers.Academic;
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.Academic.SubjectException;
+import broteam.myfap.backend.Exception.Unit.SchoolException;
+import broteam.myfap.backend.Models.Academic.Subject;
+import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Service.Academic.SubjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -74,5 +78,46 @@ public class SubjectController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> CreateSubject
+    public ResponseEntity<ResponseObject> CreateSubject(@Valid @PathVariable int id, @Valid @RequestBody SubjectDto newSubject) {
+        String returnMessage = "Update Successfully";
+        int responseCode = HttpStatus.OK.value();
+        SubjectDto returnSubject = new SubjectDto();
+        try {
+            returnSubject = subjectService.updateSubject(id, newSubject);
+        } catch (SubjectException e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception e2) {
+            returnMessage = "Some error occus";
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSubject)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> DeleteSubject(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int responseCode = HttpStatus.OK.value();
+        Subject returnSubject = new Subject();
+        try {
+            returnSubject = subjectService.deleteSubject(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(academicConverter.toDto(returnSubject))
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
+
 }
