@@ -25,7 +25,6 @@ public class UserController extends BaseController {
     private final IUserService userService;
     @GetMapping
     public ResponseEntity<ResponseObject> getAllUser(){
-        System.out.println("abc");
         List<UserDto> allUser = userService.fillAllB();
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(allUser)
@@ -51,7 +50,7 @@ public class UserController extends BaseController {
                 .build());
     }
     //lấy chi tiết user theo id
-    @GetMapping("/user/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<ResponseObject> getDetailUser(@PathVariable("id") int userId) {
         User user = userService.getDetailUser(userId);
         return ResponseEntity.ok(ResponseObject.builder()
@@ -61,7 +60,7 @@ public class UserController extends BaseController {
                 .build());
     }
     //lấy số lượng user
-    @GetMapping("/user/count")
+    @GetMapping("count")
     public ResponseEntity<ResponseObject> getCountUser() {
         long countUser = userService.countUser();
         return ResponseEntity.ok(ResponseObject.builder()
@@ -70,4 +69,6 @@ public class UserController extends BaseController {
                 .data(countUser)
                 .build());
     }
+
+
 }
