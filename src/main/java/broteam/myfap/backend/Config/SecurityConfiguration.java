@@ -40,6 +40,12 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/user/count").hasAnyAuthority(RoleType.ADMIN.name())
+
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ) .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

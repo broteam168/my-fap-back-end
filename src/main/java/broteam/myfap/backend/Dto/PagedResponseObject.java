@@ -8,7 +8,6 @@ import lombok.Getter;
 public class PagedResponseObject {
     private int responseCode;
     private String message;
-
     private int page;
     private int perPage;
     private long totalItems;
