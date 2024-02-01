@@ -36,19 +36,14 @@ public class SubMajorService implements  ISubMajorService{
         return  results;
     }
     @Override
-    public List<SubMajorDto> FindBySchoolId(int id) {
-        List<ClassDto> results = new ArrayList<>();
-        School currentSchool = new School();
-        try {
-            currentSchool = schoolService.findSchoolById(id);
-        } catch (Exception ex) {
-            return results;
-        }
-        List<Class> result = currentSchool.getClasses();
-        for (Class item : result) {
-            results.add(unitConverter.toDto(item));
-        }
+    public List<SubMajorDto> FindByMajorId(int id) {
+        List<SubMajorDto> results = new ArrayList<>();
 
+        List<SubMajor> enitities = subMajorRepository.findByMajorId(id);
+        for(SubMajor enitity : enitities)
+        {
+            results.add(majorConverter.toDto(enitity));
+        }
         return results;
     }
     @Transactional

@@ -34,9 +34,9 @@ public class SubMajorController {
     }
     @GetMapping("search")
     public ResponseEntity<ResponseObject> getAllSubMajor(@RequestParam(name = "majorId") @Valid int majorId) {
-        List<SubMajorDto> allClasses = service.FindBySchoolId(schoolId);
+        List<SubMajorDto> allSubMajor = service.FindByMajorId(majorId);
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(allClasses)
+                .data(allSubMajor)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
                 .build());
