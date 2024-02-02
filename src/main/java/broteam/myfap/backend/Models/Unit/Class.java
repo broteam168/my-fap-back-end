@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Models.Unit;
 
+import broteam.myfap.backend.Models.Major.Major;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,22 +13,26 @@ import lombok.*;
 @AllArgsConstructor
 public class Class {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
 
     @Column(name = "Name")
     private String Name;
     @ManyToOne
-    @JoinColumn(name = "Id", insertable = false, updatable = false)
+    @JoinColumn(name = "MajorId", insertable = false, updatable = false)
     private Major major;
+    @Column(name = "MajorId")
+
+    private int majorId;
     @Column(name = "Description")
     private String Description;
 
-    @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private School school;
+    @Column(name = "SchoolId")
+
+    private int school;
 
     @Column(name = "IsActive")
     private boolean IsActive;
+
 }

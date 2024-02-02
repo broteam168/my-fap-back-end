@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Models.Unit;
+package broteam.myfap.backend.Models.Major;
 
 import broteam.myfap.backend.Models.Enums.MajorCategory;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Major {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
 

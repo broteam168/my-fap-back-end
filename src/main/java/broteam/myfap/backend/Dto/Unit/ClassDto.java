@@ -1,8 +1,6 @@
 package broteam.myfap.backend.Dto.Unit;
 
-import broteam.myfap.backend.Models.Unit.Major;
-import broteam.myfap.backend.Models.Unit.School;
-import jakarta.persistence.*;
+import broteam.myfap.backend.Models.Major.Major;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +11,6 @@ public class ClassDto {
     private String Name;
     private Major major;
     private String Description;
-    private School school;
+    private int school;
     private boolean IsActive;
 }

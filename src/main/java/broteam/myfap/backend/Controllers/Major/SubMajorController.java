@@ -2,13 +2,12 @@ package broteam.myfap.backend.Controllers.Major;
 
 import broteam.myfap.backend.Dto.Major.MajorDto;
 import broteam.myfap.backend.Dto.Major.MajorRequestDto;
+import broteam.myfap.backend.Dto.Major.SubMajorDto;
+import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
 import broteam.myfap.backend.Dto.ResponseObject;
-import broteam.myfap.backend.Dto.Unit.ClassDto;
-import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Service.Major.IMajorService;
-import broteam.myfap.backend.Service.Major.MajorService;
-import broteam.myfap.backend.Service.Unit.SchoolService;
+import broteam.myfap.backend.Service.Major.ISubMajorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,27 +17,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/major")
+@RequestMapping("/api/v1/submajor")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-public class MajorController {
-    private final IMajorService majorService;
+public class SubMajorController {
+    private final ISubMajorService service;
     @GetMapping
-    public ResponseEntity<ResponseObject> GetAllMajorBase() {
-         List<MajorDto> allMajors = majorService.findAllBase();
+    public ResponseEntity<ResponseObject> GetAllSubMajorBase() {
+        List<SubMajorDto> allSubMajors = service.findAllBase();
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(allMajors)
+                .data(allSubMajors)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
     @PostMapping
-    public ResponseEntity<ResponseObject> CreateNewMajor(@Valid @RequestBody MajorRequestDto newMajor) {
+    public ResponseEntity<ResponseObject> CreateNewSubMajor(@Valid @RequestBody SubMajorRequestDto newMajor) {
         String returnMessage = "Create Successfully";
         int resposeCode = HttpStatus.OK.value();
-        MajorDto returnMajor = new MajorDto();
+        SubMajorDto returnSubMajor = new SubMajorDto();
         try {
-            returnMajor = majorService.createNewMajor(newMajor);
+            returnSubMajor = service.createNewSubMajor(newMajor);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
@@ -47,7 +46,7 @@ public class MajorController {
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnMajor)
+                .data(returnSubMajor)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

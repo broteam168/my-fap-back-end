@@ -29,16 +29,30 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                       .requestMatchers("/api/v1/auth/login").permitAll()
-                        .requestMatchers("/api/v1/auth/verify-role").hasAnyAuthority(RoleType.ADMIN.name(),RoleType.STUDENT.name(),RoleType.TEACHER.name())
+                        .requestMatchers("/api/v1/auth/login").permitAll()
+                        .requestMatchers("/api/v1/auth/verify-role").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name(), RoleType.TEACHER.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/school").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/school/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/unit/school").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/unit/school/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/unit/school/*").hasAnyAuthority(RoleType.ADMIN.name())
 
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/unit/class").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/class/search").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/submajor").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/submajor").hasAnyAuthority(RoleType.ADMIN.name())
+
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/user").hasAnyAuthority(RoleType.ADMIN.name())
 
@@ -47,9 +61,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/user/count").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
-                ) .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class   );
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
