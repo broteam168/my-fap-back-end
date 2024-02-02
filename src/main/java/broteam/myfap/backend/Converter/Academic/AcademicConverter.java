@@ -15,7 +15,6 @@ public class AcademicConverter {
         dto.setSubjectCode(entity.getSubjectCode());
         dto.setType(entity.getType());
         dto.setStatus(entity.getStatus());
-        dto.setMinAvgMarkToPass(entity.getMinAvgMarkToPass());
         dto.setDescription(entity.getDescription());
         dto.setCredits(entity.getCredits());
         dto.setPrerequisite(entity.getPrerequisite());
@@ -30,7 +29,6 @@ public class AcademicConverter {
         entity.setSubjectCode(dto.getSubjectCode());
         entity.setType(dto.getType());
         entity.setStatus(dto.getStatus());
-        entity.setMinAvgMarkToPass(dto.getMinAvgMarkToPass());
         entity.setDescription(dto.getDescription());
         entity.setCredits(dto.getCredits());
         entity.setPrerequisite(dto.getPrerequisite());

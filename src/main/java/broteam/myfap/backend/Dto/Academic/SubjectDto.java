@@ -16,7 +16,6 @@ public class SubjectDto {
     private String name;
     private String type;
     private String status;
-    private int minAvgMarkToPass;
     private String description;
     private String credits;
     private int prerequisite;

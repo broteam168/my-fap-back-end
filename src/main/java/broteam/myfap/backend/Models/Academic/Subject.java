@@ -29,9 +29,6 @@ public class Subject {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "minAvgMarkToPass")
-    private int minAvgMarkToPass;
-
     @Column(name = "description")
     private String description;
 
