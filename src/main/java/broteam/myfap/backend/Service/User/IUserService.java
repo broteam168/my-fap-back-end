@@ -1,7 +1,9 @@
 package broteam.myfap.backend.Service.User;
 
 import broteam.myfap.backend.Dto.User.UserDto;
+import broteam.myfap.backend.Dto.User.UserDtoRequest;
 import broteam.myfap.backend.Models.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,4 +15,11 @@ public interface IUserService {
     long countUser();
 
     List<UserDto> fillAllB();
+
+    UserDto createUser(UserDtoRequest userDto);
+
+    User updateUser(int userId, User user);
+
+    @Transactional
+    void deleteUserById(int customerId);
 }

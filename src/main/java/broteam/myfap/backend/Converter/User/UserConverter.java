@@ -1,8 +1,7 @@
 package broteam.myfap.backend.Converter.User;
 
-import broteam.myfap.backend.Dto.Major.MajorDto;
 import broteam.myfap.backend.Dto.User.UserDto;
-import broteam.myfap.backend.Models.Unit.Major;
+import broteam.myfap.backend.Dto.User.UserDtoRequest;
 import broteam.myfap.backend.Models.User;
 import org.springframework.stereotype.Component;
 
@@ -22,5 +21,29 @@ public class UserConverter {
         dto.setLastLogin(entity.getLastLogin());
         dto.setIsActive(entity.isIsActive());
         return dto;
+    }
+
+    public User toEntity(UserDto dto){
+        User entity = new User();
+        entity.setUserId(dto.getUserId());
+        entity.setUserName(dto.getUserName());
+        entity.setUserPassword(dto.getUserPassword());
+        entity.setPhone(dto.getPhone());
+        entity.setMail(dto.getMail());
+        entity.setAddress(dto.getAddress());
+        entity.setLastLogin(dto.getLastLogin());
+        entity.setIsActive(dto.isIsActive());
+        return entity;
+    }
+
+    public User toEntity(UserDtoRequest dto){
+        User entity = new User();
+        entity.setUserName(dto.getUserName());
+        entity.setPhone(dto.getPhone());
+        entity.setMail(dto.getMail());
+        entity.setAddress(dto.getAddress());
+        entity.setLastLogin(dto.getLastLogin());
+        entity.setIsActive(dto.isIsActive());
+        return entity;
     }
 }
