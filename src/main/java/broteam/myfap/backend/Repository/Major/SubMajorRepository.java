@@ -15,4 +15,7 @@ public interface SubMajorRepository extends JpaRepository<SubMajor, Integer> {
 
     @Query("select c from SubMajor c where c.MajorId = :id")
     List<SubMajor> findByMajorId(@Param("id")int id);
+
+    @Query("select c from SubMajor c where c.MajorId = :MajorId and c.IsCommon = :isIsCommon")
+    List<SubMajor> findSubMajorByMajorIdAndCommon(int MajorId,boolean isIsCommon);
 }

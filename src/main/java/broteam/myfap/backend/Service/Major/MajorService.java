@@ -7,7 +7,9 @@ import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Major.Major;
+import broteam.myfap.backend.Models.Major.SubMajor;
 import broteam.myfap.backend.Repository.Major.MajorRepository;
+import broteam.myfap.backend.Repository.Major.SubMajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MajorService implements IMajorService{
     private final MajorRepository majorRepository;
+    private final SubMajorRepository subMajorRepository;
+
     private final MajorConverter majorConverter;
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -62,5 +66,42 @@ public class MajorService implements IMajorService{
         commondto.setIsActive(true);
         subMajorService.createNewSubMajor(commondto);
         return majorConverter.toDto(createdMajor);
+    }
+    @Transactional
+    @Override
+    public MajorDto updateMajor(int id, MajorRequestDto updatedMajor) {
+        Major baseMajor = modelMapper.map(updatedMajor, Major.class);
+
+        Major duplicate = majorRepository.findById(id);
+        Optional<Major> duplicate2 = majorRepository.findByName(updatedMajor.getName());
+        if(!duplicate.getName().equals(updatedMajor.getName()) && duplicate2.stream().count()>0)
+            throw new SchoolException("Major name is already used");
+        if(duplicate!=null) {
+
+            baseMajor.setId(duplicate.getId());
+            majorRepository.save(baseMajor);
+        }
+        return majorConverter.toDto(baseMajor);
+    }
+    @Transactional
+    @Override
+    public MajorDto deleteMajor(int id) {
+
+        Major duplicate2 = majorRepository.findById(id);
+        if(duplicate2==null)
+            throw new NotFoundException("Cannot find major");
+        List<SubMajor> foundSubMajor= duplicate2.getSubMajors();
+        if(!foundSubMajor.stream().anyMatch(x -> !x.isIsCommon()))
+        {
+            majorRepository.deleteById(id);
+            List<SubMajor> found = subMajorRepository.findSubMajorByMajorIdAndCommon(id,true);
+            if(!found.isEmpty())
+            {
+                subMajorRepository.deleteById(found.get(0).getId());
+            }
+        }
+
+        else  throw new SchoolException("Major have SubMajor! Cannot remove!");
+        return majorConverter.toDto(duplicate2);
     }
 }

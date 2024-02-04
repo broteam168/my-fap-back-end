@@ -16,4 +16,10 @@ public interface IMajorService {
 
     @Transactional
     MajorDto createNewMajor(MajorRequestDto newCLass);
+
+    @Transactional
+    MajorDto updateMajor(int id, MajorRequestDto updatedMajor);
+
+    @Transactional
+    MajorDto deleteMajor(int id);
 }

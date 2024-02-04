@@ -54,7 +54,7 @@ public class SubMajorService implements  ISubMajorService{
 
         Optional<SubMajor> duplicate = subMajorRepository.findByName(base.getName());
         if (duplicate.stream().count() > 0) {
-            throw new SchoolException("MSubMajor name is already used");
+            throw new SchoolException("SubMajor name is already used");
         }
         SubMajor createdSubMajor = subMajorRepository.save(base);
         return majorConverter.toDto(createdSubMajor);
