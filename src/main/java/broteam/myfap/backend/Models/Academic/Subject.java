@@ -40,6 +40,5 @@ public class Subject {
 
     @OneToOne
     @JoinColumn(name = "id", insertable = false, updatable = false)
-
     private Subject prerequisiteSubject;
 }

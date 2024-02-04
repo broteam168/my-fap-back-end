@@ -19,17 +19,18 @@ public class Class {
 
     @Column(name = "Name")
     private String Name;
+
     @ManyToOne
     @JoinColumn(name = "MajorId", insertable = false, updatable = false)
     private Major major;
-    @Column(name = "MajorId")
 
+    @Column(name = "MajorId")
     private int majorId;
+
     @Column(name = "Description")
     private String Description;
 
     @Column(name = "SchoolId")
-
     private int school;
 
     @Column(name = "IsActive")

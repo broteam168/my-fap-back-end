@@ -1,7 +1,9 @@
 package broteam.myfap.backend.Converter.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
+import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Models.Academic.Subject;
+import broteam.myfap.backend.Models.Academic.Syllabus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,6 +34,38 @@ public class AcademicConverter {
         entity.setDescription(dto.getDescription());
         entity.setCredits(dto.getCredits());
         entity.setPrerequisite(dto.getPrerequisite());
+
+        return entity;
+    }
+
+    public SyllabusDto toDto(Syllabus entity) {
+        SyllabusDto dto = new SyllabusDto();
+        if (entity.getId() > 0) {
+            dto.setId(entity.getId());
+        }
+        dto.setStudentTasks(entity.getStudentTasks());
+        dto.setTools(entity.getTools());
+        dto.setScoringScale(entity.getScoringScale());
+        dto.setMarkMin(entity.getMarkMin());
+        dto.setApprovedDate(entity.getApprovedDate());
+        dto.setSlot(entity.getSlot());
+        dto.setSubject(entity.getSubject());
+
+        return dto;
+    }
+
+    public Syllabus toEntity(SyllabusDto dto) {
+        Syllabus entity = new Syllabus();
+        if (dto.getId() > 0) {
+            entity.setId(dto.getId());
+        }
+        entity.setStudentTasks(dto.getStudentTasks());
+        entity.setTools(dto.getTools());
+        entity.setScoringScale(dto.getScoringScale());
+        entity.setMarkMin(dto.getMarkMin());
+        entity.setApprovedDate(dto.getApprovedDate());
+        entity.setSlot(dto.getSlot());
+        entity.setSubject(dto.getSubject());
 
         return entity;
     }
