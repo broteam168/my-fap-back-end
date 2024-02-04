@@ -21,4 +21,7 @@ public interface ISubMajorService {
     SubMajorDto updateSubMajor(int id, SubMajorRequestDto newSubMajor);
 
     SubMajorDto findById(int id);
+
+    @Transactional
+    SubMajorDto deleteById(int id);
 }

@@ -6,7 +6,6 @@ import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Major.SubMajor;
-import broteam.myfap.backend.Models.Unit.Class;
 import broteam.myfap.backend.Repository.Major.SubMajorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -79,5 +78,17 @@ public class SubMajorService implements  ISubMajorService{
         if (ggotSubMajor.isEmpty()) throw new NotFoundException("Cannot find submajor");
         return majorConverter.toDto(ggotSubMajor.get());
     }
+    @Transactional
+    @Override
+    public SubMajorDto deleteById(int id) {
 
+        Optional<SubMajor> foundClass = subMajorRepository.findById(id);
+        if (foundClass.isEmpty()) throw new NotFoundException("Cannot find submajor");
+//        List<Class> foundClass= duplicate2.getClasses();
+//        if(foundClass.isEmpty())
+//            schoolRepository.deleteById(id);
+//        else  throw new SchoolException("School have classes! Cannot remove!");
+        subMajorRepository.deleteById(id);
+        return majorConverter.toDto(foundClass.get());
+    }
 }

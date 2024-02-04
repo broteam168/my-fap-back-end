@@ -102,4 +102,24 @@ public class SubMajorController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteSubMajor(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SubMajorDto returnClass = new SubMajorDto();
+        try {
+            returnClass = service.deleteById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }
