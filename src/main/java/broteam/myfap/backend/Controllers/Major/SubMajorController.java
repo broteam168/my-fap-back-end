@@ -41,6 +41,7 @@ public class SubMajorController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<ResponseObject> CreateNewSubMajor(@Valid @RequestBody SubMajorRequestDto newMajor) {
         String returnMessage = "Create Successfully";

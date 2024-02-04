@@ -17,4 +17,6 @@ public interface ISubMajorService {
     @Transactional
     SubMajorDto createNewSubMajor(SubMajorRequestDto newSubMajor);
 
+    @Transactional
+    SubMajorDto updateSubMajor(int id, SubMajorRequestDto newSubMajor);
 }
