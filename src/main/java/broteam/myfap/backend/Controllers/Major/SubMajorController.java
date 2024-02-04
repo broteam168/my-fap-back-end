@@ -33,6 +33,26 @@ public class SubMajorController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> getDetailedSubMajor(@Valid @PathVariable int id) {
+        String returnMessage = "Get Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SubMajorDto returnSubMajor = new SubMajorDto();
+        try {
+            returnSubMajor = service.findById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSubMajor)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
     @GetMapping("search")
     public ResponseEntity<ResponseObject> getAllSubMajor(@RequestParam(name = "majorId") @Valid int majorId) {
         List<SubMajorDto> allSubMajor = service.FindByMajorId(majorId);
