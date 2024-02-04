@@ -64,7 +64,7 @@ public class SubMajorService implements  ISubMajorService{
 
         Optional<SubMajor> duplicate2 = subMajorRepository.findById(id);
        Optional<SubMajor> duplicate = subMajorRepository.findByName(baseSubMajor.getName());
-        if (newSubMajor.getName().equals(duplicate2.get().getName()) && duplicate.stream().count() > 0) {
+        if (!newSubMajor.getName().equals(duplicate2.get().getName()) && duplicate.stream().count() > 0) {
            throw new SchoolException("Sub-major name is already used");}
         if (duplicate2.stream().count() > 0) {
             baseSubMajor.setId(id);
