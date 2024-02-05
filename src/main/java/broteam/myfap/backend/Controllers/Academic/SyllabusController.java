@@ -45,4 +45,17 @@ public class SyllabusController {
                 .responseCode(responseCode)
                 .build());
     }
+
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getSyllabusBySubjectId(@RequestParam(name = "subjectId") @Valid int subjectId) {
+        List<SyllabusDto> allSyllabus = syllabusService.findBySubjectId(subjectId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allSyllabus)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+
+    @PostMapping
+    public ResponseEntity<ResponseObject> createSyllabus(@RequestParam(name = "subjectId") @Valid int subjectId, @Valid )
 }

@@ -62,6 +62,7 @@ public class SecurityConfiguration {
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus/search").hasAnyAuthority(RoleType.ADMIN.name())
 
 
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
