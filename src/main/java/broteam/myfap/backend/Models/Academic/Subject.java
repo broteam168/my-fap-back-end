@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "A_Subject")
 @Data
@@ -41,4 +43,8 @@ public class Subject {
     @OneToOne
     @JoinColumn(name = "id", insertable = false, updatable = false)
     private Subject prerequisiteSubject;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SubjectId", insertable = false, updatable = false)
+    private List<Syllabus> syllabuses;
 }

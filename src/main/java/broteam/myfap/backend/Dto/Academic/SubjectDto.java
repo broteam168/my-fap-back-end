@@ -1,6 +1,8 @@
 package broteam.myfap.backend.Dto.Academic;
 
 import broteam.myfap.backend.Models.Academic.Subject;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,7 @@ public class SubjectDto {
     private String description;
     private String credits;
     private int prerequisite;
-    private Subject prerequisiteSubject;
+
+    @JsonManagedReference
+    private SubjectDto prerequisiteSubject;
 }

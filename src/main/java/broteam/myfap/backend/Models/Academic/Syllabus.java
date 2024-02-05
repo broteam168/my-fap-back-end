@@ -5,7 +5,8 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity(name = "A_Syllabus")
+@Entity
+@Table(name = "A_Syllabus")
 @Data
 @Getter
 @Setter

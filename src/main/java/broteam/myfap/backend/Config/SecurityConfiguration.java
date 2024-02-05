@@ -60,6 +60,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/academic/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus").hasAnyAuthority(RoleType.ADMIN.name())
+
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

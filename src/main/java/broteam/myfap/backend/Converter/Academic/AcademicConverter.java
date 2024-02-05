@@ -51,7 +51,7 @@ public class AcademicConverter {
         dto.setMarkMin(entity.getMarkMin());
         dto.setApprovedDate(entity.getApprovedDate());
         dto.setSlot(entity.getSlot());
-        dto.setSubject(entity.getSubject());
+        dto.setSubject(toDto(entity.getSubject()));
 
         return dto;
     }
@@ -67,7 +67,7 @@ public class AcademicConverter {
         entity.setMarkMin(dto.getMarkMin());
         entity.setApprovedDate(dto.getApprovedDate());
         entity.setSlot(dto.getSlot());
-        entity.setSubject(dto.getSubject());
+        entity.setSubject(toEntity(dto.getSubject()));
 
         return entity;
     }
