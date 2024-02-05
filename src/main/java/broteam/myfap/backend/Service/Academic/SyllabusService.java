@@ -80,7 +80,7 @@ public class SyllabusService implements ISyllabusService{
 
     @Override
     public SyllabusDto updateSyllabusById(int id, SyllabusRequest newSyllabus) {
-        Syllabus baseSyllabus = modelMapper.map(newSyllabus, Syllabus.class);
+        Syllabus baseSyllabus = academicConverter.toEntity(newSyllabus);
         Syllabus duplicate = syllabusRespository.findById(id);
         if (duplicate != null) {
             baseSyllabus.setId(id);
@@ -92,6 +92,7 @@ public class SyllabusService implements ISyllabusService{
 
     @Override
     public SyllabusDto deleteSyllabusById(int id) {
+
         return null;
     }
 }

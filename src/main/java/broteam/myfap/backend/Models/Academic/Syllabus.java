@@ -1,5 +1,6 @@
 package broteam.myfap.backend.Models.Academic;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
