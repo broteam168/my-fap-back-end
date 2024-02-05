@@ -98,4 +98,23 @@ public class SyllabusController {
                 .responseCode(resposeCode)
                 .build());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteSyllabus(@Valid @PathVariable int id) {
+        String returnMsg = "Delete Successfully";
+        int responseCode = HttpStatus.OK.value();
+        SyllabusDto returnSyllabus = new SyllabusDto();
+        try {
+            returnSyllabus = syllabusService.deleteSyllabusById(id);
+        } catch (Exception e) {
+            returnMsg = e.getMessage();
+            responseCode = HttpStatus.OK.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                        .data(returnSyllabus)
+                        .message(returnMsg)
+                        .responseCode(responseCode)
+                .build());
+    }
 }

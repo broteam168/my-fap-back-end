@@ -92,7 +92,11 @@ public class SyllabusService implements ISyllabusService{
 
     @Override
     public SyllabusDto deleteSyllabusById(int id) {
-
-        return null;
+        Syllabus foundSyllabus = syllabusRespository.findById(id);
+        if (foundSyllabus == null) {
+            throw new NotFoundException("Cannot find Syllabus");
+        }
+        syllabusRespository.deleteById(id);
+        return academicConverter.toDto(foundSyllabus);
     }
 }
