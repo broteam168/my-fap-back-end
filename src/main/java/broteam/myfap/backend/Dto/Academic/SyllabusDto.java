@@ -2,6 +2,7 @@ package broteam.myfap.backend.Dto.Academic;
 
 import broteam.myfap.backend.Models.Academic.Subject;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,11 @@ public class SyllabusDto {
     private String tools;
     private int scoringScale;
     private int markMin;
+
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date approvedDate;
     private int slot;
 
-    @JsonBackReference
-    private SubjectDto subject;
+
+    private Subject subject;
 }

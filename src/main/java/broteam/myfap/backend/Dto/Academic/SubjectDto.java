@@ -22,6 +22,6 @@ public class SubjectDto {
     private String credits;
     private int prerequisite;
 
-    @JsonManagedReference
-    private SubjectDto prerequisiteSubject;
+
+    private Subject prerequisiteSubject;
 }

@@ -16,4 +16,7 @@ public interface SyllabusRespository extends JpaRepository<Syllabus, Integer> {
     Syllabus save(SyllabusDto syllabusDto);
 
     Syllabus findById(int id);
+
+    @Query("select s from Syllabus s where s.studentTasks = :studentTasks")
+    Optional<Syllabus> findSyllabusByStudentTasks(@Param("studentTasks") String studentTasks);
 }

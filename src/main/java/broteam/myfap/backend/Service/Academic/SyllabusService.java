@@ -3,12 +3,16 @@ package broteam.myfap.backend.Service.Academic;
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
+import broteam.myfap.backend.Exception.Academic.SyllabusException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Subject;
 import broteam.myfap.backend.Models.Academic.Syllabus;
 import broteam.myfap.backend.Repository.Academic.SyllabusRespository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,7 @@ public class SyllabusService implements ISyllabusService{
     private final SyllabusRespository syllabusRespository;
     private final AcademicConverter academicConverter;
     private final SubjectService subjectService;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public List<SyllabusDto> findAllBase() {
@@ -59,14 +64,30 @@ public class SyllabusService implements ISyllabusService{
         return results;
     }
 
+    @Transactional
     @Override
     public SyllabusDto createNewSyllabus(SyllabusDto newSyllabus) {
-        return null;
+        Syllabus baseSyllabus = academicConverter.toEntity(newSyllabus);
+        Optional<Syllabus> duplicate = syllabusRespository.findSyllabusByStudentTasks(baseSyllabus.getStudentTasks());
+        if (duplicate.stream().count() > 0) {
+            throw new SyllabusException("Student task is already used");
+        }
+
+        Syllabus createdSyllabus = syllabusRespository.save(baseSyllabus);
+        return academicConverter.toDto(createdSyllabus);
+
     }
 
     @Override
     public SyllabusDto updateSyllabusById(int id, SyllabusRequest newSyllabus) {
-        return null;
+        Syllabus baseSyllabus = modelMapper.map(newSyllabus, Syllabus.class);
+        Syllabus duplicate = syllabusRespository.findById(id);
+        if (duplicate != null) {
+            baseSyllabus.setId(id);
+            Syllabus createdSyllabus = syllabusRespository.save(baseSyllabus);
+            return academicConverter.toDto(createdSyllabus);
+        }
+        return academicConverter.toDto(baseSyllabus);
     }
 
     @Override

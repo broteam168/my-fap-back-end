@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
+import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Service.Academic.SyllabusService;
 import jakarta.validation.Valid;
@@ -56,6 +57,45 @@ public class SyllabusController {
                 .build());
     }
 
+//    @PostMapping
+//    public ResponseEntity<ResponseObject> createSyllabus(@RequestParam(name = "subjectId") @Valid int subjectId, @Valid )
+
     @PostMapping
-    public ResponseEntity<ResponseObject> createSyllabus(@RequestParam(name = "subjectId") @Valid int subjectId, @Valid )
+    public ResponseEntity<ResponseObject> createSyllabus(@Valid @RequestBody SyllabusDto newSyllabus) {
+        String returnMessage = "Create Successfully";
+        int responseCode = HttpStatus.OK.value();
+        SyllabusDto returnSyllabus = new SyllabusDto();
+        try {
+            returnSyllabus = syllabusService.createNewSyllabus(newSyllabus);
+        } catch (Exception e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSyllabus)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> updateSyllabus(@Valid @PathVariable int id, @Valid @RequestBody SyllabusRequest newSyllabus) {
+        String returnMsg = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SyllabusDto returnSyllabus = new SyllabusDto();
+
+        try {
+            returnSyllabus = syllabusService.updateSyllabusById(id, newSyllabus);
+        } catch (Exception e) {
+            returnMsg = e.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSyllabus)
+                .message(returnMsg)
+                .responseCode(resposeCode)
+                .build());
+    }
 }
