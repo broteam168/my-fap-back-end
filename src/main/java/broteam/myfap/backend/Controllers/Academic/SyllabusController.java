@@ -30,6 +30,19 @@ public class SyllabusController {
 
     @GetMapping("{id}")
     public ResponseEntity<ResponseObject> getSyllabusById(@Valid @PathVariable int id) {
-        String returnMessage
+        String returnMessage = "Get Successfully";
+        int responseCode = HttpStatus.OK.value();
+        SyllabusDto returnSyllabus = new SyllabusDto();
+        try {
+            returnSyllabus = syllabusService.findSyllabusById(id);
+        } catch (Exception e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSyllabus)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
     }
 }
