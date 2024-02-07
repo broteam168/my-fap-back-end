@@ -1,8 +1,6 @@
 package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
-import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
-import broteam.myfap.backend.Models.Academic.Syllabus;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -18,7 +16,7 @@ public interface ISyllabusService {
     SyllabusDto createNewSyllabus(SyllabusDto newSyllabus);
 
     @Transactional
-    SyllabusDto updateSyllabusById(int id, SyllabusRequest newSyllabus);
+    SyllabusDto updateSyllabusById(int id, SyllabusDto newSyllabus);
 
     @Transactional
     SyllabusDto deleteSyllabusById(int id);

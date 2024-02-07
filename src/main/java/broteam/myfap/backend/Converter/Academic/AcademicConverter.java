@@ -3,7 +3,6 @@ package broteam.myfap.backend.Converter.Academic;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
-import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
 import broteam.myfap.backend.Models.Academic.Curiculum;
 import broteam.myfap.backend.Models.Academic.Subject;
 import broteam.myfap.backend.Models.Academic.Syllabus;
@@ -52,7 +51,7 @@ public class AcademicConverter {
         dto.setMarkMin(entity.getMarkMin());
         dto.setApprovedDate(entity.getApprovedDate());
         dto.setSlot(entity.getSlot());
-        dto.setSubject(entity.getSubject());
+        dto.setSubjectId(entity.getSubjectId());
 
         return dto;
     }
@@ -68,25 +67,12 @@ public class AcademicConverter {
         entity.setMarkMin(dto.getMarkMin());
         entity.setApprovedDate(dto.getApprovedDate());
         entity.setSlot(dto.getSlot());
-        entity.setSubject(dto.getSubject());
-
-        return entity;
-    }
-
-    public Syllabus toEntity(SyllabusRequest dto) {
-        Syllabus entity = new Syllabus();
-        if (dto.getId() > 0) {
-            entity.setId(dto.getId());
-        }
-        entity.setStudentTasks(dto.getStudentTasks());
-        entity.setTools(dto.getTools());
-        entity.setScoringScale(dto.getScoringScale());
-        entity.setMarkMin(dto.getMarkMin());
-        entity.setApprovedDate(dto.getApprovedDate());
-        entity.setSlot(dto.getSlot());
         entity.setSubjectId(dto.getSubjectId());
+
         return entity;
     }
+
+
 
     public CuriculumDto toDto(Curiculum entity) {
         CuriculumDto dto = new CuriculumDto();

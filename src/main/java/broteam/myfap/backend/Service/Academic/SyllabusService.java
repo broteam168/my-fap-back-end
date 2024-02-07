@@ -2,7 +2,6 @@ package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
-import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
 import broteam.myfap.backend.Exception.Academic.SyllabusException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Subject;
@@ -12,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class SyllabusService implements ISyllabusService{
     }
 
     @Override
-    public SyllabusDto updateSyllabusById(int id, SyllabusRequest newSyllabus) {
+    public SyllabusDto updateSyllabusById(int id, SyllabusDto newSyllabus) {
         Syllabus baseSyllabus = academicConverter.toEntity(newSyllabus);
         Syllabus duplicate = syllabusRespository.findById(id);
         if (duplicate != null) {

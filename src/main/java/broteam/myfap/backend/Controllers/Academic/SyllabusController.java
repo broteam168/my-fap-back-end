@@ -1,7 +1,6 @@
 package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
-import broteam.myfap.backend.Dto.Academic.SyllabusRequest;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Service.Academic.SyllabusService;
 import jakarta.validation.Valid;
@@ -80,7 +79,7 @@ public class SyllabusController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateSyllabus(@Valid @PathVariable int id, @Valid @RequestBody SyllabusRequest newSyllabus) {
+    public ResponseEntity<ResponseObject> updateSyllabus(@Valid @PathVariable int id, @Valid @RequestBody SyllabusDto newSyllabus) {
         String returnMsg = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         SyllabusDto returnSyllabus = new SyllabusDto();

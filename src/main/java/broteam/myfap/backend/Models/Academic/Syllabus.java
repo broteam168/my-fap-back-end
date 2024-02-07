@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Syllabus {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -39,9 +40,4 @@ public class Syllabus {
 
     @Column(name = "SubjectId")
     private int subjectId;
-
-    @ManyToOne
-    @JoinColumn(name = "SubjectId", insertable = false, updatable = false)
-    private Subject subject;
-
 }

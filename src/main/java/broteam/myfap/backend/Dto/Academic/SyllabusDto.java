@@ -25,6 +25,5 @@ public class SyllabusDto {
     private Date approvedDate;
     private int slot;
 
-
-    private Subject subject;
+    private int subjectId;
 }
