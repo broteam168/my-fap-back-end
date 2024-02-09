@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Models.Unit;
 
 import broteam.myfap.backend.Models.Enums.BuildingName;
+import broteam.myfap.backend.Models.Enums.RoomType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,7 @@ public class Room {
     private String Description;
 
     @Column(name = "Type")
-    private String Type;
+    private RoomType Type;
     @Column(name = "Building")
     private BuildingName Building;
 
