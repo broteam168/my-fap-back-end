@@ -4,6 +4,7 @@ import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.ClassRequest;
 import broteam.myfap.backend.Dto.Unit.RoomDto;
+import broteam.myfap.backend.Dto.Unit.RoomRequestDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Service.Unit.ClassService;
 import broteam.myfap.backend.Service.Unit.RoomService;
@@ -40,5 +41,24 @@ public class RoomController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
-
+    @PostMapping
+    public ResponseEntity<ResponseObject> createRoom(@Valid @RequestBody RoomRequestDto newRoom) {
+        String returnMessage = "Create Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        RoomDto returnRoom = new RoomDto();
+        try {
+            returnRoom = roomService.createNewRoom(newRoom);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnRoom)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }
