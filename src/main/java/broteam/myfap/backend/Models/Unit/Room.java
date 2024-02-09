@@ -25,7 +25,10 @@ public class Room {
     private String Description;
 
     @Column(name = "Type")
+    @Enumerated(EnumType.STRING)
     private RoomType Type;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "Building")
     private BuildingName Building;
 
