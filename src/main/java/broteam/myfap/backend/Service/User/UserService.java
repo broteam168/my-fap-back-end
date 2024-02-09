@@ -8,7 +8,6 @@ import broteam.myfap.backend.Models.User;
 import broteam.myfap.backend.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -72,20 +71,18 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(int userId, User user) {
+    public UserDto updateUser(int userId, UserDtoRequest userDto) {
         User existingUser = userRepository.findById(userId).orElse(null);
-
         if (existingUser == null) {
             throw new UserException("User không tồn tại.");
         }
-
-        existingUser.setUserName(user.getUserName());
-        existingUser.setPhone(user.getPhone());
-        existingUser.setMail(user.getMail());
-        existingUser.setAddress(user.getAddress());
-        existingUser.setLastLogin(user.getLastLogin());
-
-        return userRepository.save(existingUser);
+        existingUser.setUserName(userDto.getUserName());
+        existingUser.setPhone(userDto.getPhone());
+        existingUser.setMail(userDto.getMail());
+        existingUser.setAddress(userDto.getAddress());
+        existingUser.setLastLogin(userDto.getLastLogin());
+        userRepository.save(existingUser);
+        return userConverter.toDto(existingUser);
     }
 
     @Override

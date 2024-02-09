@@ -66,8 +66,8 @@ public class UserController extends BaseController {
 
     //sửa khách hàng
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateCustomer(@PathVariable("id") int customerId, @RequestBody User user) {
-        User newCustomer = userService.updateUser(customerId, user);
+    public ResponseEntity<ResponseObject> updateCustomer(@PathVariable("id") int customerId, @RequestBody UserDtoRequest user) {
+        UserDto newCustomer = userService.updateUser(customerId, user);
         return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(newCustomer).build());
     }
 

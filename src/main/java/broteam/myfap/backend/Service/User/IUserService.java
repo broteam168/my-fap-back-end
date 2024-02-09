@@ -18,7 +18,7 @@ public interface IUserService {
 
     UserDto createUser(UserDtoRequest userDto);
 
-    User updateUser(int userId, User user);
+    UserDto updateUser(int userId, UserDtoRequest userDto);
 
     @Transactional
     void deleteUserById(int customerId);
