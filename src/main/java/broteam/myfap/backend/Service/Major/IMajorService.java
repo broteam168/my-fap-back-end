@@ -10,6 +10,16 @@ import java.util.List;
 public interface IMajorService {
     List<MajorDto> findAllBase();
 
+
+
+    MajorDto findMajorById(int id);
+
     @Transactional
     MajorDto createNewMajor(MajorRequestDto newCLass);
+
+    @Transactional
+    MajorDto updateMajor(int id, MajorRequestDto updatedMajor);
+
+    @Transactional
+    MajorDto deleteMajor(int id);
 }

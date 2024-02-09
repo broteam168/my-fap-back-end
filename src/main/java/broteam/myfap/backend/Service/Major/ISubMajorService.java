@@ -12,6 +12,16 @@ public interface ISubMajorService {
     List<SubMajorDto> findAllBase();
 
 
+    List<SubMajorDto> FindByMajorId(int id);
+
     @Transactional
     SubMajorDto createNewSubMajor(SubMajorRequestDto newSubMajor);
+
+    @Transactional
+    SubMajorDto updateSubMajor(int id, SubMajorRequestDto newSubMajor);
+
+    SubMajorDto findById(int id);
+
+    @Transactional
+    SubMajorDto deleteById(int id);
 }
