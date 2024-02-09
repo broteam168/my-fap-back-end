@@ -34,4 +34,7 @@ public class Room {
 
     @Column(name = "IsActive")
     private boolean IsActive;
+
+    @Column(name = "SchoolId")
+    private int SchoolId;
 }

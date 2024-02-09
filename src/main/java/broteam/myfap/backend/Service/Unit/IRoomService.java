@@ -10,4 +10,6 @@ import java.util.List;
 public interface IRoomService {
 
     List<RoomDto> findAllBase();
+
+    List<RoomDto> FindBySchoolId(int id);
 }
