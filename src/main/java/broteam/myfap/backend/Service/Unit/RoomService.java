@@ -1,25 +1,27 @@
 package broteam.myfap.backend.Service.Unit;
 
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
-import broteam.myfap.backend.Dto.Major.SubMajorDto;
-import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.RoomDto;
-import broteam.myfap.backend.Models.Major.SubMajor;
-import broteam.myfap.backend.Models.Unit.Class;
+import broteam.myfap.backend.Dto.Unit.RoomRequestDto;
+import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Unit.Room;
-import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Repository.Unit.RoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RoomService implements IRoomService {
     private final RoomRepository roomRepository;
     private final UnitConverter unitConverter;
+    private final ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public List<RoomDto> findAllBase() {
 
@@ -40,5 +42,18 @@ public class RoomService implements IRoomService {
             results.add(unitConverter.toDto(enitity));
         }
         return results;
+    }
+
+    @Transactional
+    @Override
+    public RoomDto createNewRoom(RoomRequestDto newRoom) {
+        Room baseRoom = modelMapper.map(newRoom, Room.class);
+
+        Optional<Room> duplicate = roomRepository.findByName(baseRoom.getName());
+        if (duplicate.stream().count() > 0) {
+            throw new SchoolException("Room name is already used");
+        }
+        Room createdClass = roomRepository.save(baseRoom);
+        return unitConverter.toDto(createdClass);
     }
 }
