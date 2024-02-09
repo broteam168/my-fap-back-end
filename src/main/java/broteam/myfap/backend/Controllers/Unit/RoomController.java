@@ -31,5 +31,14 @@ public class RoomController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getAllClassBySchool(@RequestParam(name = "schoolid") @Valid int schoolId) {
+        List<RoomDto> allClasses = roomService.FindBySchoolId(schoolId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allClasses)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
 
 }
