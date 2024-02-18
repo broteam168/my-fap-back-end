@@ -1,8 +1,10 @@
 package broteam.myfap.backend.Converter.Unit;
 
 import broteam.myfap.backend.Dto.Unit.ClassDto;
+import broteam.myfap.backend.Dto.Unit.RoomDto;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Models.Unit.Class;
+import broteam.myfap.backend.Models.Unit.Room;
 import org.springframework.stereotype.Component;
 import broteam.myfap.backend.Models.Unit.School;
 
@@ -20,6 +22,19 @@ public class UnitConverter {
         dto.setPhone(entity.getPhone());
         dto.setIsActive(entity.isIsActive());
 
+        return dto;
+    }
+    public RoomDto toDto(Room entity){
+        RoomDto dto = new RoomDto();
+        if(entity.getId() > 0 ){
+            dto.setId(entity.getId());
+        }
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
+        dto.setBuilding(entity.getBuilding());
+        dto.setType(entity.getType());
+        dto.setIsActive(entity.isIsActive());
         return dto;
     }
     public ClassDto toDto(Class entity){
