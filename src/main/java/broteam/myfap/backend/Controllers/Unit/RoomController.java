@@ -2,7 +2,9 @@ package broteam.myfap.backend.Controllers.Unit;
 
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Unit.*;
+import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
+import broteam.myfap.backend.Models.Unit.Class;
 import broteam.myfap.backend.Service.Unit.ClassService;
 import broteam.myfap.backend.Service.Unit.RoomService;
 import jakarta.validation.Valid;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/unit/room")
@@ -29,6 +32,7 @@ public class RoomController {
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
+
     @GetMapping("search")
     public ResponseEntity<ResponseObject> getAllClassBySchool(@RequestParam(name = "schoolid") @Valid int schoolId) {
         List<RoomDto> allClasses = roomService.FindBySchoolId(schoolId);
@@ -75,6 +79,26 @@ public class RoomController {
         }
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(returnSchool)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> getDetailedRoom(@Valid @PathVariable int id) {
+        String returnMessage = "Get Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        RoomDto returnClass = new RoomDto();
+        try {
+            returnClass = roomService.findRoomById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

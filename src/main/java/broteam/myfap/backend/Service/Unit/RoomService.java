@@ -3,6 +3,7 @@ package broteam.myfap.backend.Service.Unit;
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.Unit.RoomDto;
 import broteam.myfap.backend.Dto.Unit.RoomRequestDto;
+import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Unit.Room;
 import broteam.myfap.backend.Repository.Unit.RoomRepository;
@@ -43,7 +44,12 @@ public class RoomService implements IRoomService {
         }
         return results;
     }
-
+    @Override
+    public RoomDto findRoomById(int id) {
+        Optional<Room> gotRoom = roomRepository.findById(id);
+        if (gotRoom.isEmpty()) throw new NotFoundException("Cannot find room");
+        return unitConverter.toDto(gotRoom.get());
+    }
     @Transactional
     @Override
     public RoomDto createNewRoom(RoomRequestDto newRoom) {

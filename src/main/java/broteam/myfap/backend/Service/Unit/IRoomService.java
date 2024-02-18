@@ -14,6 +14,8 @@ public interface IRoomService {
 
     List<RoomDto> FindBySchoolId(int id);
 
+    RoomDto findRoomById(int id);
+
     @Transactional
     RoomDto createNewRoom(RoomRequestDto newRoom);
 
