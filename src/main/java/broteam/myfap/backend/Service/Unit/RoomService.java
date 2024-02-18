@@ -56,4 +56,22 @@ public class RoomService implements IRoomService {
         Room createdClass = roomRepository.save(baseRoom);
         return unitConverter.toDto(createdClass);
     }
+
+    @Transactional
+    @Override
+    public RoomDto updateRoom(int id, RoomRequestDto newRoom) {
+        Room baseClass = modelMapper.map(newRoom, Room.class);
+
+        Optional<Room> duplicate2 = roomRepository.findById(id);
+//        Optional<Class> duplicate = classRepository.findByName(baseClass.getName());
+//        if (newCLass.getName().equals(duplicate2.get().getName()) && duplicate.stream().count() > 0) {
+//            throw new SchoolException("Class name is already used");
+//        }
+        if (duplicate2.stream().count() > 0) {
+            baseClass.setId(id);
+            Room createdClass = roomRepository.save(baseClass);
+            return unitConverter.toDto(createdClass);
+        }
+        return unitConverter.toDto(baseClass);
+    }
 }

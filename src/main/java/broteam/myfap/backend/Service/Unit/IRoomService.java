@@ -16,4 +16,7 @@ public interface IRoomService {
 
     @Transactional
     RoomDto createNewRoom(RoomRequestDto newRoom);
+
+    @Transactional
+    RoomDto updateRoom(int id, RoomRequestDto newRoom);
 }

@@ -18,10 +18,8 @@ public class RoomRequestDto {
     @NotEmpty
 
     private String Description;
-    @NotEmpty
 
     private RoomType Type;
-    @NotEmpty
 
     private BuildingName Building;
     private int SchoolId;
