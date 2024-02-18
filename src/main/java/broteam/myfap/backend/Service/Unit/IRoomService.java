@@ -21,4 +21,7 @@ public interface IRoomService {
 
     @Transactional
     RoomDto updateRoom(int id, RoomRequestDto newRoom);
+
+    @Transactional
+    RoomDto deleteById(int id);
 }

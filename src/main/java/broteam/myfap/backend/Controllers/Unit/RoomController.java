@@ -103,4 +103,24 @@ public class RoomController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteRoom(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        RoomDto returnClass = new RoomDto();
+        try {
+            returnClass = roomService.deleteById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnClass)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

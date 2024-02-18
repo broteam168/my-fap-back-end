@@ -80,4 +80,17 @@ public class RoomService implements IRoomService {
         }
         return unitConverter.toDto(baseClass);
     }
+    @Transactional
+    @Override
+    public RoomDto deleteById(int id) {
+
+        Optional<Room> foundRoom = roomRepository.findById(id);
+        if (foundRoom.isEmpty()) throw new NotFoundException("Cannot find Room");
+//        List<Class> foundClass= duplicate2.getClasses();
+//        if(foundClass.isEmpty())
+//            schoolRepository.deleteById(id);
+//        else  throw new SchoolException("School have classes! Cannot remove!");
+        roomRepository.deleteById(id);
+        return unitConverter.toDto(foundRoom.get());
+    }
 }
