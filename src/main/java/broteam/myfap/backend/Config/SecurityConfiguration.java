@@ -79,6 +79,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/time/slot/search").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/time/slot").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

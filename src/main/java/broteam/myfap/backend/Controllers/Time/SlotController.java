@@ -85,4 +85,25 @@ public class SlotController {
                 .responseCode(resposeCode)
                 .build());
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> updateSlot(@Valid @PathVariable int id,@Valid @RequestBody SlotRequestDto newClass) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SlotDto returnSlot = new SlotDto();
+        try {
+            returnSlot = slotService.updateClass(id,newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSlot)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }
