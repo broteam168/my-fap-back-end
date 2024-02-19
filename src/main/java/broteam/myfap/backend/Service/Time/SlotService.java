@@ -3,8 +3,10 @@ package broteam.myfap.backend.Service.Time;
 import broteam.myfap.backend.Converter.Time.SlotConverter;
 import broteam.myfap.backend.Dto.Time.SlotDto;
 import broteam.myfap.backend.Dto.Time.SlotRequestDto;
+import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Time.Slot;
+import broteam.myfap.backend.Models.Unit.Class;
 import broteam.myfap.backend.Repository.Time.SlotRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -66,5 +69,11 @@ public class SlotService implements ISlotService {
             return slotConverter.toDto(createdClass);
         }
         return slotConverter.toDto(baseSlot);
+    }
+    @Override
+    public SlotDto findById(int id) {
+        Optional<Slot> gotSlot = slotRepository.findById(id);
+        if (gotSlot.isEmpty()) throw new NotFoundException("Cannot find slot");
+        return slotConverter.toDto(gotSlot.get());
     }
 }

@@ -65,4 +65,24 @@ public class SlotController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> getDetailedSlot(@Valid @PathVariable int id) {
+        String returnMessage = "Get Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SlotDto returnSlot = new SlotDto();
+        try {
+            returnSlot = slotService.findById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSlot)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

@@ -17,4 +17,6 @@ public interface ISlotService {
 
     @Transactional
     SlotDto createNewCLass(SlotRequestDto newSlot);
+
+    SlotDto findById(int id);
 }
