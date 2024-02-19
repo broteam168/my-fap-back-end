@@ -29,20 +29,16 @@ public class Subject {
     private String type;
 
     @Column(name = "status")
-    private String status;
+    private boolean status;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "credits")
-    private String credits;
+    private int credits;
 
     @Column(name = "prerequisite")
-    private int prerequisite;
-
-    @OneToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private Subject prerequisiteSubject;
+    private String prerequisite;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "SubjectId", insertable = false, updatable = false)

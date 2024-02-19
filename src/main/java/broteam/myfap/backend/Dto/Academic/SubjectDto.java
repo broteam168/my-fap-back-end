@@ -17,11 +17,8 @@ public class SubjectDto {
     private String subjectCode;
     private String name;
     private String type;
-    private String status;
+    private boolean status;
     private String description;
-    private String credits;
-    private int prerequisite;
-
-
-    private Subject prerequisiteSubject;
+    private int credits;
+    private String prerequisite;
 }

@@ -18,11 +18,10 @@ public class AcademicConverter {
         dto.setName(entity.getName());
         dto.setSubjectCode(entity.getSubjectCode());
         dto.setType(entity.getType());
-        dto.setStatus(entity.getStatus());
+        dto.setStatus(entity.isStatus());
         dto.setDescription(entity.getDescription());
         dto.setCredits(entity.getCredits());
         dto.setPrerequisite(entity.getPrerequisite());
-
         return dto;
     }
 
@@ -32,11 +31,10 @@ public class AcademicConverter {
         entity.setName(dto.getName());
         entity.setSubjectCode(dto.getSubjectCode());
         entity.setType(dto.getType());
-        entity.setStatus(dto.getStatus());
+        entity.setStatus(dto.isStatus());
         entity.setDescription(dto.getDescription());
         entity.setCredits(dto.getCredits());
         entity.setPrerequisite(dto.getPrerequisite());
-
         return entity;
     }
 
