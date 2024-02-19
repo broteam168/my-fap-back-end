@@ -98,7 +98,7 @@ public class GroupSlotController {
     }
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseObject> DeleteGroup(@Valid @PathVariable int id) {
-        String returnMessage = "Update Successfully";
+        String returnMessage = "Delete Successfully";
         int resposeCode = HttpStatus.OK.value();
         GroupSlotDto returnGroup = new GroupSlotDto();
         try {

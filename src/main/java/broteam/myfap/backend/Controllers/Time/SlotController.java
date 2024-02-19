@@ -106,4 +106,24 @@ public class SlotController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> DeleteSlot(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SlotDto returnGroup = new SlotDto();
+        try {
+            returnGroup = slotService.deleteById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

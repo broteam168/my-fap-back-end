@@ -22,4 +22,7 @@ public interface ISlotService {
     SlotDto updateClass(int id, SlotRequestDto newSlot);
 
     SlotDto findById(int id);
+
+    @Transactional
+    SlotDto deleteById(int id);
 }

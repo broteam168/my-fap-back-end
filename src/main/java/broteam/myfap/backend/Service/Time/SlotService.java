@@ -5,6 +5,7 @@ import broteam.myfap.backend.Dto.Time.SlotDto;
 import broteam.myfap.backend.Dto.Time.SlotRequestDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
+import broteam.myfap.backend.Models.Time.GroupSlot;
 import broteam.myfap.backend.Models.Time.Slot;
 import broteam.myfap.backend.Repository.Time.SlotRepository;
 import lombok.RequiredArgsConstructor;
@@ -88,5 +89,14 @@ public class SlotService implements ISlotService {
         Optional<Slot> gotSlot = slotRepository.findById(id);
         if (gotSlot.isEmpty()) throw new NotFoundException("Cannot find slot");
         return slotConverter.toDto(gotSlot.get());
+    }
+    @Transactional
+    @Override
+    public SlotDto deleteById(int id) {
+        Optional<Slot> duplicate2 = slotRepository.findById(id);
+        if(duplicate2.isEmpty())
+            throw new NotFoundException("Cannot find slot");
+        slotRepository.deleteById(id);
+        return slotConverter.toDto(duplicate2.get());
     }
 }
