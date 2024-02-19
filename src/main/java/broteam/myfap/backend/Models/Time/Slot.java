@@ -30,9 +30,12 @@ public class Slot {
     @Column(name = "EndTime")
     private String EndTime;
 
-    @Column(name = "Order")
+    @Column(name = "\"Order\"")
     private int Order;
 
     @Column(name = "GroupId")
     private int GroupId;
+
+    @Column(name = "IsActive")
+    private boolean IsActive;
 }
