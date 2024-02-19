@@ -5,6 +5,9 @@ import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Time.GroupSlotDto;
 import broteam.myfap.backend.Dto.Time.GroupSlotRequestDto;
 import broteam.myfap.backend.Dto.Time.SlotDto;
+import broteam.myfap.backend.Dto.Time.SlotRequestDto;
+import broteam.myfap.backend.Dto.Unit.ClassDto;
+import broteam.myfap.backend.Dto.Unit.ClassRequest;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Service.Time.GroupSlotService;
 import broteam.myfap.backend.Service.Time.SlotService;
@@ -40,6 +43,26 @@ public class SlotController {
                 .data(allSlot)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+    @PostMapping
+    public ResponseEntity<ResponseObject> createSlot(@Valid @RequestBody SlotRequestDto newSlot) {
+        String returnMessage = "Create Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SlotDto returnSlot = new SlotDto();
+        try {
+            returnSlot = slotService.createNewCLass(newSlot);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSlot)
+                .message(returnMessage)
+                .responseCode(resposeCode)
                 .build());
     }
 }

@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SlotRequestDto {
-    private int id;
     private String Name;
     private String Description;
     private String StartTime;

@@ -81,7 +81,7 @@ public class ClassController {
                 .build());
     }
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> createClass(@Valid @PathVariable int id,@Valid @RequestBody ClassRequest newClass) {
+    public ResponseEntity<ResponseObject> updateClass(@Valid @PathVariable int id,@Valid @RequestBody ClassRequest newClass) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         ClassDto returnClass = new ClassDto();

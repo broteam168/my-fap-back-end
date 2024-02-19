@@ -15,4 +15,7 @@ public interface SlotRepository extends JpaRepository<Slot, Integer> {
     @Query("select s from Slot s where s.GroupId = :id")
     List<Slot> findByGroup(@Param("id") int id);
 
+
+    @Query("select s from Slot s where s.GroupId = :id and s.Name = :name")
+    List<Slot> findByGroupAndName(@Param("id") int id,@Param("name") String name);
 }
