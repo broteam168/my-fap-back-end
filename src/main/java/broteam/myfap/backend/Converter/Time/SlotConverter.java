@@ -16,6 +16,8 @@ public class SlotConverter {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
+        dto.setIsActive(entity.isIsActive());
+        dto.setType(entity.getType());
         return dto;
     }
 }

@@ -21,4 +21,10 @@ public class GroupSlot {
 
     @Column(name = "Description")
     private String Description;
+
+    @Column(name = "IsActive")
+    private boolean IsActive;
+
+    @Column(name = "Type")
+    private String Type;
 }

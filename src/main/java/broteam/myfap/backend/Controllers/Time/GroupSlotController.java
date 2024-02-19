@@ -3,6 +3,7 @@ package broteam.myfap.backend.Controllers.Time;
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Time.GroupSlotDto;
+import broteam.myfap.backend.Dto.Time.GroupSlotRequestDto;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
@@ -31,6 +32,26 @@ public class GroupSlotController {
                 .data(allGroup)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+    @PostMapping
+    public ResponseEntity<ResponseObject> CreateGroup(@Valid @RequestBody GroupSlotRequestDto newGroup) {
+        String returnMessage = "Create Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        GroupSlotDto returnGroup = new GroupSlotDto();
+        try {
+            returnGroup = groupSlotService.createNewGroup(newGroup);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
                 .build());
     }
 }
