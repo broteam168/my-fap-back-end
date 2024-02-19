@@ -75,4 +75,45 @@ public class GroupSlotController {
                 .responseCode(resposeCode)
                 .build());
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> UpdateGroup(@Valid @PathVariable int id, @Valid @RequestBody GroupSlotRequestDto updateGroup) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        GroupSlotDto returnGroup = new GroupSlotDto();
+        try {
+            returnGroup = groupSlotService.updateGroup(id,updateGroup);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> DeleteGroup(@Valid @PathVariable int id) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        GroupSlotDto returnGroup = new GroupSlotDto();
+        try {
+            returnGroup = groupSlotService.deleteGroup(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = "Some error occurs";
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

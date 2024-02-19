@@ -16,4 +16,10 @@ public interface IGroupSlotService {
     GroupSlotDto createNewGroup(GroupSlotRequestDto newGroup);
 
     GroupSlotDto findById(int id);
+
+    @Transactional
+    GroupSlotDto updateGroup(int id, GroupSlotRequestDto updatedGroup);
+
+    @Transactional
+    GroupSlotDto deleteGroup(int id);
 }

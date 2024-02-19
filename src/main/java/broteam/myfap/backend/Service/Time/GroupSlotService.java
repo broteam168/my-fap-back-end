@@ -5,7 +5,6 @@ import broteam.myfap.backend.Dto.Time.GroupSlotDto;
 import broteam.myfap.backend.Dto.Time.GroupSlotRequestDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Models.Major.Major;
 import broteam.myfap.backend.Models.Time.GroupSlot;
 import broteam.myfap.backend.Repository.Time.GroupSlotRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +50,31 @@ public class GroupSlotService implements IGroupSlotService {
         Optional<GroupSlot> gotGroup = groupSlotRepository.findById(id);
         if(gotGroup.isEmpty() ) throw new NotFoundException("Cannot find group");
         return slotConverter.toDto(gotGroup.get());
+    }
+
+    @Transactional
+    @Override
+    public GroupSlotDto updateGroup(int id, GroupSlotRequestDto updatedGroup) {
+        GroupSlot baseGroup = modelMapper.map(updatedGroup, GroupSlot.class);
+
+        Optional<GroupSlot> duplicate = groupSlotRepository.findById(id);
+        Optional<GroupSlot> duplicate2 = groupSlotRepository.findByName(updatedGroup.getName());
+        if(!duplicate.get().getName().equals(updatedGroup.getName()) && duplicate2.stream().count()>0)
+            throw new SchoolException("Group name is already used");
+        if(duplicate!=null) {
+
+            baseGroup.setId(duplicate.get().getId());
+            groupSlotRepository.save(baseGroup);
+        }
+        return slotConverter.toDto(baseGroup);
+    }
+    @Transactional
+    @Override
+    public GroupSlotDto deleteGroup(int id) {
+        Optional<GroupSlot> duplicate2 = groupSlotRepository.findById(id);
+        if(duplicate2.isEmpty())
+            throw new NotFoundException("Cannot find group");
+        groupSlotRepository.deleteById(id);
+         return slotConverter.toDto(duplicate2.get());
     }
 }
