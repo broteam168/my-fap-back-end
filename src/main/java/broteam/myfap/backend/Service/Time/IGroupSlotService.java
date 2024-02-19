@@ -14,4 +14,6 @@ public interface IGroupSlotService {
 
     @Transactional
     GroupSlotDto createNewGroup(GroupSlotRequestDto newGroup);
+
+    GroupSlotDto findById(int id);
 }

@@ -54,4 +54,25 @@ public class GroupSlotController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> GetDetailed(@PathVariable @Valid String id) {
+        String returnMessage = "Get Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        GroupSlotDto returnGroup = new GroupSlotDto();
+
+        try
+        {
+            returnGroup =  groupSlotService.findById(Integer.parseInt(id));
+        }
+        catch (Exception ex)
+        {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }
