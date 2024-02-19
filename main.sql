@@ -146,3 +146,37 @@ CREATE TABLE [dbo].[U_Room](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
     GO
+/****** Object:  Table [dbo].[T_Slot]    Script Date: 2/19/2024 2:24:18 PM ******/
+    SET ANSI_NULLS ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
+CREATE TABLE [dbo].[T_Slot](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Name] [nvarchar](200) NOT NULL,
+    [Description] [nvarchar](300) NOT NULL,
+    [StartTime] [time](7) NOT NULL,
+    [EndTime] [time](7) NOT NULL,
+    [Order] [int] NOT NULL,
+    [GroupId] [int] NOT NULL,
+    CONSTRAINT [PK_T_Slot] PRIMARY KEY CLUSTERED
+(
+[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+    ) ON [PRIMARY]
+    GO
+/****** Object:  Table [dbo].[T_Group_Slot]    Script Date: 2/19/2024 4:40:58 PM ******/
+    SET ANSI_NULLS ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
+CREATE TABLE [dbo].[T_Group_Slot](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Name] [nvarchar](200) NOT NULL,
+    [Description] [nvarchar](300) NOT NULL,
+    CONSTRAINT [PK_T_Group_Slot] PRIMARY KEY CLUSTERED
+(
+[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+    ) ON [PRIMARY]
+    GO

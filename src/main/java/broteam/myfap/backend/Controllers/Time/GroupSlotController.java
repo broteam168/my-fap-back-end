@@ -1,11 +1,14 @@
-package broteam.myfap.backend.Controllers.Unit;
+package broteam.myfap.backend.Controllers.Time;
 
+import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Dto.Time.GroupSlotDto;
+import broteam.myfap.backend.Dto.Time.GroupSlotRequestDto;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
-import broteam.myfap.backend.Dto.Unit.ClassRequest;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Service.Unit.ClassService;
+import broteam.myfap.backend.Models.Unit.School;
+import broteam.myfap.backend.Service.Time.GroupSlotService;
 import broteam.myfap.backend.Service.Unit.SchoolService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,106 +19,99 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/unit/class")
+@RequestMapping("/api/v1/time/groupslot")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-public class ClassController {
-    private final ClassService classService;
+public class GroupSlotController {
+    private final GroupSlotService groupSlotService;
 
     @GetMapping
-    public ResponseEntity<ResponseObject> getAllClass() {
-        List<ClassDto> allClasses = classService.findAllBase();
+    public ResponseEntity<ResponseObject> getAllGroupSlot() {
+        List<GroupSlotDto> allGroup = groupSlotService.findAllBase();
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(allClasses)
-                .message("Get successful")
-                .responseCode(HttpStatus.OK.value())
-                .build());
-    }
-    @GetMapping("{id}")
-    public ResponseEntity<ResponseObject> getDetailedClass(@Valid @PathVariable int id) {
-        String returnMessage = "Get Successfully";
-        int resposeCode = HttpStatus.OK.value();
-        ClassDto returnClass = new ClassDto();
-        try {
-            returnClass = classService.findClassById(id);
-        } catch (SchoolException ex) {
-            returnMessage = ex.getMessage();
-            resposeCode = HttpStatus.ACCEPTED.value();
-        } catch (Exception ex2) {
-            returnMessage = ex2.getMessage();
-            resposeCode = HttpStatus.ACCEPTED.value();
-        }
-        return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnClass)
-                .message(returnMessage)
-                .responseCode(resposeCode)
-                .build());
-    }
-    @GetMapping("search")
-    public ResponseEntity<ResponseObject> getAllClassBySchool(@RequestParam(name = "schoolid") @Valid int schoolId) {
-        List<ClassDto> allClasses = classService.FindBySchoolId(schoolId);
-        return ResponseEntity.ok(ResponseObject.builder()
-                .data(allClasses)
+                .data(allGroup)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
     @PostMapping
-    public ResponseEntity<ResponseObject> createClass(@Valid @RequestBody ClassRequest newClass) {
+    public ResponseEntity<ResponseObject> CreateGroup(@Valid @RequestBody GroupSlotRequestDto newGroup) {
         String returnMessage = "Create Successfully";
         int resposeCode = HttpStatus.OK.value();
-        ClassDto returnClass = new ClassDto();
+        GroupSlotDto returnGroup = new GroupSlotDto();
         try {
-            returnClass = classService.createNewCLass(newClass);
+            returnGroup = groupSlotService.createNewGroup(newGroup);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
         } catch (Exception ex2) {
-            returnMessage = ex2.getMessage();
+            returnMessage = "Some error occurs";
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnClass)
+                .data(returnGroup)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> GetDetailed(@PathVariable @Valid String id) {
+        String returnMessage = "Get Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        GroupSlotDto returnGroup = new GroupSlotDto();
+
+        try
+        {
+            returnGroup =  groupSlotService.findById(Integer.parseInt(id));
+        }
+        catch (Exception ex)
+        {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnGroup)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateClass(@Valid @PathVariable int id,@Valid @RequestBody ClassRequest newClass) {
+    public ResponseEntity<ResponseObject> UpdateGroup(@Valid @PathVariable int id, @Valid @RequestBody GroupSlotRequestDto updateGroup) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
-        ClassDto returnClass = new ClassDto();
+        GroupSlotDto returnGroup = new GroupSlotDto();
         try {
-            returnClass = classService.updateClass(id,newClass);
+            returnGroup = groupSlotService.updateGroup(id,updateGroup);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
         } catch (Exception ex2) {
-            returnMessage = ex2.getMessage();
+            returnMessage = "Some error occurs";
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnClass)
+                .data(returnGroup)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());
     }
     @DeleteMapping("{id}")
-    public ResponseEntity<ResponseObject> deleteClass(@Valid @PathVariable int id) {
+    public ResponseEntity<ResponseObject> DeleteGroup(@Valid @PathVariable int id) {
         String returnMessage = "Delete Successfully";
         int resposeCode = HttpStatus.OK.value();
-        ClassDto returnClass = new ClassDto();
+        GroupSlotDto returnGroup = new GroupSlotDto();
         try {
-            returnClass = classService.deleteById(id);
+            returnGroup = groupSlotService.deleteGroup(id);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
         } catch (Exception ex2) {
-            returnMessage = ex2.getMessage();
+            returnMessage = "Some error occurs";
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnClass)
+                .data(returnGroup)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

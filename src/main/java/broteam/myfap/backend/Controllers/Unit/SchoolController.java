@@ -77,7 +77,7 @@ public class SchoolController {
                 .build());
     }
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> CreateSchool(@Valid @PathVariable int id, @Valid @RequestBody SchoolDto newSchool) {
+    public ResponseEntity<ResponseObject> UpdateSchool(@Valid @PathVariable int id, @Valid @RequestBody SchoolDto newSchool) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         SchoolDto returnSchool = new SchoolDto();
