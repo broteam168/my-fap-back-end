@@ -46,13 +46,41 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/unit/class/*").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/room").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/room/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/unit/room").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/unit/room/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/unit/room/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/unit/room/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/unit/class/search").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/major/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/major").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/major/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/major/*").hasAnyAuthority(RoleType.ADMIN.name())
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/submajor").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/submajor").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/submajor/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/groupslot").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/time/groupslot").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/groupslot/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/time/groupslot/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/time/groupslot/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/slot").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/slot/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/time/slot").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/user").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/user/*").hasAnyAuthority(RoleType.ADMIN.name())
