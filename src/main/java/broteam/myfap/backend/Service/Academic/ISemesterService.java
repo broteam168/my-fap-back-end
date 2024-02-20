@@ -17,4 +17,7 @@ public interface ISemesterService {
 
     @Transactional
     SemesterDto updateSemester(int id, SemesterRequestDto updatedSemester);
+
+    @Transactional
+    SemesterDto deleteMajor(int id);
 }

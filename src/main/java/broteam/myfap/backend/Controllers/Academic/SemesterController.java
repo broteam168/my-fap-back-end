@@ -92,4 +92,24 @@ public class SemesterController {
                 .responseCode(resposeCode)
                 .build());
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteSemester(@Valid @PathVariable int id) {
+        String returnMessage = "Delete Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SemesterDto returnSemester = new SemesterDto();
+        try {
+            returnSemester = semesterService.deleteMajor(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSemester)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
 }

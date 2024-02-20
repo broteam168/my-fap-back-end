@@ -65,4 +65,15 @@ public class SemesterService implements ISemesterService {
         }
         return academicConverter.toDto(baseSenester);
     }
+    @Transactional
+    @Override
+    public SemesterDto deleteMajor(int id) {
+
+        Optional<Semester> duplicate2 = semesterRepository.findById(id);
+        if(duplicate2.isEmpty())
+            throw new NotFoundException("Cannot find semester");
+        semesterRepository.deleteById(id);
+
+        return academicConverter.toDto(duplicate2.get());
+    }
 }
