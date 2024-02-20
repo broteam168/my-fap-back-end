@@ -46,9 +46,23 @@ public class SemesterService implements ISemesterService {
         return academicConverter.toDto(createdMajor);
     }
     @Override
-    public SemesterDto findById(int id) {
+    public SemesterRequestDto findById(int id) {
         Optional<Semester> gotSemester = semesterRepository.findById(id);
         if(gotSemester.isEmpty() ) throw new NotFoundException("Cannot find semester");
-        return academicConverter.toDto(gotSemester.get());
+        return academicConverter.toDtoRequest(gotSemester.get());
+    }
+    @Transactional
+    @Override
+    public SemesterDto updateSemester(int id, SemesterRequestDto updatedSemester) {
+        Semester baseSenester = modelMapper.map(updatedSemester, Semester.class);
+
+        Optional<Semester> duplicate = semesterRepository.findById(id);
+
+        if(duplicate.isPresent()) {
+
+            baseSenester.setId(duplicate.get().getId());
+            semesterRepository.save(baseSenester);
+        }
+        return academicConverter.toDto(baseSenester);
     }
 }

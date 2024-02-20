@@ -56,7 +56,7 @@ public class SemesterController {
     public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
         String returnMessage = "GET Successfully";
         int resposeCode = HttpStatus.OK.value();
-        SemesterDto returnSemester = new SemesterDto();
+        SemesterRequestDto returnSemester = new SemesterRequestDto();
         try {
             returnSemester = semesterService.findById(id);
         } catch (SchoolException ex) {
@@ -68,6 +68,26 @@ public class SemesterController {
         }
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(returnSemester)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> updateSemester(@Valid @PathVariable int id,@Valid @RequestBody SemesterRequestDto newClass) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SemesterDto returnMajor = new SemesterDto();
+        try {
+            returnMajor = semesterService.updateSemester(id,newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnMajor)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

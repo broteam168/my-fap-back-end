@@ -2,8 +2,6 @@ package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SemesterDto;
 import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;
-import broteam.myfap.backend.Dto.Major.MajorDto;
-import broteam.myfap.backend.Dto.Major.MajorRequestDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,5 +13,8 @@ public interface ISemesterService {
     @Transactional
     SemesterDto createNewSemester(SemesterRequestDto newMajor);
 
-    SemesterDto findById(int id);
+    SemesterRequestDto findById(int id);
+
+    @Transactional
+    SemesterDto updateSemester(int id, SemesterRequestDto updatedSemester);
 }
