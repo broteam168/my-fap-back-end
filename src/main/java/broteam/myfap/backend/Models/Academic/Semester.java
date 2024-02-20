@@ -1,12 +1,9 @@
 package broteam.myfap.backend.Models.Academic;
 
-import broteam.myfap.backend.Models.Enums.MajorCategory;
-import broteam.myfap.backend.Models.Major.SubMajor;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "A_Semester")
@@ -24,10 +21,10 @@ public class Semester {
     @Column(name = "Name")
     private String Name;
 
-     @Column(name = "Year")
+    @Column(name = "Year")
     private int Year;
 
-    @Column(name = "Order")
+    @Column(name = "\"Order\"")
     private int Order;
 
     @Column(name = "StartDate")
