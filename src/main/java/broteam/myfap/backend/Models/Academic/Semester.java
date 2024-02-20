@@ -31,7 +31,7 @@ public class Semester {
     private int Order;
 
     @Column(name = "StartDate")
-    private Date FullName;
+    private Date StartDate;
 
     @Column(name = "EndDate")
     private Date EndDate;
