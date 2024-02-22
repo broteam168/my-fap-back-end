@@ -50,7 +50,7 @@ public class AcademicConverter {
         dto.setApprovedDate(entity.getApprovedDate());
         dto.setSlot(entity.getSlot());
         dto.setSubjectId(entity.getSubjectId());
-
+        dto.setActive(entity.isActive());
         return dto;
     }
 
@@ -66,7 +66,7 @@ public class AcademicConverter {
         entity.setApprovedDate(dto.getApprovedDate());
         entity.setSlot(dto.getSlot());
         entity.setSubjectId(dto.getSubjectId());
-
+        entity.setActive((dto.isActive()));
         return entity;
     }
 

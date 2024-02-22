@@ -40,4 +40,7 @@ public class Syllabus {
 
     @Column(name = "SubjectId")
     private int subjectId;
+
+    @Column(name = "isActive")
+    private boolean isActive;
 }

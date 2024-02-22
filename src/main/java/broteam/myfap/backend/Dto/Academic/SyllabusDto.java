@@ -26,4 +26,5 @@ public class SyllabusDto {
     private int slot;
 
     private int subjectId;
+    private boolean isActive;
 }
