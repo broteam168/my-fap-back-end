@@ -16,14 +16,14 @@ import java.util.Date;
 @AllArgsConstructor
 public class CuriculumDto {
     private int id;
-    private Subject subject;
-    private SubMajor subMajor;
+    private int subjectId;
+    private int subMajorId;
     private int order;
     private int semester;
 
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createAt;
 
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateAt;
 }
