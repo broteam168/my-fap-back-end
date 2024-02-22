@@ -21,7 +21,7 @@ public class SyllabusDto {
     private int scoringScale;
     private int markMin;
 
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date approvedDate;
     private int slot;
 
