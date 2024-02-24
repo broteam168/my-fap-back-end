@@ -65,5 +65,22 @@ public class CuriculumController {
                 .build());
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseObject> deleteCuriculum(@Valid @PathVariable int id) {
+        String returnMsg = "Delete successfully";
+        int responseCode = HttpStatus.OK.value();
+        CuriculumDto returnCuriculum = new CuriculumDto();
+        try {
+            returnCuriculum = curiculumService.deleteCurriculum(id);
+        } catch (Exception e) {
+            returnMsg = e.getMessage();
+            responseCode = HttpStatus.OK.value();
+        }
 
+        return ResponseEntity.ok(ResponseObject.builder()
+                        .data(returnCuriculum)
+                        .message(returnMsg)
+                        .responseCode(responseCode)
+                        .build());
+    }
 }
