@@ -13,4 +13,6 @@ public interface CuriculumRespository extends JpaRepository<Curiculum, Integer> 
     Optional<Curiculum> findCuriculumBySubMajorId(@Param("subMajorId") int subMajorId);
 
     Curiculum findById(int id);
+
+
 }

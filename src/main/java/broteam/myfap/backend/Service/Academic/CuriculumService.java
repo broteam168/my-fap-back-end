@@ -40,7 +40,14 @@ public class CuriculumService implements ICuriculumService{
     }
 
     @Override
-    public CuriculumDto deleteCurriculum(int id) {
+    public List<CuriculumDto> findCuriBySubMajorId(int subMajorId) {
+        List<CuriculumDto> results = new ArrayList<>();
+
+
+    }
+
+    @Override
+    public CuriculumDto deleteCuriculum(int id) {
         Curiculum foundCuriculum = curiculumRespository.findById(id);
         if (foundCuriculum == null) {
             throw new NotFoundException("Cannot find Curiculum");
@@ -55,5 +62,18 @@ public class CuriculumService implements ICuriculumService{
 
         Curiculum createdCuriculum = curiculumRespository.save(baseCuriculum);
         return academicConverter.toDto(createdCuriculum);
+    }
+
+    @Override
+    public CuriculumDto updateCuriculum(int id, CuriculumDto newCuriculum) {
+        Curiculum baseCuriculum = academicConverter.toEntity(newCuriculum);
+        Curiculum duplicate = curiculumRespository.findById(id);
+        if (duplicate != null) {
+            baseCuriculum.setId(id);
+            baseCuriculum.setCreatedAt(duplicate.getCreatedAt());
+            Curiculum createCuriculum = curiculumRespository.save(baseCuriculum);
+            return academicConverter.toDto(createCuriculum);
+        }
+        return academicConverter.toDto(baseCuriculum);
     }
 }

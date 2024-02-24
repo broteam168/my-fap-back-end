@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Service.Academic.CuriculumService;
 import jakarta.validation.Valid;
@@ -71,7 +72,7 @@ public class CuriculumController {
         int responseCode = HttpStatus.OK.value();
         CuriculumDto returnCuriculum = new CuriculumDto();
         try {
-            returnCuriculum = curiculumService.deleteCurriculum(id);
+            returnCuriculum = curiculumService.deleteCuriculum(id);
         } catch (Exception e) {
             returnMsg = e.getMessage();
             responseCode = HttpStatus.OK.value();
@@ -82,5 +83,24 @@ public class CuriculumController {
                         .message(returnMsg)
                         .responseCode(responseCode)
                         .build());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> updateCuriculum(@Valid @PathVariable int id, @Valid @RequestBody CuriculumDto newCuriculum) {
+        String returnMsg = "Update Successfully";
+        int responseCode = HttpStatus.OK.value();
+        CuriculumDto returnCuriculum = new CuriculumDto();
+        try {
+            returnCuriculum = curiculumService.updateCuriculum(id, newCuriculum);
+        } catch (Exception e) {
+            returnMsg = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnCuriculum)
+                .message(returnMsg)
+                .responseCode(responseCode)
+                .build());
     }
 }

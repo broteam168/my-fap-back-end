@@ -10,9 +10,14 @@ public interface ICuriculumService {
 
     CuriculumDto findCuriculumById(int id);
 
+    List<CuriculumDto> findCuriBySubMajorId(int subMajorId);
+
     @Transactional
-    CuriculumDto deleteCurriculum(int id);
+    CuriculumDto deleteCuriculum(int id);
 
     @Transactional
     CuriculumDto createNewCuriculum(CuriculumDto newCuriculum);
+
+    @Transactional
+    CuriculumDto updateCuriculum(int id, CuriculumDto newCuriculum);
 }
