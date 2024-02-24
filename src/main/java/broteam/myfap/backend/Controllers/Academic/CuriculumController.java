@@ -45,4 +45,25 @@ public class CuriculumController {
                 .responseCode(responseCode)
                 .build());
     }
+
+    @PostMapping
+    public ResponseEntity<ResponseObject> createCuriculum(@Valid @RequestBody CuriculumDto newCuriculum) {
+        String returnMessage = "Create successfully";
+        int responseCode = HttpStatus.OK.value();
+        CuriculumDto returnCuriculum = new CuriculumDto();
+        try {
+            returnCuriculum = curiculumService.createNewCuriculum(newCuriculum);
+        } catch (Exception e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnCuriculum)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
+
+
 }

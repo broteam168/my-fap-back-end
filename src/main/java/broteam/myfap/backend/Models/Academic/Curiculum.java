@@ -18,12 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Curiculum {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
-
-    @Column(name = "Name")
-    private String name;
 
     @Column(name = "SubjectId")
     private int subjectId;
@@ -31,12 +28,14 @@ public class Curiculum {
     @Column(name = "SubMajorId")
     private int subMajorId;
 
-    @Column(name = "[Order]")
-    private int order;
-
     @Column(name = "Semester")
     private int semester;
 
     @Column(name = "CreatedAt")
     private Date createdAt;
+
+    @PrePersist
+    protected void onDate() {
+        createdAt = new Date();
+    }
 }

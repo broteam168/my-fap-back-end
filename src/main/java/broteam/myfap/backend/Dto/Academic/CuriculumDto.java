@@ -16,10 +16,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class CuriculumDto {
     private int id;
-    private String name;
     private int subjectId;
     private int subMajorId;
-    private int order;
     private int semester;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

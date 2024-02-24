@@ -52,10 +52,7 @@ public class CuriculumService implements ICuriculumService{
     @Override
     public CuriculumDto createNewCuriculum(CuriculumDto newCuriculum) {
         Curiculum baseCuriculum = academicConverter.toEntity(newCuriculum);
-        Optional<Curiculum> duplicate = curiculumRespository.findCuriculumByName(baseCuriculum.getName());
-        if (duplicate.stream().count() > 0) {
-            throw new CuriculumException("Curiculum name is already used");
-        }
+
         Curiculum createdCuriculum = curiculumRespository.save(baseCuriculum);
         return academicConverter.toDto(createdCuriculum);
     }
