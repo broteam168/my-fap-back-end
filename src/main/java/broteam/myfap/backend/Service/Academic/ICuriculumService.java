@@ -12,4 +12,7 @@ public interface ICuriculumService {
 
     @Transactional
     CuriculumDto deleteCurriculum(int id);
+
+    @Transactional
+    CuriculumDto createNewCuriculum(CuriculumDto newCuriculum);
 }

@@ -22,13 +22,16 @@ public class Curiculum {
     @Column(name = "Id")
     private int id;
 
+    @Column(name = "Name")
+    private String name;
+
     @Column(name = "SubjectId")
     private int subjectId;
 
     @Column(name = "SubMajorId")
     private int subMajorId;
 
-    @Column(name = "Order")
+    @Column(name = "[Order]")
     private int order;
 
     @Column(name = "Semester")
@@ -36,7 +39,4 @@ public class Curiculum {
 
     @Column(name = "CreatedAt")
     private Date createdAt;
-
-    @Column(name = "UpdateAt")
-    private Date updateAt;
 }

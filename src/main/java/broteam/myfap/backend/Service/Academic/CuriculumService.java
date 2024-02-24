@@ -2,6 +2,7 @@ package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Exception.Academic.CuriculumException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Curiculum;
 import broteam.myfap.backend.Models.Academic.Syllabus;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,5 +47,16 @@ public class CuriculumService implements ICuriculumService{
         }
         curiculumRespository.deleteById(id);
         return academicConverter.toDto(foundCuriculum);
+    }
+
+    @Override
+    public CuriculumDto createNewCuriculum(CuriculumDto newCuriculum) {
+        Curiculum baseCuriculum = academicConverter.toEntity(newCuriculum);
+        Optional<Curiculum> duplicate = curiculumRespository.findCuriculumByName(baseCuriculum.getName());
+        if (duplicate.stream().count() > 0) {
+            throw new CuriculumException("Curiculum name is already used");
+        }
+        Curiculum createdCuriculum = curiculumRespository.save(baseCuriculum);
+        return academicConverter.toDto(createdCuriculum);
     }
 }

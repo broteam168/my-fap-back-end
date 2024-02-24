@@ -10,7 +10,10 @@ import java.util.Optional;
 public interface CuriculumRespository extends JpaRepository<Curiculum, Integer> {
 
     @Query("select c from Curiculum c where c.subMajorId = :subMajorId")
-    Optional<Curiculum> findBySubMajorId(@Param("SubMajorId") int subMajorId);
+    Optional<Curiculum> findCuriculumBySubMajorId(@Param("subMajorId") int subMajorId);
 
     Curiculum findById(int id);
+
+    @Query("select c from Curiculum c where c.name = :name")
+    Optional<Curiculum> findCuriculumByName(@Param("name") String name);
 }
