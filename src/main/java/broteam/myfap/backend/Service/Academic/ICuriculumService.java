@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface ICuriculumService {
 
     @Transactional
     CuriculumDto updateCuriculum(int id, CuriculumDto newCuriculum);
+
+    @Transactional
+    SubjectDto getSubjectByCuriculum(int id);
 }

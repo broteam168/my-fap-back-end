@@ -2,11 +2,17 @@ package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.SubjectDto;
+import broteam.myfap.backend.Dto.Major.SubMajorDto;
 import broteam.myfap.backend.Exception.Academic.CuriculumException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Curiculum;
+import broteam.myfap.backend.Models.Academic.Subject;
 import broteam.myfap.backend.Models.Academic.Syllabus;
+import broteam.myfap.backend.Models.Major.SubMajor;
 import broteam.myfap.backend.Repository.Academic.CuriculumRespository;
+import broteam.myfap.backend.Repository.Academic.SubjectRespository;
+import broteam.myfap.backend.Service.Major.SubMajorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +26,8 @@ public class CuriculumService implements ICuriculumService{
     private final CuriculumRespository curiculumRespository;
     private final AcademicConverter academicConverter;
     private final SubjectService subjectService;
-
+    private final SubMajorService subMajorService;
+    private final SubjectRespository subjectRespository;
     @Override
     public List<CuriculumDto> findAllBase() {
         List<CuriculumDto> results = new ArrayList<>();
@@ -42,8 +49,11 @@ public class CuriculumService implements ICuriculumService{
     @Override
     public List<CuriculumDto> findCuriBySubMajorId(int subMajorId) {
         List<CuriculumDto> results = new ArrayList<>();
-
-
+        List<Curiculum> entities = curiculumRespository.findCuriculumBySubMajorId(subMajorId);
+        for (Curiculum entity : entities) {
+            results.add(academicConverter.toDto(entity));
+        }
+        return results;
     }
 
     @Override
@@ -75,5 +85,14 @@ public class CuriculumService implements ICuriculumService{
             return academicConverter.toDto(createCuriculum);
         }
         return academicConverter.toDto(baseCuriculum);
+    }
+
+    @Override
+    public SubjectDto getSubjectByCuriculum(int id) {
+        Subject gotSubject = subjectRespository.findById(id);
+        if (gotSubject == null) {
+            throw new NotFoundException("Cannot find subject");
+        }
+        return academicConverter.toDto(gotSubject);
     }
 }

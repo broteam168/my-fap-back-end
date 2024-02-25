@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Service.Academic.CuriculumService;
@@ -42,6 +43,34 @@ public class CuriculumController {
         }
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(returnCuriculum)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
+
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getCuriBySubMajorId(@RequestParam(name = "subMajorId") @Valid int subMajorId) {
+        List<CuriculumDto> allCuriculum = curiculumService.findCuriBySubMajorId(subMajorId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                        .data(allCuriculum)
+                        .message("Get successful")
+                        .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+
+    @GetMapping("searchSubject")
+    public ResponseEntity<ResponseObject> getSubjectByCuriculum(@RequestParam(name = "subjectId") @Valid int subjectId) {
+        String returnMessage = "Get Successfully";
+        int responseCode = HttpStatus.OK.value();
+        SubjectDto returnSubject = new SubjectDto();
+        try {
+            returnSubject = curiculumService.getSubjectByCuriculum(subjectId);
+        } catch (Exception e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnSubject)
                 .message(returnMessage)
                 .responseCode(responseCode)
                 .build());
@@ -103,4 +132,6 @@ public class CuriculumController {
                 .responseCode(responseCode)
                 .build());
     }
+
+
 }
