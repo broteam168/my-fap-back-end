@@ -1,6 +1,7 @@
 package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.CuriculumRequest;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import jakarta.transaction.Transactional;
 
@@ -17,10 +18,10 @@ public interface ICuriculumService {
     CuriculumDto deleteCuriculum(int id);
 
     @Transactional
-    CuriculumDto createNewCuriculum(CuriculumDto newCuriculum);
+    CuriculumDto createNewCuriculum(CuriculumRequest newCuriculum);
 
     @Transactional
-    CuriculumDto updateCuriculum(int id, CuriculumDto newCuriculum);
+    CuriculumDto updateCuriculum(int id, CuriculumRequest newCuriculum);
 
     @Transactional
     SubjectDto getSubjectByCuriculum(int id);

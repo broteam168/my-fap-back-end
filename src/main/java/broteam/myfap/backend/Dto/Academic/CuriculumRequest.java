@@ -1,7 +1,6 @@
 package broteam.myfap.backend.Dto.Academic;
 
 import broteam.myfap.backend.Models.Academic.Subject;
-import broteam.myfap.backend.Models.Major.SubMajor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +13,9 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CuriculumDto {
+public class CuriculumRequest {
     private int id;
-    private Subject subject;
+    private int subjectId;
     private int subMajorId;
     private int semester;
 

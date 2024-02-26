@@ -1,9 +1,11 @@
 package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.CuriculumRequest;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Exception.Academic.CuriculumException;
 import broteam.myfap.backend.Service.Academic.CuriculumService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +79,7 @@ public class CuriculumController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseObject> createCuriculum(@Valid @RequestBody CuriculumDto newCuriculum) {
+    public ResponseEntity<ResponseObject> createCuriculum(@Valid @RequestBody CuriculumRequest newCuriculum) {
         String returnMessage = "Create successfully";
         int responseCode = HttpStatus.OK.value();
         CuriculumDto returnCuriculum = new CuriculumDto();
@@ -115,14 +117,17 @@ public class CuriculumController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateCuriculum(@Valid @PathVariable int id, @Valid @RequestBody CuriculumDto newCuriculum) {
+    public ResponseEntity<ResponseObject> updateCuriculum(@Valid @PathVariable int id, @Valid @RequestBody CuriculumRequest newCuriculum) {
         String returnMsg = "Update Successfully";
         int responseCode = HttpStatus.OK.value();
         CuriculumDto returnCuriculum = new CuriculumDto();
         try {
             returnCuriculum = curiculumService.updateCuriculum(id, newCuriculum);
-        } catch (Exception e) {
+        } catch (CuriculumException e) {
             returnMsg = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception e1) {
+            returnMsg = e1.getMessage();
             responseCode = HttpStatus.ACCEPTED.value();
         }
 

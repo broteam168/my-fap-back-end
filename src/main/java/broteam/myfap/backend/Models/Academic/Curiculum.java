@@ -22,6 +22,10 @@ public class Curiculum {
     @Column(name = "Id")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "SubjectId", insertable = false, updatable = false)
+    private Subject subject;
+
     @Column(name = "SubjectId")
     private int subjectId;
 

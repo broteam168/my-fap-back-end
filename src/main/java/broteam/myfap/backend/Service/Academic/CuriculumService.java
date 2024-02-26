@@ -2,6 +2,7 @@ package broteam.myfap.backend.Service.Academic;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.CuriculumRequest;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
 import broteam.myfap.backend.Dto.Major.SubMajorDto;
 import broteam.myfap.backend.Exception.Academic.CuriculumException;
@@ -14,7 +15,9 @@ import broteam.myfap.backend.Repository.Academic.CuriculumRespository;
 import broteam.myfap.backend.Repository.Academic.SubjectRespository;
 import broteam.myfap.backend.Service.Major.SubMajorService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class CuriculumService implements ICuriculumService{
     private final SubjectService subjectService;
     private final SubMajorService subMajorService;
     private final SubjectRespository subjectRespository;
+    private final ModelMapper modelMapper = new ModelMapper();
     @Override
     public List<CuriculumDto> findAllBase() {
         List<CuriculumDto> results = new ArrayList<>();
@@ -56,6 +60,7 @@ public class CuriculumService implements ICuriculumService{
         return results;
     }
 
+    @Transactional
     @Override
     public CuriculumDto deleteCuriculum(int id) {
         Curiculum foundCuriculum = curiculumRespository.findById(id);
@@ -66,17 +71,29 @@ public class CuriculumService implements ICuriculumService{
         return academicConverter.toDto(foundCuriculum);
     }
 
+    @Transactional
     @Override
-    public CuriculumDto createNewCuriculum(CuriculumDto newCuriculum) {
-        Curiculum baseCuriculum = academicConverter.toEntity(newCuriculum);
+    public CuriculumDto createNewCuriculum(CuriculumRequest newCuriculum) {
+        Curiculum baseCuriculum = modelMapper.map(newCuriculum, Curiculum.class);
 
+        Optional<Curiculum> duplicate = curiculumRespository.findCuriculumByAll(baseCuriculum.getSubjectId(), baseCuriculum.getSubMajorId(), baseCuriculum.getSemester());
+        if (duplicate.stream().count() > 0) {
+            throw new RuntimeException("Curiculum is exist");
+        }
         Curiculum createdCuriculum = curiculumRespository.save(baseCuriculum);
         return academicConverter.toDto(createdCuriculum);
     }
 
+    @Transactional
     @Override
-    public CuriculumDto updateCuriculum(int id, CuriculumDto newCuriculum) {
-        Curiculum baseCuriculum = academicConverter.toEntity(newCuriculum);
+    public CuriculumDto updateCuriculum(int id, CuriculumRequest newCuriculum) {
+        Curiculum baseCuriculum = modelMapper.map(newCuriculum, Curiculum.class);
+
+        Optional<Curiculum> duplicate2 = curiculumRespository.findCuriculumBySubjectIdAndSemester(baseCuriculum.getSubjectId(), baseCuriculum.getSemester());
+        if (duplicate2.stream().count() > 0) {
+            throw new CuriculumException("Subject is exist in semester");
+        }
+
         Curiculum duplicate = curiculumRespository.findById(id);
         if (duplicate != null) {
             baseCuriculum.setId(id);
@@ -84,6 +101,8 @@ public class CuriculumService implements ICuriculumService{
             Curiculum createCuriculum = curiculumRespository.save(baseCuriculum);
             return academicConverter.toDto(createCuriculum);
         }
+
+
         return academicConverter.toDto(baseCuriculum);
     }
 

@@ -77,7 +77,7 @@ public class AcademicConverter {
         if (entity.getId() > 0) {
             dto.setId(entity.getId());
         }
-        dto.setSubjectId(entity.getSubjectId());
+        dto.setSubject(entity.getSubject());
         dto.setSubMajorId(entity.getSubMajorId());
         dto.setSemester(entity.getSemester());
         dto.setCreateAt(entity.getCreatedAt());
@@ -89,7 +89,7 @@ public class AcademicConverter {
         if (dto.getId() > 0) {
             entity.setId(dto.getId());
         }
-        entity.setSubjectId(dto.getSubjectId());
+        entity.setSubject(dto.getSubject());
         entity.setSubMajorId(dto.getSubMajorId());
         entity.setSemester(dto.getSemester());
         entity.setCreatedAt(dto.getCreateAt());
