@@ -3,6 +3,7 @@ package broteam.myfap.backend.Dto.Academic;
 import broteam.myfap.backend.Models.Academic.Subject;
 import broteam.myfap.backend.Models.Major.SubMajor;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class CuriculumDto {
     private int subMajorId;
     private int semester;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonProperty("createAt" )
+    @JsonFormat(pattern = "yyyy-MM-dd" , timezone = "GMT+7")
     private Date createAt;
 }
