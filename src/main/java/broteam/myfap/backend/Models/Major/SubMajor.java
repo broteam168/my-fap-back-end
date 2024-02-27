@@ -1,8 +1,11 @@
 package broteam.myfap.backend.Models.Major;
 
+import broteam.myfap.backend.Models.Academic.Curiculum;
 import broteam.myfap.backend.Models.Enums.MajorCategory;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "M_SubMajor")
@@ -37,4 +40,8 @@ public class SubMajor {
 
     @Column(name = "IsActive")
     private boolean IsActive;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SubMajorId", insertable = false, updatable = false)
+    private List<Curiculum> curiculums;
 }

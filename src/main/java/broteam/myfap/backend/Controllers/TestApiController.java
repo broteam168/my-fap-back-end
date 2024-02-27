@@ -14,6 +14,7 @@ public class TestApiController {
     @GetMapping
     public Object getTest()
     {
+
         return userRepository.findByUserName("admin");
     }
 }
