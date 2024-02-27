@@ -82,6 +82,26 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/time/slot/*").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/subject").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/subject/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/subject").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/academic/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/subject/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/syllabus/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/syllabus").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/academic/syllabus/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/syllabus/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/curiculum").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/curiculum").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
+
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
