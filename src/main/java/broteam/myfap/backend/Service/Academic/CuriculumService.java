@@ -89,10 +89,10 @@ public class CuriculumService implements ICuriculumService{
     public CuriculumDto updateCuriculum(int id, CuriculumRequest newCuriculum) {
         Curiculum baseCuriculum = modelMapper.map(newCuriculum, Curiculum.class);
 
-        Optional<Curiculum> duplicate2 = curiculumRespository.findCuriculumBySubjectIdAndSemester(baseCuriculum.getSubjectId(), baseCuriculum.getSemester());
-        if (duplicate2.stream().count() > 0) {
-            throw new CuriculumException("Subject is exist in semester");
-        }
+//        Optional<Curiculum> duplicate2 = curiculumRespository.findCuriculumBySubjectIdAndSemester(baseCuriculum.getSubjectId(), baseCuriculum.getSemester());
+//        if (duplicate2.stream().count() > 0) {
+//            throw new CuriculumException("Subject is exist in semester");
+//        }
 
         Curiculum duplicate = curiculumRespository.findById(id);
         if (duplicate != null) {
