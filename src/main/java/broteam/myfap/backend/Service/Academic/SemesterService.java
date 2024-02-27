@@ -76,4 +76,14 @@ public class SemesterService implements ISemesterService {
 
         return academicConverter.toDto(duplicate2.get());
     }
+    public SemesterDto getCurrentSemester()
+    {
+        List<SemesterDto> results = new ArrayList<>();
+        for(Semester semester :  semesterRepository.findAll())
+        {
+
+            if(semester.isIsActive()) results.add(academicConverter.toDto(semester));
+        }
+        return results.get(0);
+    }
 }

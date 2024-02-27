@@ -60,6 +60,14 @@ public class CuriculumService implements ICuriculumService{
         return results;
     }
 
+    public List<CuriculumDto> findCuriBySubMajorIdAndSememster(int subMajorId,int semester) {
+        List<CuriculumDto> results = new ArrayList<>();
+        List<Curiculum> entities = curiculumRespository.findCuriculumBySubMajorId(subMajorId);
+        for (Curiculum entity : entities) {
+            if(entity.getSemester() == semester)results.add(academicConverter.toDto(entity));
+        }
+        return results;
+    }
     @Transactional
     @Override
     public CuriculumDto deleteCuriculum(int id) {
