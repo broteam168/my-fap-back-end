@@ -125,6 +125,7 @@ CREATE TABLE [dbo].[U_School](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
     GO
+
 create table A_Curiculum
 (
     Id         int,
@@ -150,10 +151,35 @@ CREATE TABLE [dbo].[A_Curiculum](
     ) ON [PRIMARY]
     GO
 /****** Object:  Table [dbo].[A_Subject]    Script Date: 2/27/2024 4:12:23 PM ******/
+
+
+    USE [my-fap]
+    GO
+/****** Object:  Table [dbo].[U_Room]    Script Date: 2/9/2024 5:32:03 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
     GO
+CREATE TABLE [dbo].[U_Room](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Name] [nvarchar](200) NOT NULL,
+    [Description] [nvarchar](max) NOT NULL,
+    [Building] [nvarchar](200) NOT NULL,
+    [Type] [nvarchar](100) NOT NULL,
+    [IsActive] [bit] NOT NULL,
+    CONSTRAINT [PK_U_Room] PRIMARY KEY CLUSTERED
+(
+[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+    ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+    GO
+/****** Object:  Table [dbo].[T_Slot]    Script Date: 2/19/2024 2:24:18 PM ******/
+
+    SET ANSI_NULLS ON
+    GO
+    SET QUOTED_IDENTIFIER ON
+    GO
+
 CREATE TABLE [dbo].[A_Subject](
     [id] [int] IDENTITY(1,1) NOT NULL,
     [subjectCode] [nvarchar](50) NOT NULL,
@@ -171,10 +197,28 @@ CREATE TABLE [dbo].[A_Subject](
     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
     GO
 /****** Object:  Table [dbo].[A_Syllabus]    Script Date: 2/27/2024 4:12:23 PM ******/
+
+CREATE TABLE [dbo].[T_Slot](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Name] [nvarchar](200) NOT NULL,
+    [Description] [nvarchar](300) NOT NULL,
+    [StartTime] [time](7) NOT NULL,
+    [EndTime] [time](7) NOT NULL,
+    [Order] [int] NOT NULL,
+    [GroupId] [int] NOT NULL,
+    CONSTRAINT [PK_T_Slot] PRIMARY KEY CLUSTERED
+(
+[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+    ) ON [PRIMARY]
+    GO
+/****** Object:  Table [dbo].[T_Group_Slot]    Script Date: 2/19/2024 4:40:58 PM ******/
+
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
     GO
+
 CREATE TABLE [dbo].[A_Syllabus](
     [Id] [int] IDENTITY(1,1) NOT NULL,
     [StudentTasks] [nvarchar](max) NOT NULL,
@@ -193,3 +237,15 @@ CREATE TABLE [dbo].[A_Syllabus](
     GO
 ALTER TABLE [dbo].[A_Curiculum] ADD  CONSTRAINT [DF__A_Curicul__Creat__09A971A2]  DEFAULT (getdate()) FOR [CreatedAt]
     GO
+
+CREATE TABLE [dbo].[T_Group_Slot](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Name] [nvarchar](200) NOT NULL,
+    [Description] [nvarchar](300) NOT NULL,
+    CONSTRAINT [PK_T_Group_Slot] PRIMARY KEY CLUSTERED
+(
+[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+    ) ON [PRIMARY]
+    GO
+
