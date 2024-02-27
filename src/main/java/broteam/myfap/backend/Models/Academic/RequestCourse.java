@@ -34,23 +34,23 @@ public class RequestCourse {
 
 
     @Column(name = "ClassId")
-    private int ClassId;
+    private Integer ClassId;
 
     @Column(name = "SubMajorId")
-    private int SubMajorId;
+    private Integer SubMajorId;
 
 
     @Column(name = "RoomId")
-    private int RoomId;;
+    private Integer RoomId;;
 
     @Column(name = "SemesterId")
-    private int SemesterId;
+    private Integer SemesterId;
 
     @Column(name = "SubjectId")
-    private int SubjectId;
+    private Integer SubjectId;
 
     @Column(name = "TeacherId")
-    private int TeacherId;
+    private Integer TeacherId;
 
 
 }

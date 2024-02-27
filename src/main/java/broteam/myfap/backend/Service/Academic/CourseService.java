@@ -62,17 +62,16 @@ public class CourseService implements ICourseService{
             {
                    RequestCourse newCourse = new RequestCourse();
                    newCourse.setClassId(currentClass.getId());
-                   newCourse.setName(currentClass.getName()+"_"+dto.getSubject().getName());
+                   newCourse.setName(currentClass.getName()+"_"+dto.getSubject().getSubjectCode());
                    newCourse.setStatus("DRAFT");
                    newCourse.setSemesterId(currentSemester.getId());
                    newCourse.setSubMajorId(common.getId());
                   newCourse.setSubjectId(dto.getSubject().getId());
+                  newCourse.setRoomId(null);
                 RequestCourse retur = courseRequestRespository.save(newCourse);
                if(retur!=null) results.add(modelMapper.map(retur,ReturnCourseDto.class));
             }
         }
-
-
         return results;
     }
 

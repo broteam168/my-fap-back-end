@@ -12,11 +12,11 @@ public class ReturnCourseDto {
     private String Status;
     private String Slots;
     private String Days;
-    private int ClassId;
-    private int SubMajorId;
+    private Integer ClassId;
+    private Integer SubMajorId;
 
-    private int RoomId;
-    private int SemesterId;
-    private int SubjectId;
-    private int TeacherId;
+    private Integer RoomId;
+    private Integer SemesterId;
+    private Integer SubjectId;
+    private Integer TeacherId;
 }

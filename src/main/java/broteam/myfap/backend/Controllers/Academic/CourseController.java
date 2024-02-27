@@ -47,5 +47,13 @@ public class CourseController {
                 .responseCode(responseCode)
                 .build());
     }
-
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getAllBase() {
+        List<CourseDto> allSemester = courseService.findAllBase();
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allSemester)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
 }
