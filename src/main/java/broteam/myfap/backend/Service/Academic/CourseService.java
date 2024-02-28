@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +75,26 @@ public class CourseService implements ICourseService{
         }
         return results;
     }
+    @Override
+    public List<CourseDto> findBySchoolAndClass(Optional<Integer> schoolId, Optional<Integer> classid) {
+        List<CourseDto> results = new ArrayList<>();
 
+        if(schoolId.isEmpty()) {
+            return findAllBase();
 
+        }else
+        {
+            List<ClassDto> classes = classService.FindBySchoolId(schoolId.get());
+            if(!classid.isEmpty()) {
+                classes = classes.stream().filter(x->x.getId() == classid.get()).toList();
+            }
+                for (ClassDto dto : classes) {
+                    List<Course> courses = courseRespository.findByClassId(dto.getId());
+                    for (Course course : courses) {
+                        results.add(modelMapper.map(course,CourseDto.class));
+                    }
+                }
+        }
+        return results;
+    }
 }
