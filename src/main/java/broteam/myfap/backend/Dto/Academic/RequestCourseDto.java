@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 public class RequestCourseDto {
-    private int id;
+    private Integer Id;
 
     private String Name;
 

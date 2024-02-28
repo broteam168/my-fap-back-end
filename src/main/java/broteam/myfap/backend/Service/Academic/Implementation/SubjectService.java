@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Implementation;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
@@ -6,9 +6,8 @@ import broteam.myfap.backend.Exception.Academic.SubjectException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Academic.Subject;
-import broteam.myfap.backend.Models.Unit.Class;
-import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Repository.Academic.SubjectRespository;
+import broteam.myfap.backend.Service.Academic.Interface.ISubjectService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class SubjectService implements ISubjectService{
+public class SubjectService implements ISubjectService {
 
     private final SubjectRespository subjectRespository;
     private final AcademicConverter academicConverter;

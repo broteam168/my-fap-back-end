@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Implementation;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SemesterDto;
@@ -6,6 +6,7 @@ import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Semester;
 import broteam.myfap.backend.Repository.Academic.SemesterRepository;
+import broteam.myfap.backend.Service.Academic.Interface.ISemesterService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

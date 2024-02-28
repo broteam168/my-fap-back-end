@@ -2,12 +2,9 @@ package broteam.myfap.backend.Controllers.Academic;
 
 import broteam.myfap.backend.Dto.Academic.SemesterDto;
 import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;
-import broteam.myfap.backend.Dto.Major.MajorDto;
-import broteam.myfap.backend.Dto.Major.MajorRequestDto;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Service.Academic.ISemesterService;
-import broteam.myfap.backend.Service.Major.IMajorService;
+import broteam.myfap.backend.Service.Academic.Interface.ISemesterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

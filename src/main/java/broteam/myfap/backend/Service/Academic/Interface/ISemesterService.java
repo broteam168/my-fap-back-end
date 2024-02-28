@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Interface;
 
 import broteam.myfap.backend.Dto.Academic.SemesterDto;
 import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;

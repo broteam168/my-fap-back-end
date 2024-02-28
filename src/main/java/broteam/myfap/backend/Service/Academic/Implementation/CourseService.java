@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Implementation;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.*;
@@ -9,6 +9,7 @@ import broteam.myfap.backend.Models.Academic.Course;
 import broteam.myfap.backend.Models.Academic.RequestCourse;
 import broteam.myfap.backend.Repository.Academic.CourseRequestRespository;
 import broteam.myfap.backend.Repository.Academic.CourseRespository;
+import broteam.myfap.backend.Service.Academic.Interface.ICourseService;
 import broteam.myfap.backend.Service.Major.SubMajorService;
 import broteam.myfap.backend.Service.Unit.ClassService;
 import jakarta.transaction.Transactional;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CourseService implements ICourseService{
+public class CourseService implements ICourseService {
     private final CourseRespository courseRespository;
     private final CourseRequestRespository courseRequestRespository;
 
@@ -73,7 +74,6 @@ public class CourseService implements ICourseService{
         SemesterDto currentSemester = semesterService.getCurrentSemester();
         if(newData.getSemester() < 5)
         {
-            List<SubjectDto> gotSubjects = new ArrayList<>();
             List<SubMajorDto> gotSub=subMajorService.FindByMajorId(currentClass.getMajor().getId());
             SubMajorDto common = gotSub.stream().filter(x->x.isIsCommon()).toList().get(0);
             List<CuriculumDto> curiculumDtos =  curiculumService.findCuriBySubMajorIdAndSememster(common.getId(),newData.getSemester());

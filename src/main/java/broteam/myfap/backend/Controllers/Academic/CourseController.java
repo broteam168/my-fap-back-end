@@ -3,8 +3,7 @@ package broteam.myfap.backend.Controllers.Academic;
 import broteam.myfap.backend.Dto.Academic.*;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Models.Academic.RequestCourse;
-import broteam.myfap.backend.Service.Academic.ICourseService;
+import broteam.myfap.backend.Service.Academic.Interface.ICourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -68,13 +67,14 @@ public class CourseController {
         allSemester = courseService.findBySchoolAndClass(schoolId, classId);
         return ResponseEntity.ok(ResponseObject.builder().data(allSemester).message("Get successful").responseCode(HttpStatus.OK.value()).build());
     }
+
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> update(@Valid @PathVariable int id,@Valid @RequestBody RequestCourseDto newCourse) {
+    public ResponseEntity<ResponseObject> updateCourse(@Valid @PathVariable int id,@Valid @RequestBody RequestCourseDto newClass) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
-        SemesterDto returnMajor = new SemesterDto();
+        ReturnCourseDto returnMajor = new ReturnCourseDto();
         try {
-//            returnMajor = semesterService.updateSemester(id,newClass);
+            returnMajor = courseService.updateCourse(id,newClass);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();

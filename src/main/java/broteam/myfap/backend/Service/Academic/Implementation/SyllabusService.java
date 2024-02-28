@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Implementation;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
@@ -7,6 +7,7 @@ import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Subject;
 import broteam.myfap.backend.Models.Academic.Syllabus;
 import broteam.myfap.backend.Repository.Academic.SyllabusRespository;
+import broteam.myfap.backend.Service.Academic.Interface.ISyllabusService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 
-public class SyllabusService implements ISyllabusService{
+public class SyllabusService implements ISyllabusService {
     private final SyllabusRespository syllabusRespository;
     private final AcademicConverter academicConverter;
     private final SubjectService subjectService;
