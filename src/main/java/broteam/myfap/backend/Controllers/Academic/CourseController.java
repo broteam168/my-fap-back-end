@@ -1,9 +1,9 @@
 package broteam.myfap.backend.Controllers.Academic;
 
-import broteam.myfap.backend.Dto.Academic.CourseDto;
-import broteam.myfap.backend.Dto.Academic.CourseRequest1Dto;
-import broteam.myfap.backend.Dto.Academic.ReturnCourseDto;
+import broteam.myfap.backend.Dto.Academic.*;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Exception.Unit.SchoolException;
+import broteam.myfap.backend.Models.Academic.RequestCourse;
 import broteam.myfap.backend.Service.Academic.ICourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,26 @@ public class CourseController {
         List<CourseDto> allSemester = courseService.findAllBase();
         return ResponseEntity.ok(ResponseObject.builder().data(allSemester).message("Get successful").responseCode(HttpStatus.OK.value()).build());
     }
-
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
+        String returnMessage = "GET Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        CourseDto returnCourse = new CourseDto();
+        try {
+            returnCourse = courseService.findById(id);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnCourse)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
+    }
     @PostMapping
     public ResponseEntity<ResponseObject> createCourse(@Valid @RequestBody CourseRequest1Dto newCourse) {
         String returnMessage = "Create successfully";
@@ -48,5 +67,25 @@ public class CourseController {
         List<CourseDto> allSemester = new ArrayList<>();
         allSemester = courseService.findBySchoolAndClass(schoolId, classId);
         return ResponseEntity.ok(ResponseObject.builder().data(allSemester).message("Get successful").responseCode(HttpStatus.OK.value()).build());
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseObject> update(@Valid @PathVariable int id,@Valid @RequestBody RequestCourseDto newCourse) {
+        String returnMessage = "Update Successfully";
+        int resposeCode = HttpStatus.OK.value();
+        SemesterDto returnMajor = new SemesterDto();
+        try {
+//            returnMajor = semesterService.updateSemester(id,newClass);
+        } catch (SchoolException ex) {
+            returnMessage = ex.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        } catch (Exception ex2) {
+            returnMessage = ex2.getMessage();
+            resposeCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnMajor)
+                .message(returnMessage)
+                .responseCode(resposeCode)
+                .build());
     }
 }

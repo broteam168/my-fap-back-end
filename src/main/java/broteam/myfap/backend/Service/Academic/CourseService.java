@@ -4,6 +4,7 @@ import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.*;
 import broteam.myfap.backend.Dto.Major.SubMajorDto;
 import broteam.myfap.backend.Dto.Unit.ClassDto;
+import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Course;
 import broteam.myfap.backend.Models.Academic.RequestCourse;
 import broteam.myfap.backend.Repository.Academic.CourseRequestRespository;
@@ -39,7 +40,26 @@ public class CourseService implements ICourseService{
         }
         return results;
     }
+    @Override
+    public CourseDto findById(int id) {
+        Optional<Course> course = courseRespository.findById(id);
+        if(course.isEmpty() ) throw new NotFoundException("Cannot find course");
+        return modelMapper.map(course.get(),CourseDto.class);
+    }
+    @Transactional
+    @Override
+    public ReturnCourseDto updateCourse(int id, RequestCourseDto updatedCourse) {
+        RequestCourse base = modelMapper.map(updatedCourse, RequestCourse.class);
 
+        Optional<RequestCourse> duplicate = courseRequestRespository.findById(id);
+
+        if(duplicate.isPresent()) {
+
+            base.setId(duplicate.get().getId());
+            courseRequestRespository.save(base);
+        }
+        return modelMapper.map(base,ReturnCourseDto.class);
+    }
     @Transactional
     @Override
     public List<ReturnCourseDto> addCoursesByClasses(CourseRequest1Dto newData) {
@@ -51,7 +71,6 @@ public class CourseService implements ICourseService{
 
         /// Get current semester
         SemesterDto currentSemester = semesterService.getCurrentSemester();
-        System.out.println(currentSemester.getId());
         if(newData.getSemester() < 5)
         {
             List<SubjectDto> gotSubjects = new ArrayList<>();
