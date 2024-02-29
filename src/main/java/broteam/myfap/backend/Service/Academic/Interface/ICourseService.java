@@ -19,4 +19,7 @@ public interface ICourseService {
     List<ReturnCourseDto> addCoursesByClasses(CourseRequest1Dto newData);
 
     List<CourseDto> findBySchoolAndClass(Optional<Integer> schoolId, Optional<Integer> classid);
+
+    @Transactional
+    RequestCourseDto deleteById(int id);
 }

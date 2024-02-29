@@ -124,4 +124,18 @@ public class CourseService implements ICourseService {
         }
         return results;
     }
+
+    @Transactional
+    @Override
+    public RequestCourseDto deleteById(int id) {
+
+        Optional<RequestCourse> duplicate2 = courseRequestRespository.findById(id);
+        if(duplicate2.isEmpty())
+            throw new NotFoundException("Cannot find semester");
+        if(duplicate2.get().getStatus()!="DRAFT")
+            throw new NotFoundException("Cannot delete start course");
+        courseRequestRespository.deleteById(id);
+
+        return modelMapper.map(duplicate2.get(),RequestCourseDto.class);
+    }
 }
