@@ -33,34 +33,43 @@ public class CourseService implements ICourseService {
     private final SubMajorService subMajorService;
     private final CuriculumService curiculumService;
     private final ModelMapper modelMapper = new ModelMapper();
+
     @Override
     public List<CourseDto> findAllBase() {
         List<CourseDto> results = new ArrayList<>();
         for (Course course : courseRespository.findAll()) {
-            results.add(modelMapper.map(course,CourseDto.class));
+            results.add(modelMapper.map(course, CourseDto.class));
         }
         return results;
     }
+
     @Override
     public CourseDto findById(int id) {
         Optional<Course> course = courseRespository.findById(id);
-        if(course.isEmpty() ) throw new NotFoundException("Cannot find course");
-        return modelMapper.map(course.get(),CourseDto.class);
+        if (course.isEmpty()) throw new NotFoundException("Cannot find course");
+        return modelMapper.map(course.get(), CourseDto.class);
     }
+
     @Transactional
     @Override
-    public ReturnCourseDto updateCourse(int id, RequestCourseDto updatedCourse) {
+    public ReturnCourseDto updateCourse(int id, RequestCourseDto updatedCourse, boolean active) {
         RequestCourse base = modelMapper.map(updatedCourse, RequestCourse.class);
-
+        if (active) {
+            base.setStatus("ASSIGN");
+            Optional<RequestCourse> du = courseRequestRespository.findByRoomId(base.getRoomId());
+            if(du.isPresent()) throw new RuntimeException("Room is used");
+        }
         Optional<RequestCourse> duplicate = courseRequestRespository.findById(id);
 
-        if(duplicate.isPresent()) {
 
+        if (duplicate.isPresent()) {
+            base.setTeacherId(duplicate.get().getTeacherId());
             base.setId(duplicate.get().getId());
             courseRequestRespository.save(base);
         }
-        return modelMapper.map(base,ReturnCourseDto.class);
+        return modelMapper.map(base, ReturnCourseDto.class);
     }
+
     @Transactional
     @Override
     public List<ReturnCourseDto> addCoursesByClasses(CourseRequest1Dto newData) {
@@ -68,51 +77,50 @@ public class CourseService implements ICourseService {
         List<ReturnCourseDto> results = new ArrayList<>();
 
         ///Get current class
-        ClassDto currentClass  = classService.findClassById(newData.getClassId());
+        ClassDto currentClass = classService.findClassById(newData.getClassId());
 
         /// Get current semester
         SemesterDto currentSemester = semesterService.getCurrentSemester();
-        if(newData.getSemester() < 5)
-        {
-            List<SubMajorDto> gotSub=subMajorService.FindByMajorId(currentClass.getMajor().getId());
-            SubMajorDto common = gotSub.stream().filter(x->x.isIsCommon()).toList().get(0);
-            List<CuriculumDto> curiculumDtos =  curiculumService.findCuriBySubMajorIdAndSememster(common.getId(),newData.getSemester());
-            if(curiculumDtos.stream().count()==0) throw new RuntimeException("No subject in semester and major. Please create!");
-            for (CuriculumDto dto : curiculumDtos)
-            {
-                   RequestCourse newCourse = new RequestCourse();
-                   newCourse.setClassId(currentClass.getId());
-                   newCourse.setName(currentClass.getName()+"_"+dto.getSubject().getSubjectCode());
-                   newCourse.setStatus("DRAFT");
-                   newCourse.setSemesterId(currentSemester.getId());
-                   newCourse.setSubMajorId(common.getId());
-                  newCourse.setSubjectId(dto.getSubject().getId());
-                  newCourse.setRoomId(null);
+        if (newData.getSemester() < 5) {
+            List<SubMajorDto> gotSub = subMajorService.FindByMajorId(currentClass.getMajor().getId());
+            SubMajorDto common = gotSub.stream().filter(x -> x.isIsCommon()).toList().get(0);
+            List<CuriculumDto> curiculumDtos = curiculumService.findCuriBySubMajorIdAndSememster(common.getId(), newData.getSemester());
+            if (curiculumDtos.stream().count() == 0)
+                throw new RuntimeException("No subject in semester and major. Please create!");
+            for (CuriculumDto dto : curiculumDtos) {
+                RequestCourse newCourse = new RequestCourse();
+                newCourse.setClassId(currentClass.getId());
+                newCourse.setName(currentClass.getName() + "_" + dto.getSubject().getSubjectCode());
+                newCourse.setStatus("DRAFT");
+                newCourse.setSemesterId(currentSemester.getId());
+                newCourse.setSubMajorId(common.getId());
+                newCourse.setSubjectId(dto.getSubject().getId());
+                newCourse.setRoomId(null);
                 RequestCourse retur = courseRequestRespository.save(newCourse);
-               if(retur!=null) results.add(modelMapper.map(retur,ReturnCourseDto.class));
+                if (retur != null) results.add(modelMapper.map(retur, ReturnCourseDto.class));
             }
         }
         return results;
     }
+
     @Override
     public List<CourseDto> findBySchoolAndClass(Optional<Integer> schoolId, Optional<Integer> classid) {
         List<CourseDto> results = new ArrayList<>();
 
-        if(schoolId.isEmpty()) {
+        if (schoolId.isEmpty()) {
             return findAllBase();
 
-        }else
-        {
+        } else {
             List<ClassDto> classes = classService.FindBySchoolId(schoolId.get());
-            if(!classid.isEmpty()) {
-                classes = classes.stream().filter(x->x.getId() == classid.get()).toList();
+            if (!classid.isEmpty()) {
+                classes = classes.stream().filter(x -> x.getId() == classid.get()).toList();
             }
-                for (ClassDto dto : classes) {
-                    List<Course> courses = courseRespository.findByClassId(dto.getId());
-                    for (Course course : courses) {
-                        results.add(modelMapper.map(course,CourseDto.class));
-                    }
+            for (ClassDto dto : classes) {
+                List<Course> courses = courseRespository.findByClassId(dto.getId());
+                for (Course course : courses) {
+                    results.add(modelMapper.map(course, CourseDto.class));
                 }
+            }
         }
         return results;
     }

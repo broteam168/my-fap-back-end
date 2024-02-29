@@ -12,8 +12,9 @@ public interface ICourseService {
 
     CourseDto findById(int id);
 
+
     @Transactional
-    ReturnCourseDto updateCourse(int id, RequestCourseDto updatedCourse);
+    ReturnCourseDto updateCourse(int id, RequestCourseDto updatedCourse, boolean active);
 
     List<ReturnCourseDto> addCoursesByClasses(CourseRequest1Dto newData);
 

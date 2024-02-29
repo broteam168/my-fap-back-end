@@ -14,4 +14,6 @@ public interface CourseRespository extends JpaRepository<Course, Integer> {
     @Query("select s from Course s where s.classs.id = :id")
     List<Course> findByClassId(@Param("id") Integer id);
 
+
+
 }

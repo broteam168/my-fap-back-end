@@ -69,12 +69,14 @@ public class CourseController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateCourse(@Valid @PathVariable int id,@Valid @RequestBody RequestCourseDto newClass) {
+    public ResponseEntity<ResponseObject> updateCourse(@Valid @PathVariable int id,@Valid @RequestBody RequestCourseDto newClass,@RequestParam("convert") Optional<Boolean> active) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         ReturnCourseDto returnMajor = new ReturnCourseDto();
         try {
-            returnMajor = courseService.updateCourse(id,newClass);
+            if (active.isEmpty())
+            returnMajor = courseService.updateCourse(id,newClass,false);
+            else returnMajor = courseService.updateCourse(id,newClass,active.get());
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
