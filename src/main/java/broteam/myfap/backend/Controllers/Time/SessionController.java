@@ -1,7 +1,11 @@
 package broteam.myfap.backend.Controllers.Time;
 
 import broteam.myfap.backend.Dto.Academic.CourseDto;
+import broteam.myfap.backend.Dto.Academic.CourseRequest1Dto;
+import broteam.myfap.backend.Dto.Academic.ReturnCourseDto;
+import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;
 import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Dto.Time.RequestSessionDto;
 import broteam.myfap.backend.Dto.Time.SessionDto;
 import broteam.myfap.backend.Dto.Time.SlotDto;
 import broteam.myfap.backend.Dto.Time.SlotRequestDto;
@@ -39,5 +43,19 @@ public class SessionController {
         List<SessionDto> allsession = new ArrayList<>();
         allsession = sessionService.findBySchoolAndClass(schoolId, classId);
         return ResponseEntity.ok(ResponseObject.builder().data(allsession).message("Get successful").responseCode(HttpStatus.OK.value()).build());
+    }
+    @PostMapping
+    public ResponseEntity<ResponseObject> createSessions(@Valid @RequestBody RequestSessionDto newSession) {
+        String returnMessage = "Create successfully";
+        int responseCode = HttpStatus.OK.value();
+        List<SessionDto> returnCourses = new ArrayList<>();
+        try {
+            returnCourses = sessionService.addCoursesByCourse(newSession);
+        } catch (Exception e) {
+            returnMessage = e.getLocalizedMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+
+        return ResponseEntity.ok(ResponseObject.builder().data(returnCourses).message(returnMessage).responseCode(responseCode).build());
     }
 }

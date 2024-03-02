@@ -20,4 +20,6 @@ public interface ISyllabusService {
 
     @Transactional
     SyllabusDto deleteSyllabusById(int id);
+
+    SyllabusDto findCurrentSyllabus(int subjectId);
 }

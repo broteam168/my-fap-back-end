@@ -98,4 +98,15 @@ public class SyllabusService implements ISyllabusService {
         syllabusRespository.deleteById(id);
         return academicConverter.toDto(foundSyllabus);
     }
+    @Override
+    public SyllabusDto findCurrentSyllabus(int subjectId)
+    {
+        List<SyllabusDto> raws = findBySubjectId(subjectId);
+        for (SyllabusDto dto : raws)
+        {
+            if(dto.isActive()) return dto;
+        }
+        return null;
+    }
+
 }

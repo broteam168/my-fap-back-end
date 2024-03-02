@@ -33,10 +33,11 @@ public class Session {
     @Column(name = "DateDay")
     private Date DateDay;
 
-
-
     @Column(name = "Status")
     private String Status;
+
+    @Column(name = "CourseId")
+    private Integer coursei;
 
     @ManyToOne
     @JoinColumn(name = "CourseId", insertable = false, updatable = false)
