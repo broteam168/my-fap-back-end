@@ -1,4 +1,4 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Interface;
 
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import jakarta.transaction.Transactional;
@@ -20,4 +20,6 @@ public interface ISyllabusService {
 
     @Transactional
     SyllabusDto deleteSyllabusById(int id);
+
+    SyllabusDto findCurrentSyllabus(int subjectId);
 }

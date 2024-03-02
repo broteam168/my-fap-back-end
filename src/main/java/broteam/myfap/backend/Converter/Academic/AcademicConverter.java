@@ -1,15 +1,47 @@
 package broteam.myfap.backend.Converter.Academic;
 
-import broteam.myfap.backend.Dto.Academic.CuriculumDto;
-import broteam.myfap.backend.Dto.Academic.SubjectDto;
-import broteam.myfap.backend.Dto.Academic.SyllabusDto;
-import broteam.myfap.backend.Models.Academic.Curiculum;
-import broteam.myfap.backend.Models.Academic.Subject;
-import broteam.myfap.backend.Models.Academic.Syllabus;
+
+import broteam.myfap.backend.Converter.Unit.UnitConverter;
+import broteam.myfap.backend.Dto.Academic.*;
+import broteam.myfap.backend.Dto.Major.MajorDto;
+import broteam.myfap.backend.Dto.Major.SubMajorDto;
+import broteam.myfap.backend.Dto.Major.SubMajorRequestDto;
+import broteam.myfap.backend.Models.Academic.*;
+import broteam.myfap.backend.Models.Major.Major;
+import broteam.myfap.backend.Models.Major.SubMajor;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class AcademicConverter {
+    public SemesterDto toDto(Semester entity){
+        SemesterDto dto = new SemesterDto();
+        if(entity.getId() > 0 ){
+            dto.setId(entity.getId());
+        }
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+         dto.setDescription(entity.getDescription());
+        dto.setYear(entity.getYear());
+        dto.setOrder(entity.getOrder());
+        dto.setStartDate(entity.getStartDate());
+        dto.setEndDate(entity.getEndDate());
+        dto.setIsActive(entity.isIsActive());
+        return dto;
+    }
+    public SemesterRequestDto toDtoRequest(Semester entity){
+        SemesterRequestDto dto = new SemesterRequestDto();
+
+        dto.setName(entity.getName());
+        dto.setDescription(entity.getDescription());
+        dto.setYear(entity.getYear());
+        dto.setOrder(entity.getOrder());
+        dto.setStartDate(entity.getStartDate());
+        dto.setEndDate(entity.getEndDate());
+        dto.setIsActive(entity.isIsActive());
+        return dto;
+    }
+
     public SubjectDto toDto(Subject entity) {
         SubjectDto dto = new SubjectDto();
         if (entity.getId() > 0) {
@@ -69,7 +101,27 @@ public class AcademicConverter {
         entity.setActive((dto.isActive()));
         return entity;
     }
-
+    UnitConverter unitConverter = new UnitConverter();
+//    public CourseDto toDto(Course entity) {
+//        CourseDto dto = new CourseDto();
+//        dto.setId(entity.getId());
+//        dto.setName(entity.getName());
+//        dto.setRoom(entity.getRoom());
+//        dto.setRoomId(entity.getRoomId());
+//        dto.setDays(entity.getDays());
+//        dto.setStatus(entity.getStatus());
+//        dto.setSlots(entity.getSlots());
+//        dto.setSemester(toDto(entity.getSemester()));
+//        dto.setSemesterId(entity.getSemesterId());
+//        dto.setClasss(unitConverter.toDto(entity.getClasss()));
+//        dto.setClassId(entity.getClassId());
+//        dto.setSubject(toDto(entity.getSubject()));
+//        dto.setSubjectId(entity.getSubjectId());
+//        dto.setSubMajor(entity.getSubMajor());
+//        dto.setSubMajorId(entity.getSubMajorId());
+//        dto.setTeacherId(entity.getTeacherId());
+//        return dto;
+//    }
 
 
     public CuriculumDto toDto(Curiculum entity) {
@@ -96,4 +148,5 @@ public class AcademicConverter {
 
         return entity;
     }
+
 }
