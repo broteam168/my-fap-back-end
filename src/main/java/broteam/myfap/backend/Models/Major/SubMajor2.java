@@ -1,20 +1,19 @@
 package broteam.myfap.backend.Models.Major;
 
-import broteam.myfap.backend.Models.Enums.MajorCategory;
-import broteam.myfap.backend.Models.Unit.Class;
+import broteam.myfap.backend.Models.Academic.Curiculum;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Table(name = "M_Major")
+@Table(name = "M_SubMajor")
 @Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Major {
+public class SubMajor2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
@@ -23,15 +22,17 @@ public class Major {
     @Column(name = "Name")
     private String Name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Category")
-    private MajorCategory Category;
-
-    @Column(name = "DegreeLevel")
-    private String DegreeLevel;
-
     @Column(name = "FullName")
     private String FullName;
+
+    @Column(name = "MajorId")
+    private int MajorId;
+
+    @Column(name = "Type")
+    private String Type;
+
+    @Column(name = "IsCommon")
+    private boolean IsCommon;
 
     @Column(name = "Description")
     private String Description;

@@ -68,7 +68,6 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/submajor/*").hasAnyAuthority(RoleType.ADMIN.name())
-
                         .requestMatchers(HttpMethod.GET, "/api/v1/time/groupslot").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/time/groupslot").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/time/groupslot/*").hasAnyAuthority(RoleType.ADMIN.name())
@@ -101,6 +100,22 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/v1/academic/curiculum").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/semester").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/semester").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/semester/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/academic/semester/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/semester/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/course").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/course").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/course/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/academic/course/*").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/course/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/session").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/session/search").hasAnyAuthority(RoleType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/time/session").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name())
                 ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

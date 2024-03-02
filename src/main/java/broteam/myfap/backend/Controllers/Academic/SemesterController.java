@@ -1,15 +1,10 @@
-package broteam.myfap.backend.Controllers.Major;
+package broteam.myfap.backend.Controllers.Academic;
 
-import broteam.myfap.backend.Dto.Major.MajorDto;
-import broteam.myfap.backend.Dto.Major.MajorRequestDto;
+import broteam.myfap.backend.Dto.Academic.SemesterDto;
+import broteam.myfap.backend.Dto.Academic.SemesterRequestDto;
 import broteam.myfap.backend.Dto.ResponseObject;
-import broteam.myfap.backend.Dto.Unit.ClassDto;
-import broteam.myfap.backend.Dto.Unit.ClassRequest;
-import broteam.myfap.backend.Dto.Unit.SchoolDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
-import broteam.myfap.backend.Service.Major.IMajorService;
-import broteam.myfap.backend.Service.Major.MajorService;
-import broteam.myfap.backend.Service.Unit.SchoolService;
+import broteam.myfap.backend.Service.Academic.Interface.ISemesterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,27 +14,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/major")
+@RequestMapping("/api/v1/academic/semester")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-public class MajorController {
-    private final IMajorService majorService;
+public class SemesterController {
+    private final ISemesterService semesterService;
     @GetMapping
-    public ResponseEntity<ResponseObject> GetAllMajorBase() {
-         List<MajorDto> allMajors = majorService.findAllBase();
+    public ResponseEntity<ResponseObject> getAllBase() {
+         List<SemesterDto> allSemester = semesterService.findAllBase();
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(allMajors)
+                .data(allSemester)
                 .message("Get successful")
                 .responseCode(HttpStatus.OK.value())
                 .build());
     }
-    @GetMapping("{id}")
-    public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
-        String returnMessage = "GET Successfully";
+    @PostMapping
+    public ResponseEntity<ResponseObject> CreateSemester(@Valid @RequestBody SemesterRequestDto newSemester) {
+        String returnMessage = "Create Successfully";
         int resposeCode = HttpStatus.OK.value();
-        MajorDto returnMajor = new MajorDto();
+        SemesterDto returnSemester = new SemesterDto();
         try {
-            returnMajor = majorService.findMajorById(id);
+            returnSemester = semesterService.createNewSemester(newSemester);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
@@ -48,18 +43,19 @@ public class MajorController {
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnMajor)
+                .data(returnSemester)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());
     }
-    @PostMapping
-    public ResponseEntity<ResponseObject> CreateNewMajor(@Valid @RequestBody MajorRequestDto newMajor) {
-        String returnMessage = "Create Successfully";
+
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
+        String returnMessage = "GET Successfully";
         int resposeCode = HttpStatus.OK.value();
-        MajorDto returnMajor = new MajorDto();
+        SemesterRequestDto returnSemester = new SemesterRequestDto();
         try {
-            returnMajor = majorService.createNewMajor(newMajor);
+            returnSemester = semesterService.findById(id);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
@@ -68,18 +64,18 @@ public class MajorController {
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnMajor)
+                .data(returnSemester)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());
     }
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateMajor(@Valid @PathVariable int id,@Valid @RequestBody MajorRequestDto newClass) {
+    public ResponseEntity<ResponseObject> updateSemester(@Valid @PathVariable int id,@Valid @RequestBody SemesterRequestDto newClass) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
-        MajorDto returnMajor = new MajorDto();
+        SemesterDto returnMajor = new SemesterDto();
         try {
-            returnMajor = majorService.updateMajor(id,newClass);
+            returnMajor = semesterService.updateSemester(id,newClass);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
@@ -94,12 +90,12 @@ public class MajorController {
                 .build());
     }
     @DeleteMapping("{id}")
-    public ResponseEntity<ResponseObject> deleteMajor(@Valid @PathVariable int id) {
+    public ResponseEntity<ResponseObject> deleteSemester(@Valid @PathVariable int id) {
         String returnMessage = "Delete Successfully";
         int resposeCode = HttpStatus.OK.value();
-        MajorDto returnMajor = new MajorDto();
+        SemesterDto returnSemester = new SemesterDto();
         try {
-            returnMajor = majorService.deleteMajor(id);
+            returnSemester = semesterService.deleteMajor(id);
         } catch (SchoolException ex) {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
@@ -108,7 +104,7 @@ public class MajorController {
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()
-                .data(returnMajor)
+                .data(returnSemester)
                 .message(returnMessage)
                 .responseCode(resposeCode)
                 .build());

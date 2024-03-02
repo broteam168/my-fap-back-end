@@ -1,18 +1,15 @@
-package broteam.myfap.backend.Service.Academic;
+package broteam.myfap.backend.Service.Academic.Implementation;
 
 import broteam.myfap.backend.Converter.Academic.AcademicConverter;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
 import broteam.myfap.backend.Dto.Academic.CuriculumRequest;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
-import broteam.myfap.backend.Dto.Major.SubMajorDto;
-import broteam.myfap.backend.Exception.Academic.CuriculumException;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Academic.Curiculum;
 import broteam.myfap.backend.Models.Academic.Subject;
-import broteam.myfap.backend.Models.Academic.Syllabus;
-import broteam.myfap.backend.Models.Major.SubMajor;
 import broteam.myfap.backend.Repository.Academic.CuriculumRespository;
 import broteam.myfap.backend.Repository.Academic.SubjectRespository;
+import broteam.myfap.backend.Service.Academic.Interface.ICuriculumService;
 import broteam.myfap.backend.Service.Major.SubMajorService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,7 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CuriculumService implements ICuriculumService{
+public class CuriculumService implements ICuriculumService {
     private final CuriculumRespository curiculumRespository;
     private final AcademicConverter academicConverter;
     private final SubjectService subjectService;
@@ -60,6 +57,14 @@ public class CuriculumService implements ICuriculumService{
         return results;
     }
 
+    public List<CuriculumDto> findCuriBySubMajorIdAndSememster(int subMajorId,int semester) {
+        List<CuriculumDto> results = new ArrayList<>();
+        List<Curiculum> entities = curiculumRespository.findCuriculumBySubMajorId(subMajorId);
+        for (Curiculum entity : entities) {
+            if(entity.getSemester() == semester)results.add(academicConverter.toDto(entity));
+        }
+        return results;
+    }
     @Transactional
     @Override
     public CuriculumDto deleteCuriculum(int id) {
