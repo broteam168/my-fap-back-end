@@ -22,5 +22,5 @@ import java.util.List;
         private String Address;
         private Date LastLogin;
         private List<Role> roles;
-        
+        private String FullName;
 }
