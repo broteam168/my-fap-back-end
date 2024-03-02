@@ -39,7 +39,5 @@ public class Major {
     @Column(name = "IsActive")
     private boolean IsActive;
 
-    @OneToMany
-    @JoinColumn(name = "MajorId", insertable = false, updatable = false)
-    private List<SubMajor> subMajors;
+
 }

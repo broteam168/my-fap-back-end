@@ -90,17 +90,13 @@ public class MajorService implements IMajorService{
         Major duplicate2 = majorRepository.findById(id);
         if(duplicate2==null)
             throw new NotFoundException("Cannot find major");
-        List<SubMajor> foundSubMajor= duplicate2.getSubMajors();
-        if(!foundSubMajor.stream().anyMatch(x -> !x.isIsCommon()))
-        {
+
             majorRepository.deleteById(id);
             List<SubMajor> found = subMajorRepository.findSubMajorByMajorIdAndCommon(id,true);
-            if(!found.isEmpty())
-            {
+            if(!found.isEmpty()) {
                 subMajorRepository.deleteById(found.get(0).getId());
-            }
-        }
 
+            }
         else  throw new SchoolException("Major have SubMajor! Cannot remove!");
         return majorConverter.toDto(duplicate2);
     }

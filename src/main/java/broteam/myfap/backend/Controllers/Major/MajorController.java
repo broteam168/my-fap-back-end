@@ -34,7 +34,7 @@ public class MajorController {
                 .build());
     }
     @GetMapping("{id}")
-    public ResponseEntity<ResponseObject> CreateNewMajor(@Valid @PathVariable int id) {
+    public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
         String returnMessage = "GET Successfully";
         int resposeCode = HttpStatus.OK.value();
         MajorDto returnMajor = new MajorDto();

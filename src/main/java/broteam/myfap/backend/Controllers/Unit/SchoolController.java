@@ -4,6 +4,7 @@ import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.Auth.AuthRequest;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
+import broteam.myfap.backend.Dto.Unit.SchoolFullDto;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Unit.School;
 import broteam.myfap.backend.Service.Unit.ISchoolService;
@@ -28,6 +29,15 @@ public class SchoolController {
     @GetMapping
     public ResponseEntity<ResponseObject> GetAllSchools() {
         List<SchoolDto> allSchools = schoolService.findAllBase();
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allSchools)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
+    @GetMapping("full")
+    public ResponseEntity<ResponseObject> GetAllSchools2() {
+        List<SchoolFullDto> allSchools = schoolService.findAllBaseFull();
         return ResponseEntity.ok(ResponseObject.builder()
                 .data(allSchools)
                 .message("Get successful")
@@ -77,7 +87,7 @@ public class SchoolController {
                 .build());
     }
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> CreateSchool(@Valid @PathVariable int id, @Valid @RequestBody SchoolDto newSchool) {
+    public ResponseEntity<ResponseObject> UpdateSchool(@Valid @PathVariable int id, @Valid @RequestBody SchoolDto newSchool) {
         String returnMessage = "Update Successfully";
         int resposeCode = HttpStatus.OK.value();
         SchoolDto returnSchool = new SchoolDto();

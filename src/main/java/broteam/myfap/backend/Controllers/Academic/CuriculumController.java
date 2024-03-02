@@ -3,10 +3,16 @@ package broteam.myfap.backend.Controllers.Academic;
 import broteam.myfap.backend.Dto.Academic.CuriculumDto;
 import broteam.myfap.backend.Dto.Academic.CuriculumRequest;
 import broteam.myfap.backend.Dto.Academic.SubjectDto;
+
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Exception.Academic.CuriculumException;
 import broteam.myfap.backend.Service.Academic.CuriculumService;
+
+import broteam.myfap.backend.Dto.ResponseObject;
+import broteam.myfap.backend.Exception.Academic.CuriculumException;
+import broteam.myfap.backend.Service.Academic.Implementation.CuriculumService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

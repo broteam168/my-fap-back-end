@@ -1,8 +1,8 @@
 package broteam.myfap.backend.Service.Unit;
 
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
-import broteam.myfap.backend.Dto.Unit.ClassDto;
 import broteam.myfap.backend.Dto.Unit.SchoolDto;
+import broteam.myfap.backend.Dto.Unit.SchoolFullDto;
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Exception.Unit.SchoolException;
 import broteam.myfap.backend.Models.Unit.Class;
@@ -35,6 +35,15 @@ public class SchoolService implements ISchoolService{
         for(School school :  schoolRepository.findAll())
         {
             results.add(unitConverter.toDto(school));
+        }
+        return  results;
+    }
+    @Override
+    public List<SchoolFullDto> findAllBaseFull() {
+        List<SchoolFullDto> results = new ArrayList<>();
+        for(School school :  schoolRepository.findAll())
+        {
+            results.add(unitConverter.toDto2(school));
         }
         return  results;
     }
