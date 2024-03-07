@@ -3,10 +3,8 @@ package broteam.myfap.backend.Controllers.Academic;
 import broteam.myfap.backend.Dto.Academic.SyllabusDto;
 import broteam.myfap.backend.Dto.ResponseObject;
 
-import broteam.myfap.backend.Service.Academic.SyllabusService;
 
 import broteam.myfap.backend.Service.Academic.Implementation.SyllabusService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

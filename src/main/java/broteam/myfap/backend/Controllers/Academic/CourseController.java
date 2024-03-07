@@ -18,13 +18,17 @@ import java.util.Optional;
 @RequestMapping("/api/v1/academic/course")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
-public class CourseController {
+public class  CourseController {
     private final ICourseService courseService;
 
     @GetMapping
     public ResponseEntity<ResponseObject> getAllBase() {
         List<CourseDto> allSemester = courseService.findAllBase();
-        return ResponseEntity.ok(ResponseObject.builder().data(allSemester).message("Get successful").responseCode(HttpStatus.OK.value()).build());
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allSemester)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
     }
     @GetMapping("{id}")
     public ResponseEntity<ResponseObject> Get(@Valid @PathVariable int id) {
