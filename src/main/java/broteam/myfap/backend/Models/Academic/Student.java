@@ -24,7 +24,7 @@ public class Student {
     private int userId;
 
     @OneToOne
-    @JoinColumn(name = "UserId")
+    @JoinColumn(name = "UserId", insertable = false, updatable = false)
     private User user;
 
     @Column(name = "SubMajorId")

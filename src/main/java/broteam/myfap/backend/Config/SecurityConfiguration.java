@@ -137,6 +137,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/student").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/student/*").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
+
                         .requestMatchers("/admin/auth").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
 
 
