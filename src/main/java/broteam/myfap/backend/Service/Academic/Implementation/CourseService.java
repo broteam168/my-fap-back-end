@@ -56,13 +56,15 @@ public class CourseService implements ICourseService {
         RequestCourse base = modelMapper.map(updatedCourse, RequestCourse.class);
         if (active) {
             base.setStatus("ASSIGN");
-            Optional<RequestCourse> du = courseRequestRespository.findByRoomId(base.getRoomId());
-            if(du.isPresent()) throw new RuntimeException("Room is used");
-        }
+            }
         Optional<RequestCourse> duplicate = courseRequestRespository.findById(id);
 
 
         if (duplicate.isPresent()) {
+            Optional<RequestCourse> du = courseRequestRespository.findByRoomId(base.getRoomId());
+
+            if(du.get().getRoomId() != duplicate.get().getRoomId() && du.isPresent()) throw new RuntimeException("Room is used");
+
             base.setTeacherId(duplicate.get().getTeacherId());
             base.setId(duplicate.get().getId());
             courseRequestRespository.save(base);
