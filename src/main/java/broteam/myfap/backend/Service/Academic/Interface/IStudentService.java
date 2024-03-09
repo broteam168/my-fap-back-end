@@ -13,7 +13,4 @@ public interface IStudentService {
 
     @Transactional
     StudentRequest findStudentById(int id);
-
-    @Transactional
-    StudentDto findStudentByUserId(int userId);
 }

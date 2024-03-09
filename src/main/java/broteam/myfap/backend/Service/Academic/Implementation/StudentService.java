@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,15 +36,6 @@ public class StudentService implements IStudentService {
             throw new NotFoundException("Cannot find student");
         }
         return studentConverter.toRequestDto(gotStudent);
-    }
-
-    @Override
-    public StudentDto findStudentByUserId(int userId) {
-        Optional<Student> gotStudent = studentResponsitory.findByUserId(userId);
-        if (gotStudent == null) {
-            throw new NotFoundException("Cannot find student");
-        }
-        return studentConverter.toDto(gotStudent.get());
     }
 
 }
