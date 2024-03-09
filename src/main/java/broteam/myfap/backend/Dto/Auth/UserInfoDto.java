@@ -22,10 +22,6 @@ import java.util.List;
         private String Phone;
         private String Mail;
         private String Address;
-
-        @JsonProperty("Dob" )
-        @JsonFormat(pattern = "yyyy-MM-dd" , timezone = "GMT+7")
-        private Date Dob;
         private Date LastLogin;
         private List<Role> roles;
         private String FullName;

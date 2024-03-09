@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "A_Student")
 @Getter
@@ -41,4 +43,7 @@ public class Student {
 
     @Column(name = "StudentCode")
     private String studentCode;
+
+    @Column(name = "Dob")
+    private Date dob;
 }

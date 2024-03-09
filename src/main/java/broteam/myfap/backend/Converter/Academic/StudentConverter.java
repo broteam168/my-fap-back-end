@@ -16,6 +16,7 @@ public class StudentConverter {
         dto.setSchoolId(entity.getSchoolId());
         dto.setClassId(entity.getClassId());
         dto.setStudentCode(entity.getStudentCode());
+        dto.setDob(entity.getDob());
         return dto;
     }
 
@@ -28,6 +29,7 @@ public class StudentConverter {
         entity.setSchoolId(dto.getSchoolId());
         entity.setClassId(dto.getClassId());
         entity.setStudentCode(dto.getStudentCode());
+        entity.setDob(dto.getDob());
         return entity;
     }
 
@@ -40,6 +42,7 @@ public class StudentConverter {
         dto.setSchoolId(entity.getSchoolId());
         dto.setClassId(entity.getClassId());
         dto.setStudentCode(entity.getStudentCode());
+        dto.setDob(entity.getDob());
         return dto;
     }
 }

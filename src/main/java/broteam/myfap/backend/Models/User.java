@@ -32,8 +32,6 @@ public class User {
     @Column(name = "Mail")
     private String Mail;
 
-    @Column(name = "Dob")
-    private Date Dob;
     @Column(name = "Address")
     private String Address;
     @Column(name = "LastLogin")
