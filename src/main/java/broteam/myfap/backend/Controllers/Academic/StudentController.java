@@ -47,4 +47,22 @@ public class StudentController {
                         .responseCode(responseCode)
                 .build());
     }
+
+    @GetMapping("search")
+    public ResponseEntity<ResponseObject> getStudentByUserId(@RequestParam(name = "userId") @Valid int userId) {
+        String returnMessage = "Get successfully";
+        int responseCode = HttpStatus.OK.value();
+        StudentDto returnStudent = new StudentDto();
+        try {
+            returnStudent = studentService.findStudentByUserId(userId);
+        } catch (Exception e) {
+            returnMessage = e.getMessage();
+            responseCode = HttpStatus.ACCEPTED.value();
+        }
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(returnStudent)
+                .message(returnMessage)
+                .responseCode(responseCode)
+                .build());
+    }
 }

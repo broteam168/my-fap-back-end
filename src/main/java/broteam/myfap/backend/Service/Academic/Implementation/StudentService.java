@@ -38,4 +38,13 @@ public class StudentService implements IStudentService {
         return studentConverter.toRequestDto(gotStudent);
     }
 
+    @Override
+    public StudentDto findStudentByUserId(int id) {
+        Student gotStudent = studentResponsitory.findByUserId(id);
+        if (gotStudent == null) {
+            throw new NotFoundException("Cannot find student");
+        }
+        return studentConverter.toDto(gotStudent);
+    }
+
 }
