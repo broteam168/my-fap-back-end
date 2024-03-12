@@ -20,14 +20,11 @@ public class EnrollmentDto {
     private int studentId;
     private int courseId;
     private String type;
-
-    private String status;
-
+    private boolean status;
     private String quality;
-
     private String note;
 
     @JsonProperty("createAt" )
-    @JsonFormat(pattern = "yyyy-MM-dd" , timezone = "GMT+7")
+    @JsonFormat(pattern = "dd/MM/yyyy" , timezone = "GMT+7")
     private Date createAt;
 }

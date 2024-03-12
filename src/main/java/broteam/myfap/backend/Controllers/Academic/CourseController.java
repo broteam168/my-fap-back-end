@@ -85,7 +85,7 @@ public class  CourseController {
             returnMessage = ex.getMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
         } catch (Exception ex2) {
-            returnMessage = ex2.getMessage();
+            returnMessage = ex2.getLocalizedMessage();
             resposeCode = HttpStatus.ACCEPTED.value();
         }
         return ResponseEntity.ok(ResponseObject.builder()

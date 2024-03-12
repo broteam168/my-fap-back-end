@@ -162,4 +162,18 @@ public class AcademicConverter {
         return entity;
     }
 
+    public CourseDto2 toDto(Course entity) {
+        CourseDto2 dto = new CourseDto2();
+        dto.setId(entity.getId());
+        dto.setSemester(entity.getSemester());
+        dto.setName(entity.getName());
+        dto.setStatus(entity.getStatus());
+        dto.setRoom(entity.getRoom());
+        dto.setDays(entity.getDays());
+        dto.setClasss(entity.getClasss());
+        dto.setSlots(entity.getSlots());
+        dto.setSubject(entity.getSubject());
+        dto.setSubMajor(entity.getSubMajor());
+        return dto;
+    }
 }

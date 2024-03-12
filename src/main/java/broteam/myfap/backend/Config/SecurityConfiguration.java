@@ -115,7 +115,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/course/*").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/time/session").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
-                        .requestMatchers(HttpMethod.GET, "/api/v1/time/session/search").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/time/session/*").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
                         .requestMatchers(HttpMethod.POST, "/api/v1/time/session").hasAnyAuthority(RoleType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/academic/subject").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
@@ -137,6 +137,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/v1/academic/curiculum").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/academic/curiculum/*").hasAnyAuthority(RoleType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/enrollment").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/academic/enrollment/*").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
+                        .requestMatchers(HttpMethod.POST, "/api/v1/academic/enrollment").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/academic/student").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())
                         .requestMatchers(HttpMethod.GET, "/api/v1/academic/student/*").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.STUDENT.name())

@@ -1,5 +1,7 @@
 package broteam.myfap.backend.Service.Academic.Interface;
 
+import broteam.myfap.backend.Dto.Academic.CourseDto;
+import broteam.myfap.backend.Dto.Academic.CourseDto2;
 import broteam.myfap.backend.Dto.Academic.StudentDto;
 import broteam.myfap.backend.Dto.Academic.StudentRequest;
 import broteam.myfap.backend.Models.Academic.Subject;
@@ -16,4 +18,7 @@ public interface IStudentService {
 
     @Transactional
     StudentDto findStudentByUserId(int id);
+
+    @Transactional
+    List<CourseDto2> findCourseByStudentId(int id);
 }

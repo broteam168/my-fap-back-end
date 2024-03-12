@@ -32,7 +32,7 @@ public class Enrollment {
     private String type;
 
     @Column(name = "status")
-    private String status;
+    private boolean status;
 
     @Column(name = "quality")
     private String quality;
@@ -40,7 +40,7 @@ public class Enrollment {
     @Column(name = "note")
     private String note;
 
-    @Column(name = "createAt")
+    @Column(name = "createdAt")
     private Date createAt;
 
     @PrePersist

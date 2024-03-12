@@ -1,8 +1,6 @@
 package broteam.myfap.backend.Controllers.Academic;
 
-import broteam.myfap.backend.Dto.Academic.CuriculumDto;
-import broteam.myfap.backend.Dto.Academic.StudentDto;
-import broteam.myfap.backend.Dto.Academic.StudentRequest;
+import broteam.myfap.backend.Dto.Academic.*;
 import broteam.myfap.backend.Dto.ResponseObject;
 import broteam.myfap.backend.Service.Academic.Implementation.StudentService;
 import jakarta.validation.Valid;
@@ -16,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/academic/student")
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
     private final StudentService studentService;
 
@@ -63,6 +61,16 @@ public class StudentController {
                 .data(returnStudent)
                 .message(returnMessage)
                 .responseCode(responseCode)
+                .build());
+    }
+
+    @GetMapping("search1")
+    public ResponseEntity<ResponseObject> getCourseByStudentId(@RequestParam(name = "studentId") @Valid int studentId) {
+        List<CourseDto2> allCourse = studentService.findCourseByStudentId(studentId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allCourse)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
                 .build());
     }
 }
