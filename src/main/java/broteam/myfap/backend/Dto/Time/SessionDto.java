@@ -26,4 +26,5 @@ public class SessionDto {
    private int CourseId;
    private String Status;
    private Course course;
+   private int Slot;
 }

@@ -38,6 +38,8 @@ public class Session {
 
     @Column(name = "CourseId")
     private Integer coursei;
+    @Column(name = "Slot")
+    private Integer Slot;
 
     @ManyToOne
     @JoinColumn(name = "CourseId", insertable = false, updatable = false)

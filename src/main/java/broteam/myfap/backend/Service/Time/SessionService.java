@@ -144,6 +144,7 @@ public class SessionService implements ISessionService {
                 int finalCurrentIndex = currentIndex;
                 SlotDto currentS =  slotDtos.stream().filter(x -> x.getOrder() == Integer.parseInt(slots[finalCurrentIndex])).toList().get(0);
 
+                session.setSlot(Integer.parseInt(slots[finalCurrentIndex]));
                 session.setStartTime(java.sql.Time.valueOf(currentS.getStartTime().split("\\.")[0]));
                 session.setEndTime(java.sql.Time.valueOf(currentS.getEndTime().split("\\.")[0]));
                 session.setCoursei(currentCourse.getId());
