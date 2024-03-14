@@ -44,4 +44,9 @@ public class Subject {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "SubjectId", insertable = false, updatable = false)
     private List<Syllabus> syllabuses;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SubjectId", insertable = false, updatable = false)
+    private List<Curiculum> curiculums;
 }

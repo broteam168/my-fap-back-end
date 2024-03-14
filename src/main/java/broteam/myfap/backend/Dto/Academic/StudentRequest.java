@@ -1,6 +1,6 @@
 package broteam.myfap.backend.Dto.Academic;
 
-import broteam.myfap.backend.Models.Academic.Subject;
+import broteam.myfap.backend.Models.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -14,13 +14,16 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CuriculumRequest {
+public class StudentRequest {
     private int id;
-    private int subjectId;
+    private User user;
     private int subMajorId;
     private int semester;
+    private int schoolId;
+    private int classId;
+    private String studentCode;
 
-    @JsonProperty("createAt" )
+    @JsonProperty("dob" )
     @JsonFormat(pattern = "yyyy-MM-dd" , timezone = "GMT+7")
-    private Date createAt;
+    private Date dob;
 }

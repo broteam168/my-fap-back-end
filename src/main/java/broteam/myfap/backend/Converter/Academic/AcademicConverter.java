@@ -1,6 +1,14 @@
 package broteam.myfap.backend.Converter.Academic;
 
 
+import broteam.myfap.backend.Dto.Academic.CuriculumDto;
+import broteam.myfap.backend.Dto.Academic.SubjectDto;
+import broteam.myfap.backend.Dto.Academic.SyllabusDto;
+import broteam.myfap.backend.Models.Academic.Curiculum;
+import broteam.myfap.backend.Models.Academic.Subject;
+import broteam.myfap.backend.Models.Academic.Syllabus;
+
+
 import broteam.myfap.backend.Converter.Unit.UnitConverter;
 import broteam.myfap.backend.Dto.Academic.*;
 import broteam.myfap.backend.Dto.Major.MajorDto;
@@ -10,10 +18,12 @@ import broteam.myfap.backend.Models.Academic.*;
 import broteam.myfap.backend.Models.Major.Major;
 import broteam.myfap.backend.Models.Major.SubMajor;
 
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class AcademicConverter {
+
     public SemesterDto toDto(Semester entity){
         SemesterDto dto = new SemesterDto();
         if(entity.getId() > 0 ){
@@ -41,6 +51,7 @@ public class AcademicConverter {
         dto.setIsActive(entity.isIsActive());
         return dto;
     }
+
 
     public SubjectDto toDto(Subject entity) {
         SubjectDto dto = new SubjectDto();
@@ -101,6 +112,7 @@ public class AcademicConverter {
         entity.setActive((dto.isActive()));
         return entity;
     }
+
     UnitConverter unitConverter = new UnitConverter();
 //    public CourseDto toDto(Course entity) {
 //        CourseDto dto = new CourseDto();
@@ -122,6 +134,7 @@ public class AcademicConverter {
 //        dto.setTeacherId(entity.getTeacherId());
 //        return dto;
 //    }
+
 
 
     public CuriculumDto toDto(Curiculum entity) {
@@ -149,4 +162,18 @@ public class AcademicConverter {
         return entity;
     }
 
+    public CourseDto2 toDto(Course entity) {
+        CourseDto2 dto = new CourseDto2();
+        dto.setId(entity.getId());
+        dto.setSemester(entity.getSemester());
+        dto.setName(entity.getName());
+        dto.setStatus(entity.getStatus());
+        dto.setRoom(entity.getRoom());
+        dto.setDays(entity.getDays());
+        dto.setClasss(entity.getClasss());
+        dto.setSlots(entity.getSlots());
+        dto.setSubject(entity.getSubject());
+        dto.setSubMajor(entity.getSubMajor());
+        return dto;
+    }
 }

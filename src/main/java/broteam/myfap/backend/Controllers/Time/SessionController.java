@@ -44,6 +44,17 @@ public class SessionController {
         allsession = sessionService.findBySchoolAndClass(schoolId, classId);
         return ResponseEntity.ok(ResponseObject.builder().data(allsession).message("Get successful").responseCode(HttpStatus.OK.value()).build());
     }
+
+    @GetMapping("search1")
+    public ResponseEntity<ResponseObject> getAllByCourseId(@RequestParam(name = "courseId") int courseId) {
+        List<SessionDto> allsession = new ArrayList<>();
+        allsession = sessionService.findByCourseId(courseId);
+        return ResponseEntity.ok(ResponseObject.builder()
+                .data(allsession)
+                .message("Get successful")
+                .responseCode(HttpStatus.OK.value())
+                .build());
+    }
     @PostMapping
     public ResponseEntity<ResponseObject> createSessions(@Valid @RequestBody RequestSessionDto newSession) {
         String returnMessage = "Create successfully";

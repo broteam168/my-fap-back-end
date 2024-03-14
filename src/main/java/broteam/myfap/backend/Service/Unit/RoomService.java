@@ -44,6 +44,7 @@ public class RoomService implements IRoomService {
         }
         return results;
     }
+
     @Override
     public RoomDto findRoomById(int id) {
         Optional<Room> gotRoom = roomRepository.findById(id);

@@ -69,12 +69,23 @@ public class SessionService implements ISessionService {
         return results;
     }
 
+    @Override
+    public List<SessionDto> findByCourseId(int courseId) {
+        List<SessionDto> results = new ArrayList<>();
+        List<Session> entities = sessionRepository.findByCourseId(courseId);
+        for (Session entity : entities) {
+            results.add(modelMapper.map(entity, SessionDto.class));
+        }
+        return results;
+    }
+
+
     @Transactional
     @Override
     public List<SessionDto> addCoursesByCourse(RequestSessionDto newData) throws ParseException {
-        List<Session> li = sessionRepository.findByCourseId(newData.getCourseId());
-        if(li.stream().anyMatch(x-> Objects.equals(x.getStatus(), "NOT YET")))
-            throw new RuntimeException("Cannot create duplicate!");
+//        List<Session> li = sessionRepository.findByCourseId(newData.getCourseId());
+//        if(li.stream().anyMatch(x-> Objects.equals(x.getStatus(), "NOT YET")))
+//            throw new RuntimeException("Cannot create duplicate!");
 
         CourseDto currentCourse = courseService.findById(newData.getCourseId());
 
@@ -139,7 +150,7 @@ public class SessionService implements ISessionService {
                 }
                 Session session = new Session();
                 session.setCourse(modelMapper.map(currentCourse, Course.class));
-                session.setName(currentCourse.getName()+"_Slot"+(currentSyllabus.getSlot()-totalSlots+1));
+                session.setName(currentCourse.getId()+"_"+currentCourse.getName()+"_Slot"+(currentSyllabus.getSlot()-totalSlots+1));
                 if (currentIndex == slots.length) currentIndex = 0;
                 int finalCurrentIndex = currentIndex;
                 SlotDto currentS =  slotDtos.stream().filter(x -> x.getOrder() == Integer.parseInt(slots[finalCurrentIndex])).toList().get(0);
