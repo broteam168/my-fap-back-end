@@ -60,7 +60,13 @@ public class SemesterService implements ISemesterService {
         Optional<Semester> duplicate = semesterRepository.findById(id);
 
         if(duplicate.isPresent()) {
-
+            if(updatedSemester.isIsActive())
+            {
+                for(Semester semester :  semesterRepository.findAll()) {
+                    semester.setIsActive(false);
+                    semesterRepository.save(semester);
+                }
+            }
             baseSenester.setId(duplicate.get().getId());
             semesterRepository.save(baseSenester);
         }
