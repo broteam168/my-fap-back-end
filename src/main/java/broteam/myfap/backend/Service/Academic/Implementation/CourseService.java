@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -56,15 +57,19 @@ public class CourseService implements ICourseService {
         RequestCourse base = modelMapper.map(updatedCourse, RequestCourse.class);
         if (active) {
             base.setStatus("ASSIGN");
-            }
+        }
         Optional<RequestCourse> duplicate = courseRequestRespository.findById(id);
 
-
         if (duplicate.isPresent()) {
-            Optional<RequestCourse> du = courseRequestRespository.findByRoomId(base.getRoomId());
 
-            if(du.get().getRoomId() != duplicate.get().getRoomId() && du.isPresent()) throw new RuntimeException("Room is used");
+            List<RequestCourse> du = courseRequestRespository.findByRoomId(base.getRoomId());
 
+            if (du.stream().count() > 0) for (RequestCourse item : du)
+                if (item.getId() != duplicate.get().getId()) {
+                    if (updatedCourse.getSemesterId() == item.getSemesterId())
+                        if ((item.getSlots().charAt(0) == updatedCourse.getSlots().charAt(0) && item.getDays().charAt(0) == updatedCourse.getDays().charAt(0)) || (item.getSlots().charAt(2) == updatedCourse.getSlots().charAt(2) && item.getDays().charAt(2) == updatedCourse.getDays().charAt(2)))
+                            throw new RuntimeException("Room is used");
+                }
             base.setTeacherId(duplicate.get().getTeacherId());
             base.setId(duplicate.get().getId());
             courseRequestRespository.save(base);
@@ -132,12 +137,11 @@ public class CourseService implements ICourseService {
     public RequestCourseDto deleteById(int id) {
 
         Optional<RequestCourse> duplicate2 = courseRequestRespository.findById(id);
-        if(duplicate2.isEmpty())
-            throw new NotFoundException("Cannot find semester");
-        if(duplicate2.get().getStatus()!="DRAFT")
+        if (duplicate2.isEmpty()) throw new NotFoundException("Cannot find semester");
+        if (!Objects.equals(duplicate2.get().getStatus(), "DRAFT"))
             throw new NotFoundException("Cannot delete start course");
         courseRequestRespository.deleteById(id);
 
-        return modelMapper.map(duplicate2.get(),RequestCourseDto.class);
+        return modelMapper.map(duplicate2.get(), RequestCourseDto.class);
     }
 }

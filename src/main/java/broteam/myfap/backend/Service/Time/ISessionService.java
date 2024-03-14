@@ -17,6 +17,8 @@ public interface ISessionService {
 
     List<SessionDto> findBySchoolAndClass(Optional<Integer> schoolId, Optional<Integer> classid);
 
+    List<SessionDto> findByCourseId(int courseId);
+
     @Transactional
     List<SessionDto> addCoursesByCourse(RequestSessionDto newData) throws ParseException;
 }
