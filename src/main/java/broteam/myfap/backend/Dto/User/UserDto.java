@@ -9,7 +9,6 @@ import java.util.Date;
 public class UserDto {
     private int UserId;
     private String UserName;
-    private String UserPassword;
     private String Phone;
     private String Mail;
     private String Address;

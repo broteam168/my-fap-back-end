@@ -1,12 +1,12 @@
-package broteam.myfap.backend.Controllers.User;
+package broteam.myfap.backend.Controllers.User.Student;
 
 import broteam.myfap.backend.Controllers.BaseController;
 import broteam.myfap.backend.Dto.PagedResponseObject;
 import broteam.myfap.backend.Dto.ResponseObject;
-import broteam.myfap.backend.Dto.User.UserDto;
-import broteam.myfap.backend.Dto.User.UserDtoRequest;
-import broteam.myfap.backend.Models.User.User;
-import broteam.myfap.backend.Service.User.IUserService;
+import broteam.myfap.backend.Dto.User.Student.StudentDto;
+import broteam.myfap.backend.Dto.User.Student.StudentDtoRequest;
+import broteam.myfap.backend.Models.User.Student;
+import broteam.myfap.backend.Service.User.Student.IStudentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,66 +16,65 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/student")
 @RequiredArgsConstructor
-public class UserController extends BaseController {
-    private final IUserService userService;
+public class StudentController extends BaseController {
+    private final IStudentService studentService;
 
     @GetMapping
-    public ResponseEntity<ResponseObject> getAllUser() {
-        List<UserDto> allUser = userService.fillAllB();
-        return ResponseEntity.ok(ResponseObject.builder().data(allUser).message("Get successful").responseCode(HttpStatus.OK.value()).build());
+    public ResponseEntity<ResponseObject> getAllStudent() {
+        List<StudentDto> newStudent = studentService.fillAllB();
+        return ResponseEntity.ok(ResponseObject.builder().data(newStudent).message("Get successful").responseCode(HttpStatus.OK.value()).build());
     }
 
-    //lấy danh sách user
+    //lấy danh sách student
     @GetMapping("page")
     public ResponseEntity<PagedResponseObject> getPagedUser(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-        long totalItems = userService.countUser();
+        long totalItems = studentService.countStudent();
         int totalPages = (int) Math.ceil((double) totalItems / size);
-        List<UserDto> users = userService.getAllUser(page, size);
+        List<StudentDto> users = studentService.getAllStudent(page, size);
         return ResponseEntity.ok(PagedResponseObject.builder().page(page).perPage(size).totalItems(totalItems).totalPages(totalPages).responseCode(200).message("Success").data(users).build());
     }
 
-    //lấy chi tiết user theo id
+    //lấy chi tiết student theo id
     @GetMapping("{id}")
     public ResponseEntity<ResponseObject> getDetailUser(@PathVariable("id") int userId) {
-        User user = userService.getDetailUser(userId);
-        return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(user).build());
+        Student student = studentService.getDetailStudent(userId);
+        return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(student).build());
     }
 
-    //lấy số lượng user
+    //lấy số lượng student
     @GetMapping("count")
     public ResponseEntity<ResponseObject> getCountUser() {
-        long countUser = userService.countUser();
+        long countUser = studentService.countStudent();
         return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(countUser).build());
     }
 
-    //tạo user
+    //tạo student
     @PostMapping
-    public ResponseEntity<ResponseObject> createCustomer(@Valid @RequestBody UserDtoRequest user) {
-        UserDto newUser = null;
+    public ResponseEntity<ResponseObject> createCustomer(@Valid @RequestBody StudentDtoRequest student) {
+        StudentDto newStudent = null;
         try {
-            newUser = userService.createUser(user);
+            newStudent = studentService.createStudent(student);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(ResponseObject.builder().responseCode(202).message(e.getMessage()).data(null).build());
         }
-        return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(newUser).build());
+        return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(newStudent).build());
 
 
     }
 
-    //sửa user
+    //sửa student
     @PutMapping("{id}")
-    public ResponseEntity<ResponseObject> updateCustomer(@PathVariable("id") int customerId, @RequestBody UserDtoRequest user) {
-        UserDto newCustomer = userService.updateUser(customerId, user);
+    public ResponseEntity<ResponseObject> updateCustomer(@PathVariable("id") int customerId, @RequestBody StudentDtoRequest user) {
+        StudentDto newCustomer = studentService.updateStudent(customerId, user);
         return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Success").data(newCustomer).build());
     }
 
-    //xóa user
+    //xóa student
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseObject> deleteCustomer(@PathVariable("id") int userId) {
-        userService.deleteUserById(userId);
+        studentService.deleteStudentById(userId);
         return ResponseEntity.ok(ResponseObject.builder().responseCode(200).message("Deleted Customer").data(null).build());
     }
-
 }

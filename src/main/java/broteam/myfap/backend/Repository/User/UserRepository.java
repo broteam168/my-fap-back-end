@@ -1,6 +1,6 @@
-package broteam.myfap.backend.Repository;
+package broteam.myfap.backend.Repository.User;
 
-import broteam.myfap.backend.Models.User;
+import broteam.myfap.backend.Models.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,10 +11,12 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query(value ="SELECT * FROM S_User u ORDER BY u.UserId DESC OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY;", nativeQuery = true)
+    @Query(value ="SELECT * FROM User u ORDER BY u.UserId DESC OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY;", nativeQuery = true)
     List<User> findAllUser(@Param("size") int size, @Param("offset") int offset);
-    @Query(value = "SELECT COUNT(*) FROM S_User;", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM User;", nativeQuery = true)
     long count();
     @Query("select u from User u where u.UserName = :username")
     Optional<User> findByUserName(@Param("username") String UserName);
+
+
 }

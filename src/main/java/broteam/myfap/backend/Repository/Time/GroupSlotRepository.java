@@ -1,8 +1,6 @@
 package broteam.myfap.backend.Repository.Time;
 
 import broteam.myfap.backend.Models.Time.GroupSlot;
-import broteam.myfap.backend.Models.Unit.School;
-import broteam.myfap.backend.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

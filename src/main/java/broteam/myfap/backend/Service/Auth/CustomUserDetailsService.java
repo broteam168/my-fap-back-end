@@ -3,11 +3,9 @@ package broteam.myfap.backend.Service.Auth;
 
 import broteam.myfap.backend.Exception.NotFoundException;
 import broteam.myfap.backend.Models.Role;
-import broteam.myfap.backend.Models.User;
-import broteam.myfap.backend.Repository.UserRepository;
+import broteam.myfap.backend.Models.User.User;
+import broteam.myfap.backend.Repository.User.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

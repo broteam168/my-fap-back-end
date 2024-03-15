@@ -2,7 +2,7 @@ package broteam.myfap.backend.Service.User;
 
 import broteam.myfap.backend.Dto.User.UserDto;
 import broteam.myfap.backend.Dto.User.UserDtoRequest;
-import broteam.myfap.backend.Models.User;
+import broteam.myfap.backend.Models.User.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

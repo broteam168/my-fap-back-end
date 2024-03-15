@@ -1,5 +1,7 @@
-package broteam.myfap.backend.Models;
+package broteam.myfap.backend.Models.User;
 
+import broteam.myfap.backend.Models.Enums.RoleType;
+import broteam.myfap.backend.Models.Role;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "S_user")
+@Table(name = "S_User")
 @Data
 @Getter
 @Setter
@@ -17,6 +19,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "UserId")
     private int UserId;
 
@@ -44,5 +47,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roleid", referencedColumnName = "id")
     )
     @JsonManagedReference
+    @Column(name = "Role")
     private List<Role> roles;
 }

@@ -2,7 +2,7 @@ package broteam.myfap.backend.Converter.User;
 
 import broteam.myfap.backend.Dto.User.UserDto;
 import broteam.myfap.backend.Dto.User.UserDtoRequest;
-import broteam.myfap.backend.Models.User;
+import broteam.myfap.backend.Models.User.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +14,6 @@ public class UserConverter {
         }
         dto.setUserId(entity.getUserId());
         dto.setUserName(entity.getUserName());
-        dto.setUserPassword(entity.getUserPassword());
         dto.setPhone(entity.getPhone());
         dto.setMail(entity.getMail());
         dto.setAddress(entity.getAddress());
@@ -27,7 +26,6 @@ public class UserConverter {
         User entity = new User();
         entity.setUserId(dto.getUserId());
         entity.setUserName(dto.getUserName());
-        entity.setUserPassword(dto.getUserPassword());
         entity.setPhone(dto.getPhone());
         entity.setMail(dto.getMail());
         entity.setAddress(dto.getAddress());
